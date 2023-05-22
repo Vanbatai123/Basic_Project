@@ -2481,10 +2481,6 @@ _rainbowCycle:
 ;b                         Allocated with name '_Pattern3_PARM_3'
 ;orient                    Allocated with name '_Pattern3_PARM_4'
 ;g                         Allocated to registers r7 
-<<<<<<< HEAD
-=======
-;i                         Allocated with name '_Pattern3_i_65536_130'
->>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 ;i                         Allocated to registers r5 r6 
 ;sloc0                     Allocated with name '_Pattern3_sloc0_1_0'
 ;------------------------------------------------------------
@@ -3209,11 +3205,7 @@ _Pattern2:
 	mov	a,sp
 	add	a,#0xfc
 	mov	sp,a
-<<<<<<< HEAD
 ;	./src/WS2812.c:352: _delay_ms(DELAY2);
-=======
-;	./src/WS2812.c:352: _delay_ms(DELAY);
->>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	mov	__divuint_PARM_2,_NUM_LEDS
 	mov	(__divuint_PARM_2 + 1),(_NUM_LEDS + 1)
 	mov	dptr,#0x00c8
@@ -3221,11 +3213,7 @@ _Pattern2:
 	mov	__mulint_PARM_2,__delay
 	mov	(__mulint_PARM_2 + 1),(__delay + 1)
 	lcall	__mulint
-<<<<<<< HEAD
 	mov	__divuint_PARM_2,#0x64
-=======
-	mov	__divuint_PARM_2,#0x0a
->>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	mov	(__divuint_PARM_2 + 1),#0x00
 	lcall	__divuint
 	mov	a,dpl

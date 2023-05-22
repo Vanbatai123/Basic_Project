@@ -384,11 +384,7 @@
       0006BC FF               [12]  384 	mov	r7,a
                                     385 ;	./src/include.c:12: T3CON |= 0x07;                           		//Timer3 Clock = Fsys/128
       0006BD 43 C4 07         [24]  386 	orl	_t3con,#0x07
-<<<<<<< HEAD
                                     387 ;	./src/include.c:13: set_TR3;                                		//Trigger Timer3 start run
-=======
-                                    387 ;	./src/include.c:13: setb(T3CON, TR3);                                		//Trigger Timer3 start run
->>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       0006C0 43 C4 08         [24]  388 	orl	_t3con,#0x08
                                     389 ;	./src/include.c:14: while (__ms != 0)
       0006C3                        390 00104$:
@@ -409,11 +405,7 @@
       0006D4 54 0F            [12]  405 	anl	a,#0x0f
       0006D6 FB               [12]  406 	mov	r3,a
       0006D7 BB 01 F5         [24]  407 	cjne	r3,#0x01,00101$
-<<<<<<< HEAD
                                     408 ;	./src/include.c:19: clr_TF3;
-=======
-                                    408 ;	./src/include.c:19: clrb(T3CON, TF3);
->>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       0006DA 53 C4 EF         [24]  409 	anl	_t3con,#0xef
                                     410 ;	./src/include.c:22: __ms--;
       0006DD 1C               [12]  411 	dec	r4
@@ -426,11 +418,7 @@
       0006EA                        418 00129$:
       0006EA 80 D7            [24]  419 	sjmp	00104$
       0006EC                        420 00106$:
-<<<<<<< HEAD
                                     421 ;	./src/include.c:24: clr_TR3;                                		//Stop Timer3
-=======
-                                    421 ;	./src/include.c:24: clrb(T3CON, TR3);                                		//Stop Timer3
->>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       0006EC 53 C4 F7         [24]  422 	anl	_t3con,#0xf7
                                     423 ;	./src/include.c:25: }
       0006EF 22               [24]  424 	ret
