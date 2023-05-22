@@ -430,13 +430,21 @@ _APROM_read_2byte:
 _APROM_write_byte:
 	mov	r6,dpl
 	mov	r7,dph
+<<<<<<< HEAD
+;	./src/N76_Flash.c:30: set_IAPEN; // enable IAP
+=======
 ;	./src/N76_Flash.c:30: setbAP(CHPCON, IAPEN); // enable IAP
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55
 	orl	_chpcon,#0x01
 	orl	_ie,#0x80
+<<<<<<< HEAD
+;	./src/N76_Flash.c:31: set_APUEN; // enable IAP updated
+=======
 ;	./src/N76_Flash.c:31: setbAP(IAPUEN, APUEN); // enable IAP updated
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55
@@ -450,19 +458,31 @@ _APROM_write_byte:
 	mov	_iapal,r6
 ;	./src/N76_Flash.c:36: IAPFD = data;
 	mov	_iapfd,_APROM_write_byte_PARM_2
+<<<<<<< HEAD
+;	./src/N76_Flash.c:38: set_IAPGO; // Trigger_IAP();
+=======
 ;	./src/N76_Flash.c:38: setbAP(IAPTRG, IAPGO); // Trigger_IAP();
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55
 	orl	_iaptrg,#0x01
 	orl	_ie,#0x80
+<<<<<<< HEAD
+;	./src/N76_Flash.c:40: clr_APUEN;
+=======
 ;	./src/N76_Flash.c:40: clrbAP(IAPUEN, APUEN);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55
 	anl	_iapuen,#0xfe
 	orl	_ie,#0x80
+<<<<<<< HEAD
+;	./src/N76_Flash.c:41: clr_IAPEN;
+=======
 ;	./src/N76_Flash.c:41: clrbAP(CHPCON, IAPEN);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55
@@ -492,7 +512,11 @@ _Erase_APROM:
 	mov	_iapfd,#0xff
 ;	./src/N76_Flash.c:49: IAPCN = PAGE_ERASE_AP;
 	mov	_iapcn,#0x22
+<<<<<<< HEAD
+;	./src/N76_Flash.c:50: set_APUEN; // enable IAP updated
+=======
 ;	./src/N76_Flash.c:50: setbAP(IAPUEN, APUEN); // enable IAP updated
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55
@@ -502,19 +526,31 @@ _Erase_APROM:
 	mov	_iapah,r7
 ;	./src/N76_Flash.c:55: IAPAL = (uint8_t)((addr)&0xFF);
 	mov	_iapal,r6
+<<<<<<< HEAD
+;	./src/N76_Flash.c:56: set_IAPGO; // Trigger_IAP();
+=======
 ;	./src/N76_Flash.c:56: setbAP(IAPTRG, IAPGO); // Trigger_IAP();
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55
 	orl	_iaptrg,#0x01
 	orl	_ie,#0x80
+<<<<<<< HEAD
+;	./src/N76_Flash.c:58: clr_APUEN;
+=======
 ;	./src/N76_Flash.c:58: clrbAP(IAPUEN, APUEN);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55
 	anl	_iapuen,#0xfe
 	orl	_ie,#0x80
+<<<<<<< HEAD
+;	./src/N76_Flash.c:59: clr_IAPEN;
+=======
 ;	./src/N76_Flash.c:59: clrbAP(CHPCON, IAPEN);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_ie,#0x7f
 	mov	_ta,#0xaa
 	mov	_ta,#0x55

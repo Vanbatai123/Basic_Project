@@ -36,8 +36,11 @@
 #define ADDR_COLOR	0x3001
 #define DELAY		200/NUM_LEDS * _delay / 10 + 1
 #define DELAY2		200/NUM_LEDS * _delay / 100 + 1
+<<<<<<< HEAD
+=======
 #define DELAY3		200/NUM_LEDS * _delay / 300 + 1
 // #define RANDOM_GRB 	random(255), random(255), random(255)
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 
 #define COLOR_RED			3,		239,	7
 #define COLOR_VIOLET		64,		160,    198

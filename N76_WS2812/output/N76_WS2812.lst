@@ -622,11 +622,19 @@
       000077 53 C9 8F         [24]  622 	anl	_t2mod,#0x8f
                                     623 ;	./N76_WS2812.c:96: T2MOD |= 0x60;
       00007A 43 C9 60         [24]  624 	orl	_t2mod,#0x60
+<<<<<<< HEAD
+                                    625 ;	./N76_WS2812.c:100: clr_CMRL2;
+      00007D 53 C8 FE         [24]  626 	anl	_t2con,#0xfe
+                                    627 ;	./N76_WS2812.c:104: set_CAPCR;
+      000080 43 C9 08         [24]  628 	orl	_t2mod,#0x08
+                                    629 ;	./N76_WS2812.c:105: set_LDEN;
+=======
                                     625 ;	./N76_WS2812.c:100: clrb(TCON, CM_RL2);
       00007D 53 88 FE         [24]  626 	anl	_tcon,#0xfe
                                     627 ;	./N76_WS2812.c:104: setb(T2MOD, CAPCR);
       000080 43 C9 08         [24]  628 	orl	_t2mod,#0x08
                                     629 ;	./N76_WS2812.c:105: setb(T2MOD, LDEN);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       000083 43 C9 80         [24]  630 	orl	_t2mod,#0x80
                                     631 ;	./N76_WS2812.c:108: RCMP2L = 0xF6; // 100ms
       000086 75 CA F6         [24]  632 	mov	_rcmp2l,#0xf6
@@ -636,11 +644,19 @@
       00008C 75 CC 00         [24]  636 	mov	_tl2,#0x00
                                     637 ;	./N76_WS2812.c:112: TH2 = 0;
       00008F 75 CD 00         [24]  638 	mov	_th2,#0x00
+<<<<<<< HEAD
+                                    639 ;	./N76_WS2812.c:114: set_ET2; // Enable Timer2 interrupt
+      000092 43 9B 80         [24]  640 	orl	_eie,#0x80
+                                    641 ;	./N76_WS2812.c:115: sei();
+      000095 43 A8 80         [24]  642 	orl	_ie,#0x80
+                                    643 ;	./N76_WS2812.c:116: set_TR2; // Timer2 run
+=======
                                     639 ;	./N76_WS2812.c:114: setb(EIE, ET2); // Enable Timer2 interrupt
       000092 43 9B 80         [24]  640 	orl	_eie,#0x80
                                     641 ;	./N76_WS2812.c:115: sei();
       000095 43 A8 80         [24]  642 	orl	_ie,#0x80
                                     643 ;	./N76_WS2812.c:116: setb(T2CON, TR2); // Timer2 run
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       000098 43 C8 04         [24]  644 	orl	_t2con,#0x04
                                     645 ;	./N76_WS2812.c:117: }
       00009B 22               [24]  646 	ret
@@ -734,23 +750,39 @@
       000114 43 F6 80         [24]  734 	orl	_aindids,#0x80
                                     735 ;	./N76_WS2812.c:172: ADCCON1 |= (1 << 0);
       000117 43 E1 01         [24]  736 	orl	_adccon1,#0x01
+<<<<<<< HEAD
+                                    737 ;	./N76_WS2812.c:173: set_EADC; // enable interruppt ADC
+      00011A 43 A8 40         [24]  738 	orl	_ie,#0x40
+                                    739 ;	./N76_WS2812.c:176: set_PIPS0; // pin interrupt port 1
+      00011D 43 E9 01         [24]  740 	orl	_picon,#0x01
+                                    741 ;	./N76_WS2812.c:178: set_PIT45;
+=======
                                     737 ;	./N76_WS2812.c:173: setb(IE, EADC); // enable interruppt ADC
       00011A 43 A8 40         [24]  738 	orl	_ie,#0x40
                                     739 ;	./N76_WS2812.c:176: setb(PICON, PIPS0); // pin interrupt port 1
       00011D 43 E9 01         [24]  740 	orl	_picon,#0x01
                                     741 ;	./N76_WS2812.c:178: setb(PICON, PIT45);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       000120 43 E9 40         [24]  742 	orl	_picon,#0x40
                                     743 ;	./N76_WS2812.c:179: setb(PINEN, BTNE_PIN); // enable falling edge
       000123 43 EA 10         [24]  744 	orl	_pinen,#0x10
                                     745 ;	./N76_WS2812.c:180: clrb(PIPEN, BTNE_PIN); // disable rasing edge
       000126 53 EB EF         [24]  746 	anl	_pipen,#0xef
+<<<<<<< HEAD
+                                    747 ;	./N76_WS2812.c:181: set_PIT3;
+=======
                                     747 ;	./N76_WS2812.c:181: setb(PICON, PIT3);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       000129 43 E9 20         [24]  748 	orl	_picon,#0x20
                                     749 ;	./N76_WS2812.c:182: setb(PINEN, BTNC_PIN); // enable falling edge
       00012C 43 EA 08         [24]  750 	orl	_pinen,#0x08
                                     751 ;	./N76_WS2812.c:183: clrb(PIPEN, BTNC_PIN); // disable rasing edge
       00012F 53 EB F7         [24]  752 	anl	_pipen,#0xf7
+<<<<<<< HEAD
+                                    753 ;	./N76_WS2812.c:186: set_EPI; // set external interrupt 0 at falling edge
+=======
                                     753 ;	./N76_WS2812.c:186: setb(EIE, EPI); // set external interrupt 0 at falling edge
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       000132 43 9B 02         [24]  754 	orl	_eie,#0x02
                                     755 ;	./N76_WS2812.c:188: clearAll();
       000135 12r00r00         [24]  756 	lcall	_clearAll
@@ -1212,7 +1244,11 @@
       000450 42 07            [12] 1212 	orl	ar7,a
       000452 8E*02            [24] 1213 	mov	__delay,r6
       000454 8F*03            [24] 1214 	mov	(__delay + 1),r7
+<<<<<<< HEAD
+                                   1215 ;	./N76_WS2812.c:316: clr_ADCF;
+=======
                                    1215 ;	./N76_WS2812.c:316: clrb(ADCCON0, ADCF);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       000456 53 E8 7F         [24] 1216 	anl	_adccon0,#0x7f
                                    1217 ;	./N76_WS2812.c:317: }
       000459 D0 D0            [24] 1218 	pop	psw
@@ -1378,7 +1414,11 @@
       000551 85*07*00         [24] 1378 	mov	_APROM_write_byte_PARM_2,__color
       000554 90 30 01         [24] 1379 	mov	dptr,#0x3001
       000557 12r00r00         [24] 1380 	lcall	_APROM_write_byte
+<<<<<<< HEAD
+                                   1381 ;	./N76_WS2812.c:367: clr_EPI;                       // clear pin interrupt
+=======
                                    1381 ;	./N76_WS2812.c:367: clrb(EIE, EPI);                       // clear pin interrupt
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       00055A 53 9B FD         [24] 1382 	anl	_eie,#0xfd
                                    1383 ;	./N76_WS2812.c:368: _status = STT_OLD;
       00055D 75*05 00         [24] 1384 	mov	__status,#0x00
@@ -1456,7 +1496,11 @@
                                    1456 ;	./N76_WS2812.c:390: daobit(LED2_PORT, LED2_PIN);
       0005BD 63 80 20         [24] 1457 	xrl	_p0,#0x20
       0005C0                       1458 00119$:
+<<<<<<< HEAD
+                                   1459 ;	./N76_WS2812.c:393: set_ADCS;
+=======
                                    1459 ;	./N76_WS2812.c:393: setb(ADCCON0, ADCS);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       0005C0 43 E8 40         [24] 1460 	orl	_adccon0,#0x40
       0005C3                       1461 00121$:
                                    1462 ;	./N76_WS2812.c:396: if (_status != STT_OLD)
@@ -1465,7 +1509,11 @@
                                    1465 ;	./N76_WS2812.c:398: daobit(LED2_PORT, LED2_PIN);
       0005C7 63 80 20         [24] 1466 	xrl	_p0,#0x20
       0005CA                       1467 00123$:
+<<<<<<< HEAD
+                                   1468 ;	./N76_WS2812.c:400: clr_TF2; // TF2
+=======
                                    1468 ;	./N76_WS2812.c:400: clrb(T2CON, TF2); // TF2
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
       0005CA 53 C8 7F         [24] 1469 	anl	_t2con,#0x7f
                                    1470 ;	./N76_WS2812.c:401: }
       0005CD D0 D0            [24] 1471 	pop	psw

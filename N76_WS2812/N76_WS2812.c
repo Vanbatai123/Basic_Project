@@ -9,13 +9,13 @@
 #include <N76_Flash.h>
 #include <WS2812.h>
 
-#define NUM_COLOR 8
-#define NUM_EFFECT 7
-#define DEFAULT_EFFECT 0
-#define LED2_PIN 5
-#define LED2_PORT P0
-#define LED2_PxM1 P0M1
-#define LED2_PxM2 P0M2
+#define NUM_COLOR 			8
+#define NUM_EFFECT 			7
+#define DEFAULT_EFFECT 		0
+#define LED2_PIN 			5
+#define LED2_PORT 			P0
+#define LED2_PxM1 			P0M1
+#define LED2_PxM2 			P0M2
 // #define PI 3.1416
 
 uint16_t NUM_LEDS;
@@ -97,12 +97,12 @@ void TIM2_begin()
 
     // 	TIMER2_Auto_Reload_Delay_Mode;
     // T2CON &= ~(1 << 0);
-    clrb(TCON, CM_RL2);
+    clr_CMRL2;
 
     // T2MOD |= (1 << 7);
     // T2MOD |= (1 << 3);
-    setb(T2MOD, CAPCR);
-    setb(T2MOD, LDEN);
+    set_CAPCR;
+    set_LDEN;
 
     // 	RCMP2L = TIMER_DIV128_VALUE_100ms;
     RCMP2L = 0xF6; // 100ms
@@ -111,9 +111,9 @@ void TIM2_begin()
     TL2 = 0;
     TH2 = 0;
 
-    setb(EIE, ET2); // Enable Timer2 interrupt
+    set_ET2; // Enable Timer2 interrupt
     sei();
-    setb(T2CON, TR2); // Timer2 run
+    set_TR2; // Timer2 run
 }
 
 void main(void)
@@ -170,20 +170,20 @@ void main(void)
     AINDIDS = 0x00;
     AINDIDS |= (1 << 7);
     ADCCON1 |= (1 << 0);
-    setb(IE, EADC); // enable interruppt ADC
+    set_EADC; // enable interruppt ADC
 
     // Pin interrupt
-    setb(PICON, PIPS0); // pin interrupt port 1
+    set_PIPS0; // pin interrupt port 1
 
-    setb(PICON, PIT45);
+    set_PIT45;
     setb(PINEN, BTNE_PIN); // enable falling edge
     clrb(PIPEN, BTNE_PIN); // disable rasing edge
-    setb(PICON, PIT3);
+    set_PIT3;
     setb(PINEN, BTNC_PIN); // enable falling edge
     clrb(PIPEN, BTNC_PIN); // disable rasing edge
 
     // // enable external interrupt
-    setb(EIE, EPI); // set external interrupt 0 at falling edge
+    set_EPI; // set external interrupt 0 at falling edge
 
     clearAll();
     // TIM2_begin(0x60, 65536 - 15625);
@@ -313,7 +313,7 @@ void main(void)
 ISR(ADC_INT_FUCTION, INTERRUPT_ADC)
 {
     _delay = (ADCRH << 4) | ADCRL;
-    clrb(ADCCON0, ADCF);
+    clr_ADCF;
 }
 
 ISR(PIN_INT_FUCTION, INTERRUPT_PIN)
@@ -364,7 +364,7 @@ ISR(timer2, INTERRUPT_TIMER2) // every 0.25s
             Erase_APROM(ADDR_EFF);
             APROM_write_byte(ADDR_EFF, effect);   // write effect to APROM
             APROM_write_byte(ADDR_COLOR, _color); // write _color to APROM
-            clrb(EIE, EPI);                       // clear pin interrupt
+            clr_EPI;                       // clear pin interrupt
             _status = STT_OLD;
         }
         _cnt == 0;
@@ -390,12 +390,12 @@ ISR(timer2, INTERRUPT_TIMER2) // every 0.25s
             daobit(LED2_PORT, LED2_PIN);
         }
 
-        setb(ADCCON0, ADCS);
+        set_ADCS;
     }
 
     if (_status != STT_OLD)
     {
         daobit(LED2_PORT, LED2_PIN);
     }
-    clrb(T2CON, TF2); // TF2
+    clr_TF2; // TF2
 }

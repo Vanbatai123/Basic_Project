@@ -384,7 +384,11 @@ __delay_ms:
 	mov	r7,a
 ;	./src/include.c:12: T3CON |= 0x07;                           		//Timer3 Clock = Fsys/128
 	orl	_t3con,#0x07
+<<<<<<< HEAD
+;	./src/include.c:13: set_TR3;                                		//Trigger Timer3 start run
+=======
 ;	./src/include.c:13: setb(T3CON, TR3);                                		//Trigger Timer3 start run
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	orl	_t3con,#0x08
 ;	./src/include.c:14: while (__ms != 0)
 00104$:
@@ -405,7 +409,11 @@ __delay_ms:
 	anl	a,#0x0f
 	mov	r3,a
 	cjne	r3,#0x01,00101$
+<<<<<<< HEAD
+;	./src/include.c:19: clr_TF3;
+=======
 ;	./src/include.c:19: clrb(T3CON, TF3);
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_t3con,#0xef
 ;	./src/include.c:22: __ms--;
 	dec	r4
@@ -418,7 +426,11 @@ __delay_ms:
 00129$:
 	sjmp	00104$
 00106$:
+<<<<<<< HEAD
+;	./src/include.c:24: clr_TR3;                                		//Stop Timer3
+=======
 ;	./src/include.c:24: clrb(T3CON, TR3);                                		//Stop Timer3
+>>>>>>> 70fbbfa16cd8480cff11e056a004b56e6d185941
 	anl	_t3con,#0xf7
 ;	./src/include.c:25: }
 	ret
