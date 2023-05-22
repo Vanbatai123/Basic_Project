@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+		"*.html": "css",
+		"include.h": "c",
+		"n76_uart0.h": "c",
+		"Pin_Int.C": "cpp",
+		"n76_pinint.h": "c",
+		"ADC.C": "cpp",
+		"*.tcc": "c",
+		"n76_flash.h": "c",
+		"ws2812.h": "c",
+		"stdlib.h": "c",
+		"math.h": "c",
+		"cmath": "cpp"
+	}
+}

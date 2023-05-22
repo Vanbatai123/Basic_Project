@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.html": "css",
+        "include.h": "c",
+        "light_ws2812.h": "c",
+        "stdio.h": "c",
+        "math.h": "c",
+        "cmath": "c",
+        "stdlib.h": "c",
+        "n76_flash.h": "c",
+        "*.txt": "c"
+    }
+}

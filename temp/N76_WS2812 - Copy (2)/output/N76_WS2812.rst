@@ -1,0 +1,1405 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module N76_WS2812
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _timer2
+                                     12 	.globl _PIN_INT_FUCTION
+                                     13 	.globl _ADC_INT_FUCTION
+                                     14 	.globl _main
+                                     15 	.globl _TIM2_begin
+                                     16 	.globl _clearAll
+                                     17 	.globl _setAll
+                                     18 	.globl _sinWave
+                                     19 	.globl _meteorRain
+                                     20 	.globl _Pattern3
+                                     21 	.globl _theaterChaseRainbow
+                                     22 	.globl _theaterChase
+                                     23 	.globl _rainbowCycle
+                                     24 	.globl _colorWipe
+                                     25 	.globl _CylonBounce
+                                     26 	.globl _Strobe
+                                     27 	.globl _FadeInOut
+                                     28 	.globl _Erase_APROM
+                                     29 	.globl _APROM_write_byte
+                                     30 	.globl _APROM_read_byte
+                                     31 	.globl __delay_us
+                                     32 	.globl _eiph1
+                                     33 	.globl _eip1
+                                     34 	.globl _pmd
+                                     35 	.globl _pmen
+                                     36 	.globl _pdtcnt
+                                     37 	.globl _pdten
+                                     38 	.globl _scon_1
+                                     39 	.globl _eiph
+                                     40 	.globl _aindids
+                                     41 	.globl _spdr
+                                     42 	.globl _spsr
+                                     43 	.globl _spcr2
+                                     44 	.globl _spcr
+                                     45 	.globl _capcon4
+                                     46 	.globl _capcon3
+                                     47 	.globl _b
+                                     48 	.globl _eip
+                                     49 	.globl _c2h
+                                     50 	.globl _c2l
+                                     51 	.globl _pif
+                                     52 	.globl _pipen
+                                     53 	.globl _pinen
+                                     54 	.globl _picon
+                                     55 	.globl _adccon0
+                                     56 	.globl _c1h
+                                     57 	.globl _c1l
+                                     58 	.globl _c0h
+                                     59 	.globl _c0l
+                                     60 	.globl _adcdly
+                                     61 	.globl _adccon2
+                                     62 	.globl _adccon1
+                                     63 	.globl _acc
+                                     64 	.globl _pwmcon1
+                                     65 	.globl _piocon0
+                                     66 	.globl _pwm3l
+                                     67 	.globl _pwm2l
+                                     68 	.globl _pwm1l
+                                     69 	.globl _pwm0l
+                                     70 	.globl _pwmpl
+                                     71 	.globl _pwmcon0
+                                     72 	.globl _fbd
+                                     73 	.globl _pnp
+                                     74 	.globl _pwm3h
+                                     75 	.globl _pwm2h
+                                     76 	.globl _pwm1h
+                                     77 	.globl _pwm0h
+                                     78 	.globl _pwmph
+                                     79 	.globl _psw
+                                     80 	.globl _adcmph
+                                     81 	.globl _adcmpl
+                                     82 	.globl _pwm5l
+                                     83 	.globl _th2
+                                     84 	.globl _pwm4l
+                                     85 	.globl _tl2
+                                     86 	.globl _rcmp2h
+                                     87 	.globl _rcmp2l
+                                     88 	.globl _t2mod
+                                     89 	.globl _t2con
+                                     90 	.globl _ta
+                                     91 	.globl _piocon1
+                                     92 	.globl _rh3
+                                     93 	.globl _pwm5h
+                                     94 	.globl _rl3
+                                     95 	.globl _pwm4h
+                                     96 	.globl _t3con
+                                     97 	.globl _adcrh
+                                     98 	.globl _adcrl
+                                     99 	.globl _i2addr
+                                    100 	.globl _i2con
+                                    101 	.globl _i2toc
+                                    102 	.globl _i2clk
+                                    103 	.globl _i2stat
+                                    104 	.globl _i2dat
+                                    105 	.globl _saddr_1
+                                    106 	.globl _saden_1
+                                    107 	.globl _saden
+                                    108 	.globl _ip
+                                    109 	.globl _pwmintc
+                                    110 	.globl _iph
+                                    111 	.globl _p2s
+                                    112 	.globl _p1sr
+                                    113 	.globl _p1m2
+                                    114 	.globl _p1s
+                                    115 	.globl _p1m1
+                                    116 	.globl _p0sr
+                                    117 	.globl _p0m2
+                                    118 	.globl _p0s
+                                    119 	.globl _p0m1
+                                    120 	.globl _p3
+                                    121 	.globl _iapcn
+                                    122 	.globl _iapfd
+                                    123 	.globl _p3sr
+                                    124 	.globl _p3m2
+                                    125 	.globl _p3s
+                                    126 	.globl _p3m1
+                                    127 	.globl _bodcon1
+                                    128 	.globl _wdcon
+                                    129 	.globl _saddr
+                                    130 	.globl _ie
+                                    131 	.globl _iapah
+                                    132 	.globl _iapal
+                                    133 	.globl _iapuen
+                                    134 	.globl _iaptrg
+                                    135 	.globl _bodcon0
+                                    136 	.globl _auxr1
+                                    137 	.globl _p2
+                                    138 	.globl _chpcon
+                                    139 	.globl _eie1
+                                    140 	.globl _eie
+                                    141 	.globl _sbuf_1
+                                    142 	.globl _sbuf
+                                    143 	.globl _scon
+                                    144 	.globl _cken
+                                    145 	.globl _ckswt
+                                    146 	.globl _ckdiv
+                                    147 	.globl _capcon2
+                                    148 	.globl _capcon1
+                                    149 	.globl _capcon0
+                                    150 	.globl _sfrs
+                                    151 	.globl _p1
+                                    152 	.globl _wkcon
+                                    153 	.globl _ckcon
+                                    154 	.globl _th1
+                                    155 	.globl _th0
+                                    156 	.globl _tl1
+                                    157 	.globl _tl0
+                                    158 	.globl _tmod
+                                    159 	.globl _tcon
+                                    160 	.globl _pcon
+                                    161 	.globl _rwk
+                                    162 	.globl _rctrim1
+                                    163 	.globl _rctrim0
+                                    164 	.globl _dph
+                                    165 	.globl _dpl
+                                    166 	.globl _sp
+                                    167 	.globl _p0
+                                    168 	.globl _leds
+                                    169 	.globl _g2
+                                    170 	.globl _b2
+                                    171 	.globl _r2
+                                    172 	.globl __color
+                                    173 	.globl __cnt
+                                    174 	.globl __status
+                                    175 	.globl _effect
+                                    176 	.globl __delay
+                                    177 	.globl _NUM_LEDS
+                                    178 ;--------------------------------------------------------
+                                    179 ; special function registers
+                                    180 ;--------------------------------------------------------
+                                    181 	.area RSEG    (ABS,DATA)
+      000000                        182 	.org 0x0000
+                           000080   183 _p0	=	0x0080
+                           000081   184 _sp	=	0x0081
+                           000082   185 _dpl	=	0x0082
+                           000083   186 _dph	=	0x0083
+                           000084   187 _rctrim0	=	0x0084
+                           000085   188 _rctrim1	=	0x0085
+                           000086   189 _rwk	=	0x0086
+                           000087   190 _pcon	=	0x0087
+                           000088   191 _tcon	=	0x0088
+                           000089   192 _tmod	=	0x0089
+                           00008A   193 _tl0	=	0x008a
+                           00008B   194 _tl1	=	0x008b
+                           00008C   195 _th0	=	0x008c
+                           00008D   196 _th1	=	0x008d
+                           00008E   197 _ckcon	=	0x008e
+                           00008F   198 _wkcon	=	0x008f
+                           000090   199 _p1	=	0x0090
+                           000091   200 _sfrs	=	0x0091
+                           000092   201 _capcon0	=	0x0092
+                           000093   202 _capcon1	=	0x0093
+                           000094   203 _capcon2	=	0x0094
+                           000095   204 _ckdiv	=	0x0095
+                           000096   205 _ckswt	=	0x0096
+                           000097   206 _cken	=	0x0097
+                           000098   207 _scon	=	0x0098
+                           000099   208 _sbuf	=	0x0099
+                           00009A   209 _sbuf_1	=	0x009a
+                           00009B   210 _eie	=	0x009b
+                           00009C   211 _eie1	=	0x009c
+                           00009F   212 _chpcon	=	0x009f
+                           0000A0   213 _p2	=	0x00a0
+                           0000A2   214 _auxr1	=	0x00a2
+                           0000A3   215 _bodcon0	=	0x00a3
+                           0000A4   216 _iaptrg	=	0x00a4
+                           0000A5   217 _iapuen	=	0x00a5
+                           0000A6   218 _iapal	=	0x00a6
+                           0000A7   219 _iapah	=	0x00a7
+                           0000A8   220 _ie	=	0x00a8
+                           0000A9   221 _saddr	=	0x00a9
+                           0000AA   222 _wdcon	=	0x00aa
+                           0000AB   223 _bodcon1	=	0x00ab
+                           0000AC   224 _p3m1	=	0x00ac
+                           0000AC   225 _p3s	=	0x00ac
+                           0000AD   226 _p3m2	=	0x00ad
+                           0000AD   227 _p3sr	=	0x00ad
+                           0000AE   228 _iapfd	=	0x00ae
+                           0000AF   229 _iapcn	=	0x00af
+                           0000B0   230 _p3	=	0x00b0
+                           0000B1   231 _p0m1	=	0x00b1
+                           0000B1   232 _p0s	=	0x00b1
+                           0000B2   233 _p0m2	=	0x00b2
+                           0000B2   234 _p0sr	=	0x00b2
+                           0000B3   235 _p1m1	=	0x00b3
+                           0000B3   236 _p1s	=	0x00b3
+                           0000B4   237 _p1m2	=	0x00b4
+                           0000B4   238 _p1sr	=	0x00b4
+                           0000B5   239 _p2s	=	0x00b5
+                           0000B7   240 _iph	=	0x00b7
+                           0000B7   241 _pwmintc	=	0x00b7
+                           0000B8   242 _ip	=	0x00b8
+                           0000B9   243 _saden	=	0x00b9
+                           0000BA   244 _saden_1	=	0x00ba
+                           0000BB   245 _saddr_1	=	0x00bb
+                           0000BC   246 _i2dat	=	0x00bc
+                           0000BD   247 _i2stat	=	0x00bd
+                           0000BE   248 _i2clk	=	0x00be
+                           0000BF   249 _i2toc	=	0x00bf
+                           0000C0   250 _i2con	=	0x00c0
+                           0000C1   251 _i2addr	=	0x00c1
+                           0000C2   252 _adcrl	=	0x00c2
+                           0000C3   253 _adcrh	=	0x00c3
+                           0000C4   254 _t3con	=	0x00c4
+                           0000C4   255 _pwm4h	=	0x00c4
+                           0000C5   256 _rl3	=	0x00c5
+                           0000C5   257 _pwm5h	=	0x00c5
+                           0000C6   258 _rh3	=	0x00c6
+                           0000C6   259 _piocon1	=	0x00c6
+                           0000C7   260 _ta	=	0x00c7
+                           0000C8   261 _t2con	=	0x00c8
+                           0000C9   262 _t2mod	=	0x00c9
+                           0000CA   263 _rcmp2l	=	0x00ca
+                           0000CB   264 _rcmp2h	=	0x00cb
+                           0000CC   265 _tl2	=	0x00cc
+                           0000CC   266 _pwm4l	=	0x00cc
+                           0000CD   267 _th2	=	0x00cd
+                           0000CD   268 _pwm5l	=	0x00cd
+                           0000CE   269 _adcmpl	=	0x00ce
+                           0000CF   270 _adcmph	=	0x00cf
+                           0000D0   271 _psw	=	0x00d0
+                           0000D1   272 _pwmph	=	0x00d1
+                           0000D2   273 _pwm0h	=	0x00d2
+                           0000D3   274 _pwm1h	=	0x00d3
+                           0000D4   275 _pwm2h	=	0x00d4
+                           0000D5   276 _pwm3h	=	0x00d5
+                           0000D6   277 _pnp	=	0x00d6
+                           0000D7   278 _fbd	=	0x00d7
+                           0000D8   279 _pwmcon0	=	0x00d8
+                           0000D9   280 _pwmpl	=	0x00d9
+                           0000DA   281 _pwm0l	=	0x00da
+                           0000DB   282 _pwm1l	=	0x00db
+                           0000DC   283 _pwm2l	=	0x00dc
+                           0000DD   284 _pwm3l	=	0x00dd
+                           0000DE   285 _piocon0	=	0x00de
+                           0000DF   286 _pwmcon1	=	0x00df
+                           0000E0   287 _acc	=	0x00e0
+                           0000E1   288 _adccon1	=	0x00e1
+                           0000E2   289 _adccon2	=	0x00e2
+                           0000E3   290 _adcdly	=	0x00e3
+                           0000E4   291 _c0l	=	0x00e4
+                           0000E5   292 _c0h	=	0x00e5
+                           0000E6   293 _c1l	=	0x00e6
+                           0000E7   294 _c1h	=	0x00e7
+                           0000E8   295 _adccon0	=	0x00e8
+                           0000E9   296 _picon	=	0x00e9
+                           0000EA   297 _pinen	=	0x00ea
+                           0000EB   298 _pipen	=	0x00eb
+                           0000EC   299 _pif	=	0x00ec
+                           0000ED   300 _c2l	=	0x00ed
+                           0000EE   301 _c2h	=	0x00ee
+                           0000EF   302 _eip	=	0x00ef
+                           0000F0   303 _b	=	0x00f0
+                           0000F1   304 _capcon3	=	0x00f1
+                           0000F2   305 _capcon4	=	0x00f2
+                           0000F3   306 _spcr	=	0x00f3
+                           0000F3   307 _spcr2	=	0x00f3
+                           0000F4   308 _spsr	=	0x00f4
+                           0000F5   309 _spdr	=	0x00f5
+                           0000F6   310 _aindids	=	0x00f6
+                           0000F7   311 _eiph	=	0x00f7
+                           0000F8   312 _scon_1	=	0x00f8
+                           0000F9   313 _pdten	=	0x00f9
+                           0000FA   314 _pdtcnt	=	0x00fa
+                           0000FB   315 _pmen	=	0x00fb
+                           0000FC   316 _pmd	=	0x00fc
+                           0000FE   317 _eip1	=	0x00fe
+                           0000FF   318 _eiph1	=	0x00ff
+                                    319 ;--------------------------------------------------------
+                                    320 ; special function bits
+                                    321 ;--------------------------------------------------------
+                                    322 	.area RSEG    (ABS,DATA)
+      000000                        323 	.org 0x0000
+                                    324 ;--------------------------------------------------------
+                                    325 ; overlayable register banks
+                                    326 ;--------------------------------------------------------
+                                    327 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        328 	.ds 8
+                                    329 ;--------------------------------------------------------
+                                    330 ; overlayable bit register bank
+                                    331 ;--------------------------------------------------------
+                                    332 	.area BIT_BANK	(REL,OVR,DATA)
+      000021                        333 bits:
+      000021                        334 	.ds 1
+                           008000   335 	b0 = bits[0]
+                           008100   336 	b1 = bits[1]
+                           008200   337 	b2 = bits[2]
+                           008300   338 	b3 = bits[3]
+                           008400   339 	b4 = bits[4]
+                           008500   340 	b5 = bits[5]
+                           008600   341 	b6 = bits[6]
+                           008700   342 	b7 = bits[7]
+                                    343 ;--------------------------------------------------------
+                                    344 ; internal ram data
+                                    345 ;--------------------------------------------------------
+                                    346 	.area DSEG    (DATA)
+      000008                        347 _NUM_LEDS::
+      000008                        348 	.ds 2
+      00000A                        349 __delay::
+      00000A                        350 	.ds 2
+      00000C                        351 _effect::
+      00000C                        352 	.ds 1
+      00000D                        353 __status::
+      00000D                        354 	.ds 1
+      00000E                        355 __cnt::
+      00000E                        356 	.ds 1
+      00000F                        357 __color::
+      00000F                        358 	.ds 1
+      000010                        359 _r2::
+      000010                        360 	.ds 1
+      000011                        361 _b2::
+      000011                        362 	.ds 1
+      000012                        363 _g2::
+      000012                        364 	.ds 1
+                                    365 ;--------------------------------------------------------
+                                    366 ; overlayable items in internal ram
+                                    367 ;--------------------------------------------------------
+                                    368 	.area	OSEG    (OVR,DATA)
+                                    369 ;--------------------------------------------------------
+                                    370 ; Stack segment in internal ram
+                                    371 ;--------------------------------------------------------
+                                    372 	.area	SSEG
+      00007C                        373 __start__stack:
+      00007C                        374 	.ds	1
+                                    375 
+                                    376 ;--------------------------------------------------------
+                                    377 ; indirectly addressable internal ram data
+                                    378 ;--------------------------------------------------------
+                                    379 	.area ISEG    (DATA)
+                                    380 ;--------------------------------------------------------
+                                    381 ; absolute internal ram data
+                                    382 ;--------------------------------------------------------
+                                    383 	.area IABS    (ABS,DATA)
+                                    384 	.area IABS    (ABS,DATA)
+                                    385 ;--------------------------------------------------------
+                                    386 ; bit data
+                                    387 ;--------------------------------------------------------
+                                    388 	.area BSEG    (BIT)
+      000000                        389 _main_sloc0_1_0:
+      000000                        390 	.ds 1
+                                    391 ;--------------------------------------------------------
+                                    392 ; paged external ram data
+                                    393 ;--------------------------------------------------------
+                                    394 	.area PSEG    (PAG,XDATA)
+                                    395 ;--------------------------------------------------------
+                                    396 ; external ram data
+                                    397 ;--------------------------------------------------------
+                                    398 	.area XSEG    (XDATA)
+      000001                        399 _leds::
+      000001                        400 	.ds 600
+                                    401 ;--------------------------------------------------------
+                                    402 ; absolute external ram data
+                                    403 ;--------------------------------------------------------
+                                    404 	.area XABS    (ABS,XDATA)
+                                    405 ;--------------------------------------------------------
+                                    406 ; external initialized ram data
+                                    407 ;--------------------------------------------------------
+                                    408 	.area XISEG   (XDATA)
+                                    409 	.area HOME    (CODE)
+                                    410 	.area GSINIT0 (CODE)
+                                    411 	.area GSINIT1 (CODE)
+                                    412 	.area GSINIT2 (CODE)
+                                    413 	.area GSINIT3 (CODE)
+                                    414 	.area GSINIT4 (CODE)
+                                    415 	.area GSINIT5 (CODE)
+                                    416 	.area GSINIT  (CODE)
+                                    417 	.area GSFINAL (CODE)
+                                    418 	.area CSEG    (CODE)
+                                    419 ;--------------------------------------------------------
+                                    420 ; interrupt vector
+                                    421 ;--------------------------------------------------------
+                                    422 	.area HOME    (CODE)
+      000000                        423 __interrupt_vect:
+      000000 02 00 61         [24]  424 	ljmp	__sdcc_gsinit_startup
+      000003 32               [24]  425 	reti
+      000004                        426 	.ds	7
+      00000B 32               [24]  427 	reti
+      00000C                        428 	.ds	7
+      000013 32               [24]  429 	reti
+      000014                        430 	.ds	7
+      00001B 32               [24]  431 	reti
+      00001C                        432 	.ds	7
+      000023 32               [24]  433 	reti
+      000024                        434 	.ds	7
+      00002B 02 04 F4         [24]  435 	ljmp	_timer2
+      00002E                        436 	.ds	5
+      000033 32               [24]  437 	reti
+      000034                        438 	.ds	7
+      00003B 02 03 E0         [24]  439 	ljmp	_PIN_INT_FUCTION
+      00003E                        440 	.ds	5
+      000043 32               [24]  441 	reti
+      000044                        442 	.ds	7
+      00004B 32               [24]  443 	reti
+      00004C                        444 	.ds	7
+      000053 32               [24]  445 	reti
+      000054                        446 	.ds	7
+      00005B 02 03 A3         [24]  447 	ljmp	_ADC_INT_FUCTION
+                                    448 ;--------------------------------------------------------
+                                    449 ; global & static initialisations
+                                    450 ;--------------------------------------------------------
+                                    451 	.area HOME    (CODE)
+                                    452 	.area GSINIT  (CODE)
+                                    453 	.area GSFINAL (CODE)
+                                    454 	.area GSINIT  (CODE)
+                                    455 	.globl __sdcc_gsinit_startup
+                                    456 	.globl __sdcc_program_startup
+                                    457 	.globl __start__stack
+                                    458 	.globl __mcs51_genXINIT
+                                    459 	.globl __mcs51_genXRAMCLEAR
+                                    460 	.globl __mcs51_genRAMCLEAR
+                                    461 ;	./N76_WS2812.c:23: uint8_t _status = STT_NOTSAVED;
+      0000BA 75 0D 56         [24]  462 	mov	__status,#0x56
+                                    463 ;	./N76_WS2812.c:25: uint8_t _color = 0;
+      0000BD 75 0F 00         [24]  464 	mov	__color,#0x00
+                                    465 ;	./N76_WS2812.c:26: uint8_t r2 = 255, b2 = 0, g2 = 0;
+      0000C0 75 10 FF         [24]  466 	mov	_r2,#0xff
+                                    467 ;	./N76_WS2812.c:26: __xdata uint8_t leds[600];
+      0000C3 75 11 00         [24]  468 	mov	_b2,#0x00
+                                    469 ;	./N76_WS2812.c:26: uint8_t r2 = 255, b2 = 0, g2 = 0;
+      0000C6 75 12 00         [24]  470 	mov	_g2,#0x00
+                                    471 	.area GSFINAL (CODE)
+      0000FB 02 00 5E         [24]  472 	ljmp	__sdcc_program_startup
+                                    473 ;--------------------------------------------------------
+                                    474 ; Home
+                                    475 ;--------------------------------------------------------
+                                    476 	.area HOME    (CODE)
+                                    477 	.area HOME    (CODE)
+      00005E                        478 __sdcc_program_startup:
+      00005E 02 01 23         [24]  479 	ljmp	_main
+                                    480 ;	return from main will return to caller
+                                    481 ;--------------------------------------------------------
+                                    482 ; code
+                                    483 ;--------------------------------------------------------
+                                    484 	.area CSEG    (CODE)
+                                    485 ;------------------------------------------------------------
+                                    486 ;Allocation info for local variables in function 'TIM2_begin'
+                                    487 ;------------------------------------------------------------
+                                    488 ;	./N76_WS2812.c:30: void TIM2_begin()
+                                    489 ;	-----------------------------------------
+                                    490 ;	 function TIM2_begin
+                                    491 ;	-----------------------------------------
+      0000FE                        492 _TIM2_begin:
+                           000007   493 	ar7 = 0x07
+                           000006   494 	ar6 = 0x06
+                           000005   495 	ar5 = 0x05
+                           000004   496 	ar4 = 0x04
+                           000003   497 	ar3 = 0x03
+                           000002   498 	ar2 = 0x02
+                           000001   499 	ar1 = 0x01
+                           000000   500 	ar0 = 0x00
+                                    501 ;	./N76_WS2812.c:36: T2MOD &= ~0x70;
+      0000FE 53 C9 8F         [24]  502 	anl	_t2mod,#0x8f
+                                    503 ;	./N76_WS2812.c:38: T2MOD |= 0x60;
+      000101 43 C9 60         [24]  504 	orl	_t2mod,#0x60
+                                    505 ;	./N76_WS2812.c:42: clrb(TCON, CM_RL2);
+      000104 53 88 FE         [24]  506 	anl	_tcon,#0xfe
+                                    507 ;	./N76_WS2812.c:46: setb(T2MOD, CAPCR);
+      000107 43 C9 08         [24]  508 	orl	_t2mod,#0x08
+                                    509 ;	./N76_WS2812.c:47: setb(T2MOD, LDEN);
+      00010A 43 C9 80         [24]  510 	orl	_t2mod,#0x80
+                                    511 ;	./N76_WS2812.c:50: RCMP2L = 0xF6; // 100ms
+      00010D 75 CA F6         [24]  512 	mov	_rcmp2l,#0xf6
+                                    513 ;	./N76_WS2812.c:52: RCMP2H = 0xC2;
+      000110 75 CB C2         [24]  514 	mov	_rcmp2h,#0xc2
+                                    515 ;	./N76_WS2812.c:53: TL2 = 0;
+      000113 75 CC 00         [24]  516 	mov	_tl2,#0x00
+                                    517 ;	./N76_WS2812.c:54: TH2 = 0;
+      000116 75 CD 00         [24]  518 	mov	_th2,#0x00
+                                    519 ;	./N76_WS2812.c:56: setb(EIE, ET2); // Enable Timer2 interrupt
+      000119 43 9B 80         [24]  520 	orl	_eie,#0x80
+                                    521 ;	./N76_WS2812.c:57: sei();
+      00011C 43 A8 80         [24]  522 	orl	_ie,#0x80
+                                    523 ;	./N76_WS2812.c:58: setb(T2CON, TR2); // Timer2 run
+      00011F 43 C8 04         [24]  524 	orl	_t2con,#0x04
+                                    525 ;	./N76_WS2812.c:59: }
+      000122 22               [24]  526 	ret
+                                    527 ;------------------------------------------------------------
+                                    528 ;Allocation info for local variables in function 'main'
+                                    529 ;------------------------------------------------------------
+                                    530 ;orient                    Allocated to registers r7 
+                                    531 ;------------------------------------------------------------
+                                    532 ;	./N76_WS2812.c:61: void main(void)
+                                    533 ;	-----------------------------------------
+                                    534 ;	 function main
+                                    535 ;	-----------------------------------------
+      000123                        536 _main:
+                                    537 ;	./N76_WS2812.c:63: uint8_t orient = 0;
+      000123 7F 00            [12]  538 	mov	r7,#0x00
+                                    539 ;	./N76_WS2812.c:65: CKDIV = 0x00; // 16MHz
+                                    540 ;	1-genFromRTrack replaced	mov	_ckdiv,#0x00
+      000125 8F 95            [24]  541 	mov	_ckdiv,r7
+                                    542 ;	./N76_WS2812.c:66: effect = APROM_read_byte(ADDR_EFF);
+      000127 90 30 00         [24]  543 	mov	dptr,#0x3000
+      00012A C0 07            [24]  544 	push	ar7
+      00012C 12 06 5B         [24]  545 	lcall	_APROM_read_byte
+      00012F 85 82 0C         [24]  546 	mov	_effect,dpl
+      000132 D0 07            [24]  547 	pop	ar7
+                                    548 ;	./N76_WS2812.c:67: if (effect >= NUM_EFFECT + 1)
+      000134 74 F5            [12]  549 	mov	a,#0x100 - 0x0b
+      000136 25 0C            [12]  550 	add	a,_effect
+      000138 50 03            [24]  551 	jnc	00102$
+                                    552 ;	./N76_WS2812.c:68: effect = DEFAULT_EFFECT;
+      00013A 75 0C 00         [24]  553 	mov	_effect,#0x00
+      00013D                        554 00102$:
+                                    555 ;	./N76_WS2812.c:69: _color = APROM_read_byte(ADDR_COLOR);
+      00013D 90 30 01         [24]  556 	mov	dptr,#0x3001
+      000140 C0 07            [24]  557 	push	ar7
+      000142 12 06 5B         [24]  558 	lcall	_APROM_read_byte
+      000145 85 82 0F         [24]  559 	mov	__color,dpl
+      000148 D0 07            [24]  560 	pop	ar7
+                                    561 ;	./N76_WS2812.c:70: if (_color >= NUM_COLOR)
+      00014A 74 F8            [12]  562 	mov	a,#0x100 - 0x08
+      00014C 25 0F            [12]  563 	add	a,__color
+      00014E 50 03            [24]  564 	jnc	00104$
+                                    565 ;	./N76_WS2812.c:71: _color = 0;
+      000150 75 0F 00         [24]  566 	mov	__color,#0x00
+      000153                        567 00104$:
+                                    568 ;	./N76_WS2812.c:73: switch (_color)
+      000153 E5 0F            [12]  569 	mov	a,__color
+      000155 24 F8            [12]  570 	add	a,#0xff - 0x07
+      000157 50 03            [24]  571 	jnc	00187$
+      000159 02 01 D2         [24]  572 	ljmp	00114$
+      00015C                        573 00187$:
+      00015C E5 0F            [12]  574 	mov	a,__color
+      00015E 24 0B            [12]  575 	add	a,#(00188$-3-.)
+      000160 83               [24]  576 	movc	a,@a+pc
+      000161 F5 82            [12]  577 	mov	dpl,a
+      000163 E5 0F            [12]  578 	mov	a,__color
+      000165 24 0C            [12]  579 	add	a,#(00189$-3-.)
+      000167 83               [24]  580 	movc	a,@a+pc
+      000168 F5 83            [12]  581 	mov	dph,a
+      00016A E4               [12]  582 	clr	a
+      00016B 73               [24]  583 	jmp	@a+dptr
+      00016C                        584 00188$:
+      00016C 7C                     585 	.db	00105$
+      00016D 87                     586 	.db	00106$
+      00016E 92                     587 	.db	00107$
+      00016F 9D                     588 	.db	00108$
+      000170 A8                     589 	.db	00109$
+      000171 B3                     590 	.db	00110$
+      000172 BE                     591 	.db	00111$
+      000173 C9                     592 	.db	00112$
+      000174                        593 00189$:
+      000174 01                     594 	.db	00105$>>8
+      000175 01                     595 	.db	00106$>>8
+      000176 01                     596 	.db	00107$>>8
+      000177 01                     597 	.db	00108$>>8
+      000178 01                     598 	.db	00109$>>8
+      000179 01                     599 	.db	00110$>>8
+      00017A 01                     600 	.db	00111$>>8
+      00017B 01                     601 	.db	00112$>>8
+                                    602 ;	./N76_WS2812.c:75: case 0: // red
+      00017C                        603 00105$:
+                                    604 ;	./N76_WS2812.c:76: r2 = 239;
+      00017C 75 10 EF         [24]  605 	mov	_r2,#0xef
+                                    606 ;	./N76_WS2812.c:77: g2 = 3;
+      00017F 75 12 03         [24]  607 	mov	_g2,#0x03
+                                    608 ;	./N76_WS2812.c:78: b2 = 7;
+      000182 75 11 07         [24]  609 	mov	_b2,#0x07
+                                    610 ;	./N76_WS2812.c:79: break;
+                                    611 ;	./N76_WS2812.c:81: case 1: // violet
+      000185 80 4B            [24]  612 	sjmp	00114$
+      000187                        613 00106$:
+                                    614 ;	./N76_WS2812.c:82: r2 = 160;
+      000187 75 10 A0         [24]  615 	mov	_r2,#0xa0
+                                    616 ;	./N76_WS2812.c:83: g2 = 64;
+      00018A 75 12 40         [24]  617 	mov	_g2,#0x40
+                                    618 ;	./N76_WS2812.c:84: b2 = 198;
+      00018D 75 11 C6         [24]  619 	mov	_b2,#0xc6
+                                    620 ;	./N76_WS2812.c:85: break;
+                                    621 ;	./N76_WS2812.c:87: case 2: // ORANGE
+      000190 80 40            [24]  622 	sjmp	00114$
+      000192                        623 00107$:
+                                    624 ;	./N76_WS2812.c:88: r2 = 255;
+      000192 75 10 FF         [24]  625 	mov	_r2,#0xff
+                                    626 ;	./N76_WS2812.c:89: g2 = 153;
+      000195 75 12 99         [24]  627 	mov	_g2,#0x99
+                                    628 ;	./N76_WS2812.c:90: b2 = 0;
+      000198 75 11 00         [24]  629 	mov	_b2,#0x00
+                                    630 ;	./N76_WS2812.c:91: break;
+                                    631 ;	./N76_WS2812.c:93: case 3: // YELLOW
+      00019B 80 35            [24]  632 	sjmp	00114$
+      00019D                        633 00108$:
+                                    634 ;	./N76_WS2812.c:94: r2 = 255;
+      00019D 75 10 FF         [24]  635 	mov	_r2,#0xff
+                                    636 ;	./N76_WS2812.c:95: g2 = 235;
+      0001A0 75 12 EB         [24]  637 	mov	_g2,#0xeb
+                                    638 ;	./N76_WS2812.c:96: b2 = 0;
+      0001A3 75 11 00         [24]  639 	mov	_b2,#0x00
+                                    640 ;	./N76_WS2812.c:97: break;
+                                    641 ;	./N76_WS2812.c:99: case 4: // GREEN
+      0001A6 80 2A            [24]  642 	sjmp	00114$
+      0001A8                        643 00109$:
+                                    644 ;	./N76_WS2812.c:100: r2 = 29;
+      0001A8 75 10 1D         [24]  645 	mov	_r2,#0x1d
+                                    646 ;	./N76_WS2812.c:101: g2 = 185;
+      0001AB 75 12 B9         [24]  647 	mov	_g2,#0xb9
+                                    648 ;	./N76_WS2812.c:102: b2 = 84;
+      0001AE 75 11 54         [24]  649 	mov	_b2,#0x54
+                                    650 ;	./N76_WS2812.c:103: break;
+                                    651 ;	./N76_WS2812.c:105: case 5: // BLUE
+      0001B1 80 1F            [24]  652 	sjmp	00114$
+      0001B3                        653 00110$:
+                                    654 ;	./N76_WS2812.c:106: r2 = 21;
+      0001B3 75 10 15         [24]  655 	mov	_r2,#0x15
+                                    656 ;	./N76_WS2812.c:107: g2 = 13;
+      0001B6 75 12 0D         [24]  657 	mov	_g2,#0x0d
+                                    658 ;	./N76_WS2812.c:108: b2 = 247;
+      0001B9 75 11 F7         [24]  659 	mov	_b2,#0xf7
+                                    660 ;	./N76_WS2812.c:109: break;
+                                    661 ;	./N76_WS2812.c:111: case 6: // INDIGO
+      0001BC 80 14            [24]  662 	sjmp	00114$
+      0001BE                        663 00111$:
+                                    664 ;	./N76_WS2812.c:112: r2 = 110;
+      0001BE 75 10 6E         [24]  665 	mov	_r2,#0x6e
+                                    666 ;	./N76_WS2812.c:113: g2 = 0;
+      0001C1 75 12 00         [24]  667 	mov	_g2,#0x00
+                                    668 ;	./N76_WS2812.c:114: b2 = 255;
+      0001C4 75 11 FF         [24]  669 	mov	_b2,#0xff
+                                    670 ;	./N76_WS2812.c:115: break;
+                                    671 ;	./N76_WS2812.c:117: case 7: // Warm White
+      0001C7 80 09            [24]  672 	sjmp	00114$
+      0001C9                        673 00112$:
+                                    674 ;	./N76_WS2812.c:118: r2 = 253;
+      0001C9 75 10 FD         [24]  675 	mov	_r2,#0xfd
+                                    676 ;	./N76_WS2812.c:119: g2 = 244;
+      0001CC 75 12 F4         [24]  677 	mov	_g2,#0xf4
+                                    678 ;	./N76_WS2812.c:120: b2 = 220;
+      0001CF 75 11 DC         [24]  679 	mov	_b2,#0xdc
+                                    680 ;	./N76_WS2812.c:125: }
+      0001D2                        681 00114$:
+                                    682 ;	./N76_WS2812.c:126: clrb(LED2_PxM1, LED2_PIN);
+      0001D2 53 B1 DF         [24]  683 	anl	_p0m1,#0xdf
+                                    684 ;	./N76_WS2812.c:127: setb(LED2_PxM2, LED2_PIN);
+      0001D5 43 B2 20         [24]  685 	orl	_p0m2,#0x20
+                                    686 ;	./N76_WS2812.c:128: clrb(LED2_PORT, LED2_PIN);
+      0001D8 53 80 DF         [24]  687 	anl	_p0,#0xdf
+                                    688 ;	./N76_WS2812.c:130: clrb(LED_PxM1, LED_PIN);
+      0001DB 53 B1 BF         [24]  689 	anl	_p0m1,#0xbf
+                                    690 ;	./N76_WS2812.c:131: setb(LED_PxM2, LED_PIN);
+      0001DE 43 B2 40         [24]  691 	orl	_p0m2,#0x40
+                                    692 ;	./N76_WS2812.c:132: clrb(LED_PORT, LED_PIN);
+      0001E1 53 80 BF         [24]  693 	anl	_p0,#0xbf
+                                    694 ;	./N76_WS2812.c:134: clrb(SW_PxM1, SW50_PIN);
+      0001E4 53 B1 FE         [24]  695 	anl	_p0m1,#0xfe
+                                    696 ;	./N76_WS2812.c:135: setb(SW_PxM2, SW50_PIN);
+      0001E7 43 B2 01         [24]  697 	orl	_p0m2,#0x01
+                                    698 ;	./N76_WS2812.c:137: clrb(SW_PxM1, SW100_PIN);
+      0001EA 53 B1 FD         [24]  699 	anl	_p0m1,#0xfd
+                                    700 ;	./N76_WS2812.c:138: setb(SW_PxM2, SW100_PIN);
+      0001ED 43 B2 02         [24]  701 	orl	_p0m2,#0x02
+                                    702 ;	./N76_WS2812.c:140: clrb(SW_PxM1, SW150_PIN);
+      0001F0 53 B1 FB         [24]  703 	anl	_p0m1,#0xfb
+                                    704 ;	./N76_WS2812.c:141: setb(SW_PxM2, SW150_PIN);
+      0001F3 43 B2 04         [24]  705 	orl	_p0m2,#0x04
+                                    706 ;	./N76_WS2812.c:143: clrb(SW_PxM1, SW200_PIN);
+      0001F6 53 B1 F7         [24]  707 	anl	_p0m1,#0xf7
+                                    708 ;	./N76_WS2812.c:144: setb(SW_PxM2, SW200_PIN);
+      0001F9 43 B2 08         [24]  709 	orl	_p0m2,#0x08
+                                    710 ;	./N76_WS2812.c:146: SW_PORT |= 0x0F;
+      0001FC 43 80 0F         [24]  711 	orl	_p0,#0x0f
+                                    712 ;	./N76_WS2812.c:149: clrb(BTNE_PxM1, BTNE_PIN);
+      0001FF 53 B3 EF         [24]  713 	anl	_p1m1,#0xef
+                                    714 ;	./N76_WS2812.c:150: setb(BTNE_PxM2, BTNE_PIN);
+      000202 43 B4 10         [24]  715 	orl	_p1m2,#0x10
+                                    716 ;	./N76_WS2812.c:151: setb(BTNE_PORT, BTNE_PIN);
+      000205 43 90 10         [24]  717 	orl	_p1,#0x10
+                                    718 ;	./N76_WS2812.c:154: clrb(BTNC_PxM1, BTNC_PIN);
+      000208 53 B3 F7         [24]  719 	anl	_p1m1,#0xf7
+                                    720 ;	./N76_WS2812.c:155: setb(BTNC_PxM2, BTNC_PIN);
+      00020B 43 B4 08         [24]  721 	orl	_p1m2,#0x08
+                                    722 ;	./N76_WS2812.c:156: setb(BTNC_PORT, BTNC_PIN);
+      00020E 43 90 08         [24]  723 	orl	_p1,#0x08
+                                    724 ;	./N76_WS2812.c:159: ADCCON0 &= 0xF0;
+      000211 53 E8 F0         [24]  725 	anl	_adccon0,#0xf0
+                                    726 ;	./N76_WS2812.c:160: ADCCON0 |= 0x07;
+      000214 43 E8 07         [24]  727 	orl	_adccon0,#0x07
+                                    728 ;	./N76_WS2812.c:163: clrb(P1M2, 1);
+      000217 53 B4 FD         [24]  729 	anl	_p1m2,#0xfd
+                                    730 ;	./N76_WS2812.c:164: setb(P1M1, 1);
+      00021A 43 B3 02         [24]  731 	orl	_p1m1,#0x02
+                                    732 ;	./N76_WS2812.c:165: AINDIDS = 0x00;
+      00021D 75 F6 00         [24]  733 	mov	_aindids,#0x00
+                                    734 ;	./N76_WS2812.c:166: AINDIDS |= (1 << 7);
+      000220 43 F6 80         [24]  735 	orl	_aindids,#0x80
+                                    736 ;	./N76_WS2812.c:167: ADCCON1 |= (1 << 0);
+      000223 43 E1 01         [24]  737 	orl	_adccon1,#0x01
+                                    738 ;	./N76_WS2812.c:168: setb(IE, EADC); // enable interruppt ADC
+      000226 43 A8 40         [24]  739 	orl	_ie,#0x40
+                                    740 ;	./N76_WS2812.c:171: setb(PICON, PIPS0); // pin interrupt port 1
+      000229 43 E9 01         [24]  741 	orl	_picon,#0x01
+                                    742 ;	./N76_WS2812.c:173: setb(PICON, PIT45);
+      00022C 43 E9 40         [24]  743 	orl	_picon,#0x40
+                                    744 ;	./N76_WS2812.c:174: setb(PINEN, BTNE_PIN); // enable falling edge
+      00022F 43 EA 10         [24]  745 	orl	_pinen,#0x10
+                                    746 ;	./N76_WS2812.c:175: clrb(PIPEN, BTNE_PIN); // disable rasing edge
+      000232 53 EB EF         [24]  747 	anl	_pipen,#0xef
+                                    748 ;	./N76_WS2812.c:176: setb(PICON, PIT3);
+      000235 43 E9 20         [24]  749 	orl	_picon,#0x20
+                                    750 ;	./N76_WS2812.c:177: setb(PINEN, BTNC_PIN); // enable falling edge
+      000238 43 EA 08         [24]  751 	orl	_pinen,#0x08
+                                    752 ;	./N76_WS2812.c:178: clrb(PIPEN, BTNC_PIN); // disable rasing edge
+      00023B 53 EB F7         [24]  753 	anl	_pipen,#0xf7
+                                    754 ;	./N76_WS2812.c:181: setb(EIE, EPI); // set external interrupt 0 at falling edge
+      00023E 43 9B 02         [24]  755 	orl	_eie,#0x02
+                                    756 ;	./N76_WS2812.c:183: clearAll();
+      000241 C0 07            [24]  757 	push	ar7
+      000243 12 08 2E         [24]  758 	lcall	_clearAll
+                                    759 ;	./N76_WS2812.c:185: TIM2_begin();
+      000246 12 00 FE         [24]  760 	lcall	_TIM2_begin
+      000249 D0 07            [24]  761 	pop	ar7
+                                    762 ;	./N76_WS2812.c:186: sei(); // Enable global interrupt
+      00024B 43 A8 80         [24]  763 	orl	_ie,#0x80
+                                    764 ;	./N76_WS2812.c:188: setb(ADCCON0, 6);
+      00024E 43 E8 40         [24]  765 	orl	_adccon0,#0x40
+                                    766 ;	./N76_WS2812.c:189: if (inbit(SW_PORT, SW50_PIN) == 0)
+      000251 74 01            [12]  767 	mov	a,#0x01
+      000253 55 80            [12]  768 	anl	a,_p0
+      000255 FE               [12]  769 	mov	r6,a
+                                    770 ;	./N76_WS2812.c:190: NUM_LEDS = 50;
+      000256 70 07            [24]  771 	jnz	00124$
+      000258 75 08 32         [24]  772 	mov	_NUM_LEDS,#0x32
+      00025B F5 09            [12]  773 	mov	(_NUM_LEDS + 1),a
+      00025D 80 32            [24]  774 	sjmp	00141$
+      00025F                        775 00124$:
+                                    776 ;	./N76_WS2812.c:191: else if (inbit(SW_PORT, SW100_PIN) == 0)
+      00025F 74 02            [12]  777 	mov	a,#0x02
+      000261 55 80            [12]  778 	anl	a,_p0
+      000263 C3               [12]  779 	clr	c
+      000264 13               [12]  780 	rrc	a
+      000265 FE               [12]  781 	mov	r6,a
+                                    782 ;	./N76_WS2812.c:192: NUM_LEDS = 100;
+      000266 70 07            [24]  783 	jnz	00121$
+      000268 75 08 64         [24]  784 	mov	_NUM_LEDS,#0x64
+      00026B F5 09            [12]  785 	mov	(_NUM_LEDS + 1),a
+      00026D 80 22            [24]  786 	sjmp	00141$
+      00026F                        787 00121$:
+                                    788 ;	./N76_WS2812.c:193: else if (inbit(SW_PORT, SW150_PIN) == 0)
+      00026F 74 04            [12]  789 	mov	a,#0x04
+      000271 55 80            [12]  790 	anl	a,_p0
+      000273 03               [12]  791 	rr	a
+      000274 03               [12]  792 	rr	a
+      000275 54 3F            [12]  793 	anl	a,#0x3f
+      000277 FE               [12]  794 	mov	r6,a
+                                    795 ;	./N76_WS2812.c:194: NUM_LEDS = 150;
+      000278 70 07            [24]  796 	jnz	00118$
+      00027A 75 08 96         [24]  797 	mov	_NUM_LEDS,#0x96
+      00027D F5 09            [12]  798 	mov	(_NUM_LEDS + 1),a
+      00027F 80 10            [24]  799 	sjmp	00141$
+      000281                        800 00118$:
+                                    801 ;	./N76_WS2812.c:195: else if (inbit(SW_PORT, SW200_PIN) == 0)
+      000281 74 08            [12]  802 	mov	a,#0x08
+      000283 55 80            [12]  803 	anl	a,_p0
+      000285 C4               [12]  804 	swap	a
+      000286 23               [12]  805 	rl	a
+      000287 54 1F            [12]  806 	anl	a,#0x1f
+      000289 FE               [12]  807 	mov	r6,a
+                                    808 ;	./N76_WS2812.c:196: NUM_LEDS = 200;
+      00028A 70 05            [24]  809 	jnz	00141$
+      00028C 75 08 C8         [24]  810 	mov	_NUM_LEDS,#0xc8
+      00028F F5 09            [12]  811 	mov	(_NUM_LEDS + 1),a
+                                    812 ;	./N76_WS2812.c:198: while (1)
+      000291                        813 00141$:
+                                    814 ;	./N76_WS2812.c:200: orient = !orient;
+      000291 EF               [12]  815 	mov	a,r7
+      000292 B4 01 00         [24]  816 	cjne	a,#0x01,00194$
+      000295                        817 00194$:
+      000295 92 00            [24]  818 	mov  _main_sloc0_1_0,c
+      000297 E4               [12]  819 	clr	a
+      000298 33               [12]  820 	rlc	a
+      000299 FF               [12]  821 	mov	r7,a
+                                    822 ;	./N76_WS2812.c:202: switch (effect)
+      00029A E5 0C            [12]  823 	mov	a,_effect
+      00029C 24 F5            [12]  824 	add	a,#0xff - 0x0a
+      00029E 50 03            [24]  825 	jnc	00195$
+      0002A0 02 03 90         [24]  826 	ljmp	00137$
+      0002A3                        827 00195$:
+      0002A3 E5 0C            [12]  828 	mov	a,_effect
+      0002A5 24 0B            [12]  829 	add	a,#(00196$-3-.)
+      0002A7 83               [24]  830 	movc	a,@a+pc
+      0002A8 F5 82            [12]  831 	mov	dpl,a
+      0002AA E5 0C            [12]  832 	mov	a,_effect
+      0002AC 24 0F            [12]  833 	add	a,#(00197$-3-.)
+      0002AE 83               [24]  834 	movc	a,@a+pc
+      0002AF F5 83            [12]  835 	mov	dph,a
+      0002B1 E4               [12]  836 	clr	a
+      0002B2 73               [24]  837 	jmp	@a+dptr
+      0002B3                        838 00196$:
+      0002B3 C9                     839 	.db	00126$
+      0002B4 DC                     840 	.db	00127$
+      0002B5 FB                     841 	.db	00128$
+      0002B6 19                     842 	.db	00129$
+      0002B7 34                     843 	.db	00130$
+      0002B8 46                     844 	.db	00131$
+      0002B9 5A                     845 	.db	00132$
+      0002BA 63                     846 	.db	00133$
+      0002BB 75                     847 	.db	00134$
+      0002BC 7E                     848 	.db	00135$
+      0002BD 90                     849 	.db	00137$
+      0002BE                        850 00197$:
+      0002BE 02                     851 	.db	00126$>>8
+      0002BF 02                     852 	.db	00127$>>8
+      0002C0 02                     853 	.db	00128$>>8
+      0002C1 03                     854 	.db	00129$>>8
+      0002C2 03                     855 	.db	00130$>>8
+      0002C3 03                     856 	.db	00131$>>8
+      0002C4 03                     857 	.db	00132$>>8
+      0002C5 03                     858 	.db	00133$>>8
+      0002C6 03                     859 	.db	00134$>>8
+      0002C7 03                     860 	.db	00135$>>8
+      0002C8 03                     861 	.db	00137$>>8
+                                    862 ;	./N76_WS2812.c:204: case 0:
+      0002C9                        863 00126$:
+                                    864 ;	./N76_WS2812.c:207: FadeInOut(g2, r2, b2);
+      0002C9 85 10 36         [24]  865 	mov	_FadeInOut_PARM_2,_r2
+      0002CC 85 11 37         [24]  866 	mov	_FadeInOut_PARM_3,_b2
+      0002CF 85 12 82         [24]  867 	mov	dpl,_g2
+      0002D2 C0 07            [24]  868 	push	ar7
+      0002D4 12 09 53         [24]  869 	lcall	_FadeInOut
+      0002D7 D0 07            [24]  870 	pop	ar7
+                                    871 ;	./N76_WS2812.c:208: break;
+      0002D9 02 03 90         [24]  872 	ljmp	00137$
+                                    873 ;	./N76_WS2812.c:210: case 1:
+      0002DC                        874 00127$:
+                                    875 ;	./N76_WS2812.c:212: Strobe(g2, r2, b2, 10, 1000);
+      0002DC 85 10 3F         [24]  876 	mov	_Strobe_PARM_2,_r2
+      0002DF 85 11 40         [24]  877 	mov	_Strobe_PARM_3,_b2
+      0002E2 75 41 0A         [24]  878 	mov	_Strobe_PARM_4,#0x0a
+      0002E5 75 42 00         [24]  879 	mov	(_Strobe_PARM_4 + 1),#0x00
+      0002E8 75 43 E8         [24]  880 	mov	_Strobe_PARM_5,#0xe8
+      0002EB 75 44 03         [24]  881 	mov	(_Strobe_PARM_5 + 1),#0x03
+      0002EE 85 12 82         [24]  882 	mov	dpl,_g2
+      0002F1 C0 07            [24]  883 	push	ar7
+      0002F3 12 0B FB         [24]  884 	lcall	_Strobe
+      0002F6 D0 07            [24]  885 	pop	ar7
+                                    886 ;	./N76_WS2812.c:213: break;
+      0002F8 02 03 90         [24]  887 	ljmp	00137$
+                                    888 ;	./N76_WS2812.c:216: case 2:
+      0002FB                        889 00128$:
+                                    890 ;	./N76_WS2812.c:218: CylonBounce(g2, r2, b2, 6, 50);
+      0002FB 85 10 46         [24]  891 	mov	_CylonBounce_PARM_2,_r2
+      0002FE 85 11 47         [24]  892 	mov	_CylonBounce_PARM_3,_b2
+      000301 75 48 06         [24]  893 	mov	_CylonBounce_PARM_4,#0x06
+      000304 75 49 00         [24]  894 	mov	(_CylonBounce_PARM_4 + 1),#0x00
+      000307 75 4A 32         [24]  895 	mov	_CylonBounce_PARM_5,#0x32
+      00030A 75 4B 00         [24]  896 	mov	(_CylonBounce_PARM_5 + 1),#0x00
+      00030D 85 12 82         [24]  897 	mov	dpl,_g2
+      000310 C0 07            [24]  898 	push	ar7
+      000312 12 0C E4         [24]  899 	lcall	_CylonBounce
+      000315 D0 07            [24]  900 	pop	ar7
+                                    901 ;	./N76_WS2812.c:219: break;
+                                    902 ;	./N76_WS2812.c:222: case 3:
+      000317 80 77            [24]  903 	sjmp	00137$
+      000319                        904 00129$:
+                                    905 ;	./N76_WS2812.c:224: meteorRain(g2, r2, b2, 10, 64, true);
+      000319 85 10 17         [24]  906 	mov	_meteorRain_PARM_2,_r2
+      00031C 85 11 18         [24]  907 	mov	_meteorRain_PARM_3,_b2
+      00031F 75 19 0A         [24]  908 	mov	_meteorRain_PARM_4,#0x0a
+      000322 75 1A 40         [24]  909 	mov	_meteorRain_PARM_5,#0x40
+      000325 75 1B 01         [24]  910 	mov	_meteorRain_PARM_6,#0x01
+      000328 85 12 82         [24]  911 	mov	dpl,_g2
+      00032B C0 07            [24]  912 	push	ar7
+      00032D 12 17 41         [24]  913 	lcall	_meteorRain
+      000330 D0 07            [24]  914 	pop	ar7
+                                    915 ;	./N76_WS2812.c:225: break;
+                                    916 ;	./N76_WS2812.c:228: case 4:
+      000332 80 5C            [24]  917 	sjmp	00137$
+      000334                        918 00130$:
+                                    919 ;	./N76_WS2812.c:230: sinWave(g2, r2, b2);
+      000334 85 10 73         [24]  920 	mov	_sinWave_PARM_2,_r2
+      000337 85 11 74         [24]  921 	mov	_sinWave_PARM_3,_b2
+      00033A 85 12 82         [24]  922 	mov	dpl,_g2
+      00033D C0 07            [24]  923 	push	ar7
+      00033F 12 17 42         [24]  924 	lcall	_sinWave
+      000342 D0 07            [24]  925 	pop	ar7
+                                    926 ;	./N76_WS2812.c:231: break;
+                                    927 ;	./N76_WS2812.c:234: case 5:
+      000344 80 4A            [24]  928 	sjmp	00137$
+      000346                        929 00131$:
+                                    930 ;	./N76_WS2812.c:236: colorWipe(g2, r2, b2, orient);
+      000346 85 10 55         [24]  931 	mov	_colorWipe_PARM_2,_r2
+      000349 85 11 56         [24]  932 	mov	_colorWipe_PARM_3,_b2
+      00034C 8F 57            [24]  933 	mov	_colorWipe_PARM_4,r7
+      00034E 85 12 82         [24]  934 	mov	dpl,_g2
+      000351 C0 07            [24]  935 	push	ar7
+      000353 12 10 70         [24]  936 	lcall	_colorWipe
+      000356 D0 07            [24]  937 	pop	ar7
+                                    938 ;	./N76_WS2812.c:237: break;
+                                    939 ;	./N76_WS2812.c:240: case 6:
+      000358 80 36            [24]  940 	sjmp	00137$
+      00035A                        941 00132$:
+                                    942 ;	./N76_WS2812.c:242: rainbowCycle();
+      00035A C0 07            [24]  943 	push	ar7
+      00035C 12 11 15         [24]  944 	lcall	_rainbowCycle
+      00035F D0 07            [24]  945 	pop	ar7
+                                    946 ;	./N76_WS2812.c:243: break;
+                                    947 ;	./N76_WS2812.c:246: case 7:
+      000361 80 2D            [24]  948 	sjmp	00137$
+      000363                        949 00133$:
+                                    950 ;	./N76_WS2812.c:248: theaterChase(g2, r2, b2);
+      000363 85 10 5D         [24]  951 	mov	_theaterChase_PARM_2,_r2
+      000366 85 11 5E         [24]  952 	mov	_theaterChase_PARM_3,_b2
+      000369 85 12 82         [24]  953 	mov	dpl,_g2
+      00036C C0 07            [24]  954 	push	ar7
+      00036E 12 12 36         [24]  955 	lcall	_theaterChase
+      000371 D0 07            [24]  956 	pop	ar7
+                                    957 ;	./N76_WS2812.c:249: break;
+                                    958 ;	./N76_WS2812.c:252: case 8:
+      000373 80 1B            [24]  959 	sjmp	00137$
+      000375                        960 00134$:
+                                    961 ;	./N76_WS2812.c:254: theaterChaseRainbow();
+      000375 C0 07            [24]  962 	push	ar7
+      000377 12 13 82         [24]  963 	lcall	_theaterChaseRainbow
+      00037A D0 07            [24]  964 	pop	ar7
+                                    965 ;	./N76_WS2812.c:255: break;
+                                    966 ;	./N76_WS2812.c:257: case 9:
+      00037C 80 12            [24]  967 	sjmp	00137$
+      00037E                        968 00135$:
+                                    969 ;	./N76_WS2812.c:259: Pattern3(g2, r2, b2, orient);
+      00037E 85 10 68         [24]  970 	mov	_Pattern3_PARM_2,_r2
+      000381 85 11 69         [24]  971 	mov	_Pattern3_PARM_3,_b2
+      000384 8F 6A            [24]  972 	mov	_Pattern3_PARM_4,r7
+      000386 85 12 82         [24]  973 	mov	dpl,_g2
+      000389 C0 07            [24]  974 	push	ar7
+      00038B 12 15 2D         [24]  975 	lcall	_Pattern3
+      00038E D0 07            [24]  976 	pop	ar7
+                                    977 ;	./N76_WS2812.c:268: }
+      000390                        978 00137$:
+                                    979 ;	./N76_WS2812.c:269: if (_status == STT_NEW)
+      000390 74 12            [12]  980 	mov	a,#0x12
+      000392 B5 0D 02         [24]  981 	cjne	a,__status,00198$
+      000395 80 03            [24]  982 	sjmp	00199$
+      000397                        983 00198$:
+      000397 02 02 91         [24]  984 	ljmp	00141$
+      00039A                        985 00199$:
+                                    986 ;	./N76_WS2812.c:271: _status = STT_NOTSAVED;
+      00039A 75 0D 56         [24]  987 	mov	__status,#0x56
+                                    988 ;	./N76_WS2812.c:272: _cnt = 0;
+      00039D 75 0E 00         [24]  989 	mov	__cnt,#0x00
+                                    990 ;	./N76_WS2812.c:275: }
+      0003A0 02 02 91         [24]  991 	ljmp	00141$
+                                    992 ;------------------------------------------------------------
+                                    993 ;Allocation info for local variables in function 'ADC_INT_FUCTION'
+                                    994 ;------------------------------------------------------------
+                                    995 ;	./N76_WS2812.c:276: ISR(ADC_INT_FUCTION, INTERRUPT_ADC)
+                                    996 ;	-----------------------------------------
+                                    997 ;	 function ADC_INT_FUCTION
+                                    998 ;	-----------------------------------------
+      0003A3                        999 _ADC_INT_FUCTION:
+      0003A3 C0 E0            [24] 1000 	push	acc
+      0003A5 C0 07            [24] 1001 	push	ar7
+      0003A7 C0 06            [24] 1002 	push	ar6
+      0003A9 C0 05            [24] 1003 	push	ar5
+      0003AB C0 04            [24] 1004 	push	ar4
+      0003AD C0 D0            [24] 1005 	push	psw
+      0003AF 75 D0 00         [24] 1006 	mov	psw,#0x00
+                                   1007 ;	./N76_WS2812.c:278: _delay = (ADCRH << 4) | ADCRL;
+      0003B2 AE C3            [24] 1008 	mov	r6,_adcrh
+      0003B4 E4               [12] 1009 	clr	a
+      0003B5 C4               [12] 1010 	swap	a
+      0003B6 54 F0            [12] 1011 	anl	a,#0xf0
+      0003B8 CE               [12] 1012 	xch	a,r6
+      0003B9 C4               [12] 1013 	swap	a
+      0003BA CE               [12] 1014 	xch	a,r6
+      0003BB 6E               [12] 1015 	xrl	a,r6
+      0003BC CE               [12] 1016 	xch	a,r6
+      0003BD 54 F0            [12] 1017 	anl	a,#0xf0
+      0003BF CE               [12] 1018 	xch	a,r6
+      0003C0 6E               [12] 1019 	xrl	a,r6
+      0003C1 FF               [12] 1020 	mov	r7,a
+      0003C2 AC C2            [24] 1021 	mov	r4,_adcrl
+      0003C4 7D 00            [12] 1022 	mov	r5,#0x00
+      0003C6 EC               [12] 1023 	mov	a,r4
+      0003C7 42 06            [12] 1024 	orl	ar6,a
+      0003C9 ED               [12] 1025 	mov	a,r5
+      0003CA 42 07            [12] 1026 	orl	ar7,a
+      0003CC 8E 0A            [24] 1027 	mov	__delay,r6
+      0003CE 8F 0B            [24] 1028 	mov	(__delay + 1),r7
+                                   1029 ;	./N76_WS2812.c:279: clrb(ADCCON0, ADCF);
+      0003D0 53 E8 7F         [24] 1030 	anl	_adccon0,#0x7f
+                                   1031 ;	./N76_WS2812.c:280: }
+      0003D3 D0 D0            [24] 1032 	pop	psw
+      0003D5 D0 04            [24] 1033 	pop	ar4
+      0003D7 D0 05            [24] 1034 	pop	ar5
+      0003D9 D0 06            [24] 1035 	pop	ar6
+      0003DB D0 07            [24] 1036 	pop	ar7
+      0003DD D0 E0            [24] 1037 	pop	acc
+      0003DF 32               [24] 1038 	reti
+                                   1039 ;	eliminated unneeded push/pop dpl
+                                   1040 ;	eliminated unneeded push/pop dph
+                                   1041 ;	eliminated unneeded push/pop b
+                                   1042 ;------------------------------------------------------------
+                                   1043 ;Allocation info for local variables in function 'PIN_INT_FUCTION'
+                                   1044 ;------------------------------------------------------------
+                                   1045 ;	./N76_WS2812.c:282: ISR(PIN_INT_FUCTION, INTERRUPT_PIN)
+                                   1046 ;	-----------------------------------------
+                                   1047 ;	 function PIN_INT_FUCTION
+                                   1048 ;	-----------------------------------------
+      0003E0                       1049 _PIN_INT_FUCTION:
+      0003E0 C0 21            [24] 1050 	push	bits
+      0003E2 C0 E0            [24] 1051 	push	acc
+      0003E4 C0 F0            [24] 1052 	push	b
+      0003E6 C0 82            [24] 1053 	push	dpl
+      0003E8 C0 83            [24] 1054 	push	dph
+      0003EA C0 07            [24] 1055 	push	(0+7)
+      0003EC C0 06            [24] 1056 	push	(0+6)
+      0003EE C0 05            [24] 1057 	push	(0+5)
+      0003F0 C0 04            [24] 1058 	push	(0+4)
+      0003F2 C0 03            [24] 1059 	push	(0+3)
+      0003F4 C0 02            [24] 1060 	push	(0+2)
+      0003F6 C0 01            [24] 1061 	push	(0+1)
+      0003F8 C0 00            [24] 1062 	push	(0+0)
+      0003FA C0 D0            [24] 1063 	push	psw
+      0003FC 75 D0 00         [24] 1064 	mov	psw,#0x00
+                                   1065 ;	./N76_WS2812.c:285: if (PIF == 0x08 && _status != STT_OLD)
+      0003FF 74 08            [12] 1066 	mov	a,#0x08
+      000401 B5 EC 28         [24] 1067 	cjne	a,_pif,00119$
+      000404 E5 0D            [12] 1068 	mov	a,__status
+      000406 60 24            [24] 1069 	jz	00119$
+                                   1070 ;	./N76_WS2812.c:287: if (++effect > NUM_EFFECT)
+      000408 05 0C            [12] 1071 	inc	_effect
+      00040A E5 0C            [12] 1072 	mov	a,_effect
+      00040C 24 F5            [12] 1073 	add	a,#0xff - 0x0a
+      00040E 50 03            [24] 1074 	jnc	00102$
+                                   1075 ;	./N76_WS2812.c:288: effect = 0;
+      000410 75 0C 00         [24] 1076 	mov	_effect,#0x00
+      000413                       1077 00102$:
+                                   1078 ;	./N76_WS2812.c:290: setAll(0, 0, 0);
+      000413 75 34 00         [24] 1079 	mov	_setAll_PARM_2,#0x00
+      000416 75 35 00         [24] 1080 	mov	_setAll_PARM_3,#0x00
+      000419 75 82 00         [24] 1081 	mov	dpl,#0x00
+      00041C 12 09 1D         [24] 1082 	lcall	_setAll
+                                   1083 ;	./N76_WS2812.c:291: _delay_us(500000);
+      00041F 90 A1 20         [24] 1084 	mov	dptr,#0xa120
+      000422 75 F0 07         [24] 1085 	mov	b,#0x07
+      000425 E4               [12] 1086 	clr	a
+      000426 12 06 07         [24] 1087 	lcall	__delay_us
+      000429 02 04 D4         [24] 1088 	ljmp	00120$
+      00042C                       1089 00119$:
+                                   1090 ;	./N76_WS2812.c:294: else if (PIF == 0x10 && _status != STT_OLD)
+      00042C 74 10            [12] 1091 	mov	a,#0x10
+      00042E B5 EC 02         [24] 1092 	cjne	a,_pif,00156$
+      000431 80 03            [24] 1093 	sjmp	00157$
+      000433                       1094 00156$:
+      000433 02 04 D4         [24] 1095 	ljmp	00120$
+      000436                       1096 00157$:
+      000436 E5 0D            [12] 1097 	mov	a,__status
+      000438 70 03            [24] 1098 	jnz	00158$
+      00043A 02 04 D4         [24] 1099 	ljmp	00120$
+      00043D                       1100 00158$:
+                                   1101 ;	./N76_WS2812.c:296: _color++;
+      00043D 05 0F            [12] 1102 	inc	__color
+                                   1103 ;	./N76_WS2812.c:297: _status = STT_NOTSAVED;
+      00043F 75 0D 56         [24] 1104 	mov	__status,#0x56
+                                   1105 ;	./N76_WS2812.c:298: if (_color >= 8)
+      000442 74 F8            [12] 1106 	mov	a,#0x100 - 0x08
+      000444 25 0F            [12] 1107 	add	a,__color
+      000446 50 03            [24] 1108 	jnc	00104$
+                                   1109 ;	./N76_WS2812.c:300: _color = 0;
+      000448 75 0F 00         [24] 1110 	mov	__color,#0x00
+      00044B                       1111 00104$:
+                                   1112 ;	./N76_WS2812.c:303: switch (_color)
+      00044B E5 0F            [12] 1113 	mov	a,__color
+      00044D 24 F8            [12] 1114 	add	a,#0xff - 0x07
+      00044F 50 03            [24] 1115 	jnc	00160$
+      000451 02 04 CA         [24] 1116 	ljmp	00114$
+      000454                       1117 00160$:
+      000454 E5 0F            [12] 1118 	mov	a,__color
+      000456 24 0B            [12] 1119 	add	a,#(00161$-3-.)
+      000458 83               [24] 1120 	movc	a,@a+pc
+      000459 F5 82            [12] 1121 	mov	dpl,a
+      00045B E5 0F            [12] 1122 	mov	a,__color
+      00045D 24 0C            [12] 1123 	add	a,#(00162$-3-.)
+      00045F 83               [24] 1124 	movc	a,@a+pc
+      000460 F5 83            [12] 1125 	mov	dph,a
+      000462 E4               [12] 1126 	clr	a
+      000463 73               [24] 1127 	jmp	@a+dptr
+      000464                       1128 00161$:
+      000464 74                    1129 	.db	00105$
+      000465 7F                    1130 	.db	00106$
+      000466 8A                    1131 	.db	00107$
+      000467 95                    1132 	.db	00108$
+      000468 A0                    1133 	.db	00109$
+      000469 AB                    1134 	.db	00110$
+      00046A B6                    1135 	.db	00111$
+      00046B C1                    1136 	.db	00112$
+      00046C                       1137 00162$:
+      00046C 04                    1138 	.db	00105$>>8
+      00046D 04                    1139 	.db	00106$>>8
+      00046E 04                    1140 	.db	00107$>>8
+      00046F 04                    1141 	.db	00108$>>8
+      000470 04                    1142 	.db	00109$>>8
+      000471 04                    1143 	.db	00110$>>8
+      000472 04                    1144 	.db	00111$>>8
+      000473 04                    1145 	.db	00112$>>8
+                                   1146 ;	./N76_WS2812.c:305: case 0: // red
+      000474                       1147 00105$:
+                                   1148 ;	./N76_WS2812.c:306: r2 = 239;
+      000474 75 10 EF         [24] 1149 	mov	_r2,#0xef
+                                   1150 ;	./N76_WS2812.c:307: g2 = 3;
+      000477 75 12 03         [24] 1151 	mov	_g2,#0x03
+                                   1152 ;	./N76_WS2812.c:308: b2 = 7;
+      00047A 75 11 07         [24] 1153 	mov	_b2,#0x07
+                                   1154 ;	./N76_WS2812.c:309: break;
+                                   1155 ;	./N76_WS2812.c:311: case 1: // violet
+      00047D 80 4B            [24] 1156 	sjmp	00114$
+      00047F                       1157 00106$:
+                                   1158 ;	./N76_WS2812.c:312: r2 = 160;
+      00047F 75 10 A0         [24] 1159 	mov	_r2,#0xa0
+                                   1160 ;	./N76_WS2812.c:313: g2 = 64;
+      000482 75 12 40         [24] 1161 	mov	_g2,#0x40
+                                   1162 ;	./N76_WS2812.c:314: b2 = 198;
+      000485 75 11 C6         [24] 1163 	mov	_b2,#0xc6
+                                   1164 ;	./N76_WS2812.c:315: break;
+                                   1165 ;	./N76_WS2812.c:317: case 2: // ORANGE
+      000488 80 40            [24] 1166 	sjmp	00114$
+      00048A                       1167 00107$:
+                                   1168 ;	./N76_WS2812.c:318: r2 = 255;
+      00048A 75 10 FF         [24] 1169 	mov	_r2,#0xff
+                                   1170 ;	./N76_WS2812.c:319: g2 = 153;
+      00048D 75 12 99         [24] 1171 	mov	_g2,#0x99
+                                   1172 ;	./N76_WS2812.c:320: b2 = 0;
+      000490 75 11 00         [24] 1173 	mov	_b2,#0x00
+                                   1174 ;	./N76_WS2812.c:321: break;
+                                   1175 ;	./N76_WS2812.c:323: case 3: // YELLOW
+      000493 80 35            [24] 1176 	sjmp	00114$
+      000495                       1177 00108$:
+                                   1178 ;	./N76_WS2812.c:324: r2 = 255;
+      000495 75 10 FF         [24] 1179 	mov	_r2,#0xff
+                                   1180 ;	./N76_WS2812.c:325: g2 = 235;
+      000498 75 12 EB         [24] 1181 	mov	_g2,#0xeb
+                                   1182 ;	./N76_WS2812.c:326: b2 = 0;
+      00049B 75 11 00         [24] 1183 	mov	_b2,#0x00
+                                   1184 ;	./N76_WS2812.c:327: break;
+                                   1185 ;	./N76_WS2812.c:329: case 4: // GREEN
+      00049E 80 2A            [24] 1186 	sjmp	00114$
+      0004A0                       1187 00109$:
+                                   1188 ;	./N76_WS2812.c:330: r2 = 29;
+      0004A0 75 10 1D         [24] 1189 	mov	_r2,#0x1d
+                                   1190 ;	./N76_WS2812.c:331: g2 = 185;
+      0004A3 75 12 B9         [24] 1191 	mov	_g2,#0xb9
+                                   1192 ;	./N76_WS2812.c:332: b2 = 84;
+      0004A6 75 11 54         [24] 1193 	mov	_b2,#0x54
+                                   1194 ;	./N76_WS2812.c:333: break;
+                                   1195 ;	./N76_WS2812.c:335: case 5: // BLUE
+      0004A9 80 1F            [24] 1196 	sjmp	00114$
+      0004AB                       1197 00110$:
+                                   1198 ;	./N76_WS2812.c:336: r2 = 21;
+      0004AB 75 10 15         [24] 1199 	mov	_r2,#0x15
+                                   1200 ;	./N76_WS2812.c:337: g2 = 13;
+      0004AE 75 12 0D         [24] 1201 	mov	_g2,#0x0d
+                                   1202 ;	./N76_WS2812.c:338: b2 = 247;
+      0004B1 75 11 F7         [24] 1203 	mov	_b2,#0xf7
+                                   1204 ;	./N76_WS2812.c:339: break;
+                                   1205 ;	./N76_WS2812.c:341: case 6: // INDIGO
+      0004B4 80 14            [24] 1206 	sjmp	00114$
+      0004B6                       1207 00111$:
+                                   1208 ;	./N76_WS2812.c:342: r2 = 110;
+      0004B6 75 10 6E         [24] 1209 	mov	_r2,#0x6e
+                                   1210 ;	./N76_WS2812.c:343: g2 = 0;
+      0004B9 75 12 00         [24] 1211 	mov	_g2,#0x00
+                                   1212 ;	./N76_WS2812.c:344: b2 = 255;
+      0004BC 75 11 FF         [24] 1213 	mov	_b2,#0xff
+                                   1214 ;	./N76_WS2812.c:345: break;
+                                   1215 ;	./N76_WS2812.c:347: case 7: // Warm White
+      0004BF 80 09            [24] 1216 	sjmp	00114$
+      0004C1                       1217 00112$:
+                                   1218 ;	./N76_WS2812.c:348: r2 = 253;
+      0004C1 75 10 FD         [24] 1219 	mov	_r2,#0xfd
+                                   1220 ;	./N76_WS2812.c:349: g2 = 244;
+      0004C4 75 12 F4         [24] 1221 	mov	_g2,#0xf4
+                                   1222 ;	./N76_WS2812.c:350: b2 = 220;
+      0004C7 75 11 DC         [24] 1223 	mov	_b2,#0xdc
+                                   1224 ;	./N76_WS2812.c:355: }
+      0004CA                       1225 00114$:
+                                   1226 ;	./N76_WS2812.c:356: _delay_us(500000);
+      0004CA 90 A1 20         [24] 1227 	mov	dptr,#0xa120
+      0004CD 75 F0 07         [24] 1228 	mov	b,#0x07
+      0004D0 E4               [12] 1229 	clr	a
+      0004D1 12 06 07         [24] 1230 	lcall	__delay_us
+      0004D4                       1231 00120$:
+                                   1232 ;	./N76_WS2812.c:358: PIF = 0x00; // clear interrupt flag
+      0004D4 75 EC 00         [24] 1233 	mov	_pif,#0x00
+                                   1234 ;	./N76_WS2812.c:359: }
+      0004D7 D0 D0            [24] 1235 	pop	psw
+      0004D9 D0 00            [24] 1236 	pop	(0+0)
+      0004DB D0 01            [24] 1237 	pop	(0+1)
+      0004DD D0 02            [24] 1238 	pop	(0+2)
+      0004DF D0 03            [24] 1239 	pop	(0+3)
+      0004E1 D0 04            [24] 1240 	pop	(0+4)
+      0004E3 D0 05            [24] 1241 	pop	(0+5)
+      0004E5 D0 06            [24] 1242 	pop	(0+6)
+      0004E7 D0 07            [24] 1243 	pop	(0+7)
+      0004E9 D0 83            [24] 1244 	pop	dph
+      0004EB D0 82            [24] 1245 	pop	dpl
+      0004ED D0 F0            [24] 1246 	pop	b
+      0004EF D0 E0            [24] 1247 	pop	acc
+      0004F1 D0 21            [24] 1248 	pop	bits
+      0004F3 32               [24] 1249 	reti
+                                   1250 ;------------------------------------------------------------
+                                   1251 ;Allocation info for local variables in function 'timer2'
+                                   1252 ;------------------------------------------------------------
+                                   1253 ;x                         Allocated to registers r6 r7 
+                                   1254 ;------------------------------------------------------------
+                                   1255 ;	./N76_WS2812.c:360: ISR(timer2, INTERRUPT_TIMER2) // every 0.25s
+                                   1256 ;	-----------------------------------------
+                                   1257 ;	 function timer2
+                                   1258 ;	-----------------------------------------
+      0004F4                       1259 _timer2:
+      0004F4 C0 21            [24] 1260 	push	bits
+      0004F6 C0 E0            [24] 1261 	push	acc
+      0004F8 C0 F0            [24] 1262 	push	b
+      0004FA C0 82            [24] 1263 	push	dpl
+      0004FC C0 83            [24] 1264 	push	dph
+      0004FE C0 07            [24] 1265 	push	(0+7)
+      000500 C0 06            [24] 1266 	push	(0+6)
+      000502 C0 05            [24] 1267 	push	(0+5)
+      000504 C0 04            [24] 1268 	push	(0+4)
+      000506 C0 03            [24] 1269 	push	(0+3)
+      000508 C0 02            [24] 1270 	push	(0+2)
+      00050A C0 01            [24] 1271 	push	(0+1)
+      00050C C0 00            [24] 1272 	push	(0+0)
+      00050E C0 D0            [24] 1273 	push	psw
+      000510 75 D0 00         [24] 1274 	mov	psw,#0x00
+                                   1275 ;	./N76_WS2812.c:362: _cnt++;
+      000513 05 0E            [12] 1276 	inc	__cnt
+                                   1277 ;	./N76_WS2812.c:364: if (_cnt == 40) // every 10s
+      000515 74 28            [12] 1278 	mov	a,#0x28
+      000517 B5 0E 29         [24] 1279 	cjne	a,__cnt,00104$
+                                   1280 ;	./N76_WS2812.c:366: if (_status == STT_NOTSAVED)
+      00051A 74 56            [12] 1281 	mov	a,#0x56
+      00051C B5 0D 24         [24] 1282 	cjne	a,__status,00104$
+                                   1283 ;	./N76_WS2812.c:368: Erase_APROM(ADDR_COLOR);
+      00051F 90 30 01         [24] 1284 	mov	dptr,#0x3001
+      000522 12 06 C5         [24] 1285 	lcall	_Erase_APROM
+                                   1286 ;	./N76_WS2812.c:369: Erase_APROM(ADDR_EFF);
+      000525 90 30 00         [24] 1287 	mov	dptr,#0x3000
+      000528 12 06 C5         [24] 1288 	lcall	_Erase_APROM
+                                   1289 ;	./N76_WS2812.c:370: APROM_write_byte(ADDR_EFF, effect);	  // write effect to APROM
+      00052B 85 0C 17         [24] 1290 	mov	_APROM_write_byte_PARM_2,_effect
+      00052E 90 30 00         [24] 1291 	mov	dptr,#0x3000
+      000531 12 06 6B         [24] 1292 	lcall	_APROM_write_byte
+                                   1293 ;	./N76_WS2812.c:371: APROM_write_byte(ADDR_COLOR, _color); // write _color to APROM
+      000534 85 0F 17         [24] 1294 	mov	_APROM_write_byte_PARM_2,__color
+      000537 90 30 01         [24] 1295 	mov	dptr,#0x3001
+      00053A 12 06 6B         [24] 1296 	lcall	_APROM_write_byte
+                                   1297 ;	./N76_WS2812.c:372: clrb(EIE, EPI);						  // clear pin interrupt
+      00053D 53 9B FD         [24] 1298 	anl	_eie,#0xfd
+                                   1299 ;	./N76_WS2812.c:373: _status = STT_OLD;
+      000540 75 0D 00         [24] 1300 	mov	__status,#0x00
+                                   1301 ;	./N76_WS2812.c:375: _cnt == 0;
+      000543                       1302 00104$:
+                                   1303 ;	./N76_WS2812.c:377: if (_cnt % 4 == 0) // every 0.5s
+      000543 E5 0E            [12] 1304 	mov	a,__cnt
+      000545 54 03            [12] 1305 	anl	a,#0x03
+      000547 60 02            [24] 1306 	jz	00171$
+      000549 80 5B            [24] 1307 	sjmp	00121$
+      00054B                       1308 00171$:
+                                   1309 ;	./N76_WS2812.c:379: uint16_t x = NUM_LEDS;
+      00054B AE 08            [24] 1310 	mov	r6,_NUM_LEDS
+      00054D AF 09            [24] 1311 	mov	r7,(_NUM_LEDS + 1)
+                                   1312 ;	./N76_WS2812.c:380: if (inbit(SW_PORT, SW50_PIN) == 0)
+      00054F 74 01            [12] 1313 	mov	a,#0x01
+      000551 55 80            [12] 1314 	anl	a,_p0
+      000553 FD               [12] 1315 	mov	r5,a
+                                   1316 ;	./N76_WS2812.c:381: NUM_LEDS = 50;
+      000554 70 07            [24] 1317 	jnz	00114$
+      000556 75 08 32         [24] 1318 	mov	_NUM_LEDS,#0x32
+      000559 F5 09            [12] 1319 	mov	(_NUM_LEDS + 1),a
+      00055B 80 32            [24] 1320 	sjmp	00115$
+      00055D                       1321 00114$:
+                                   1322 ;	./N76_WS2812.c:382: else if (inbit(SW_PORT, SW100_PIN) == 0)
+      00055D 74 02            [12] 1323 	mov	a,#0x02
+      00055F 55 80            [12] 1324 	anl	a,_p0
+      000561 C3               [12] 1325 	clr	c
+      000562 13               [12] 1326 	rrc	a
+      000563 FD               [12] 1327 	mov	r5,a
+                                   1328 ;	./N76_WS2812.c:383: NUM_LEDS = 100;
+      000564 70 07            [24] 1329 	jnz	00111$
+      000566 75 08 64         [24] 1330 	mov	_NUM_LEDS,#0x64
+      000569 F5 09            [12] 1331 	mov	(_NUM_LEDS + 1),a
+      00056B 80 22            [24] 1332 	sjmp	00115$
+      00056D                       1333 00111$:
+                                   1334 ;	./N76_WS2812.c:384: else if (inbit(SW_PORT, SW150_PIN) == 0)
+      00056D 74 04            [12] 1335 	mov	a,#0x04
+      00056F 55 80            [12] 1336 	anl	a,_p0
+      000571 03               [12] 1337 	rr	a
+      000572 03               [12] 1338 	rr	a
+      000573 54 3F            [12] 1339 	anl	a,#0x3f
+      000575 FD               [12] 1340 	mov	r5,a
+                                   1341 ;	./N76_WS2812.c:385: NUM_LEDS = 150;
+      000576 70 07            [24] 1342 	jnz	00108$
+      000578 75 08 96         [24] 1343 	mov	_NUM_LEDS,#0x96
+      00057B F5 09            [12] 1344 	mov	(_NUM_LEDS + 1),a
+      00057D 80 10            [24] 1345 	sjmp	00115$
+      00057F                       1346 00108$:
+                                   1347 ;	./N76_WS2812.c:386: else if (inbit(SW_PORT, SW200_PIN) == 0)
+      00057F 74 08            [12] 1348 	mov	a,#0x08
+      000581 55 80            [12] 1349 	anl	a,_p0
+      000583 C4               [12] 1350 	swap	a
+      000584 23               [12] 1351 	rl	a
+      000585 54 1F            [12] 1352 	anl	a,#0x1f
+      000587 FD               [12] 1353 	mov	r5,a
+                                   1354 ;	./N76_WS2812.c:387: NUM_LEDS = 200;
+      000588 70 05            [24] 1355 	jnz	00115$
+      00058A 75 08 C8         [24] 1356 	mov	_NUM_LEDS,#0xc8
+      00058D F5 09            [12] 1357 	mov	(_NUM_LEDS + 1),a
+      00058F                       1358 00115$:
+                                   1359 ;	./N76_WS2812.c:389: if (NUM_LEDS != x)
+      00058F EE               [12] 1360 	mov	a,r6
+      000590 B5 08 06         [24] 1361 	cjne	a,_NUM_LEDS,00176$
+      000593 EF               [12] 1362 	mov	a,r7
+      000594 B5 09 02         [24] 1363 	cjne	a,(_NUM_LEDS + 1),00176$
+      000597 80 03            [24] 1364 	sjmp	00117$
+      000599                       1365 00176$:
+                                   1366 ;	./N76_WS2812.c:391: clearAll();
+      000599 12 08 2E         [24] 1367 	lcall	_clearAll
+      00059C                       1368 00117$:
+                                   1369 ;	./N76_WS2812.c:393: if (_status == STT_OLD)
+      00059C E5 0D            [12] 1370 	mov	a,__status
+      00059E 70 03            [24] 1371 	jnz	00119$
+                                   1372 ;	./N76_WS2812.c:395: daobit(LED2_PORT, LED2_PIN);
+      0005A0 63 80 20         [24] 1373 	xrl	_p0,#0x20
+      0005A3                       1374 00119$:
+                                   1375 ;	./N76_WS2812.c:398: setb(ADCCON0, ADCS);
+      0005A3 43 E8 40         [24] 1376 	orl	_adccon0,#0x40
+      0005A6                       1377 00121$:
+                                   1378 ;	./N76_WS2812.c:401: if (_status != STT_OLD)
+      0005A6 E5 0D            [12] 1379 	mov	a,__status
+      0005A8 60 03            [24] 1380 	jz	00123$
+                                   1381 ;	./N76_WS2812.c:403: daobit(LED2_PORT, LED2_PIN);
+      0005AA 63 80 20         [24] 1382 	xrl	_p0,#0x20
+      0005AD                       1383 00123$:
+                                   1384 ;	./N76_WS2812.c:405: clrb(T2CON, TF2); // TF2
+      0005AD 53 C8 7F         [24] 1385 	anl	_t2con,#0x7f
+                                   1386 ;	./N76_WS2812.c:406: }
+      0005B0 D0 D0            [24] 1387 	pop	psw
+      0005B2 D0 00            [24] 1388 	pop	(0+0)
+      0005B4 D0 01            [24] 1389 	pop	(0+1)
+      0005B6 D0 02            [24] 1390 	pop	(0+2)
+      0005B8 D0 03            [24] 1391 	pop	(0+3)
+      0005BA D0 04            [24] 1392 	pop	(0+4)
+      0005BC D0 05            [24] 1393 	pop	(0+5)
+      0005BE D0 06            [24] 1394 	pop	(0+6)
+      0005C0 D0 07            [24] 1395 	pop	(0+7)
+      0005C2 D0 83            [24] 1396 	pop	dph
+      0005C4 D0 82            [24] 1397 	pop	dpl
+      0005C6 D0 F0            [24] 1398 	pop	b
+      0005C8 D0 E0            [24] 1399 	pop	acc
+      0005CA D0 21            [24] 1400 	pop	bits
+      0005CC 32               [24] 1401 	reti
+                                   1402 	.area CSEG    (CODE)
+                                   1403 	.area CONST   (CODE)
+                                   1404 	.area XINIT   (CODE)
+                                   1405 	.area CABS    (ABS,CODE)
