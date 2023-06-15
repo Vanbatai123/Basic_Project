@@ -1,0 +1,780 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module N76_DS1307
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _eiph1
+                                     12 	.globl _eip1
+                                     13 	.globl _pmd
+                                     14 	.globl _pmen
+                                     15 	.globl _pdtcnt
+                                     16 	.globl _pdten
+                                     17 	.globl _scon_1
+                                     18 	.globl _eiph
+                                     19 	.globl _aindids
+                                     20 	.globl _spdr
+                                     21 	.globl _spsr
+                                     22 	.globl _spcr2
+                                     23 	.globl _spcr
+                                     24 	.globl _capcon4
+                                     25 	.globl _capcon3
+                                     26 	.globl _b
+                                     27 	.globl _eip
+                                     28 	.globl _c2h
+                                     29 	.globl _c2l
+                                     30 	.globl _pif
+                                     31 	.globl _pipen
+                                     32 	.globl _pinen
+                                     33 	.globl _picon
+                                     34 	.globl _adccon0
+                                     35 	.globl _c1h
+                                     36 	.globl _c1l
+                                     37 	.globl _c0h
+                                     38 	.globl _c0l
+                                     39 	.globl _adcdly
+                                     40 	.globl _adccon2
+                                     41 	.globl _adccon1
+                                     42 	.globl _acc
+                                     43 	.globl _pwmcon1
+                                     44 	.globl _piocon0
+                                     45 	.globl _pwm3l
+                                     46 	.globl _pwm2l
+                                     47 	.globl _pwm1l
+                                     48 	.globl _pwm0l
+                                     49 	.globl _pwmpl
+                                     50 	.globl _pwmcon0
+                                     51 	.globl _fbd
+                                     52 	.globl _pnp
+                                     53 	.globl _pwm3h
+                                     54 	.globl _pwm2h
+                                     55 	.globl _pwm1h
+                                     56 	.globl _pwm0h
+                                     57 	.globl _pwmph
+                                     58 	.globl _psw
+                                     59 	.globl _adcmph
+                                     60 	.globl _adcmpl
+                                     61 	.globl _pwm5l
+                                     62 	.globl _th2
+                                     63 	.globl _pwm4l
+                                     64 	.globl _tl2
+                                     65 	.globl _rcmp2h
+                                     66 	.globl _rcmp2l
+                                     67 	.globl _t2mod
+                                     68 	.globl _t2con
+                                     69 	.globl _ta
+                                     70 	.globl _piocon1
+                                     71 	.globl _rh3
+                                     72 	.globl _pwm5h
+                                     73 	.globl _rl3
+                                     74 	.globl _pwm4h
+                                     75 	.globl _t3con
+                                     76 	.globl _adcrh
+                                     77 	.globl _adcrl
+                                     78 	.globl _i2addr
+                                     79 	.globl _i2con
+                                     80 	.globl _i2toc
+                                     81 	.globl _i2clk
+                                     82 	.globl _i2stat
+                                     83 	.globl _i2dat
+                                     84 	.globl _saddr_1
+                                     85 	.globl _saden_1
+                                     86 	.globl _saden
+                                     87 	.globl _ip
+                                     88 	.globl _pwmintc
+                                     89 	.globl _iph
+                                     90 	.globl _p2s
+                                     91 	.globl _p1sr
+                                     92 	.globl _p1m2
+                                     93 	.globl _p1s
+                                     94 	.globl _p1m1
+                                     95 	.globl _p0sr
+                                     96 	.globl _p0m2
+                                     97 	.globl _p0s
+                                     98 	.globl _p0m1
+                                     99 	.globl _p3
+                                    100 	.globl _iapcn
+                                    101 	.globl _iapfd
+                                    102 	.globl _p3sr
+                                    103 	.globl _p3m2
+                                    104 	.globl _p3s
+                                    105 	.globl _p3m1
+                                    106 	.globl _bodcon1
+                                    107 	.globl _wdcon
+                                    108 	.globl _saddr
+                                    109 	.globl _ie
+                                    110 	.globl _iapah
+                                    111 	.globl _iapal
+                                    112 	.globl _iapuen
+                                    113 	.globl _iaptrg
+                                    114 	.globl _bodcon0
+                                    115 	.globl _auxr1
+                                    116 	.globl _p2
+                                    117 	.globl _chpcon
+                                    118 	.globl _eie1
+                                    119 	.globl _eie
+                                    120 	.globl _sbuf_1
+                                    121 	.globl _sbuf
+                                    122 	.globl _scon
+                                    123 	.globl _cken
+                                    124 	.globl _ckswt
+                                    125 	.globl _ckdiv
+                                    126 	.globl _capcon2
+                                    127 	.globl _capcon1
+                                    128 	.globl _capcon0
+                                    129 	.globl _sfrs
+                                    130 	.globl _p1
+                                    131 	.globl _wkcon
+                                    132 	.globl _ckcon
+                                    133 	.globl _th1
+                                    134 	.globl _th0
+                                    135 	.globl _tl1
+                                    136 	.globl _tl0
+                                    137 	.globl _tmod
+                                    138 	.globl _tcon
+                                    139 	.globl _pcon
+                                    140 	.globl _rwk
+                                    141 	.globl _rctrim1
+                                    142 	.globl _rctrim0
+                                    143 	.globl _dph
+                                    144 	.globl _dpl
+                                    145 	.globl _sp
+                                    146 	.globl _p0
+                                    147 	.globl _DS1307_write_PARM_2
+                                    148 	.globl _I2C_config
+                                    149 	.globl _I2C_start
+                                    150 	.globl _I2C_stop
+                                    151 	.globl _I2C_read
+                                    152 	.globl _I2C_write
+                                    153 	.globl _DS1307_begin
+                                    154 	.globl _DS1307_read
+                                    155 	.globl _DS1307_write
+                                    156 	.globl _bcd_to_decimal
+                                    157 	.globl _decimal_to_bcd
+                                    158 ;--------------------------------------------------------
+                                    159 ; special function registers
+                                    160 ;--------------------------------------------------------
+                                    161 	.area RSEG    (ABS,DATA)
+      000000                        162 	.org 0x0000
+                           000080   163 _p0	=	0x0080
+                           000081   164 _sp	=	0x0081
+                           000082   165 _dpl	=	0x0082
+                           000083   166 _dph	=	0x0083
+                           000084   167 _rctrim0	=	0x0084
+                           000085   168 _rctrim1	=	0x0085
+                           000086   169 _rwk	=	0x0086
+                           000087   170 _pcon	=	0x0087
+                           000088   171 _tcon	=	0x0088
+                           000089   172 _tmod	=	0x0089
+                           00008A   173 _tl0	=	0x008a
+                           00008B   174 _tl1	=	0x008b
+                           00008C   175 _th0	=	0x008c
+                           00008D   176 _th1	=	0x008d
+                           00008E   177 _ckcon	=	0x008e
+                           00008F   178 _wkcon	=	0x008f
+                           000090   179 _p1	=	0x0090
+                           000091   180 _sfrs	=	0x0091
+                           000092   181 _capcon0	=	0x0092
+                           000093   182 _capcon1	=	0x0093
+                           000094   183 _capcon2	=	0x0094
+                           000095   184 _ckdiv	=	0x0095
+                           000096   185 _ckswt	=	0x0096
+                           000097   186 _cken	=	0x0097
+                           000098   187 _scon	=	0x0098
+                           000099   188 _sbuf	=	0x0099
+                           00009A   189 _sbuf_1	=	0x009a
+                           00009B   190 _eie	=	0x009b
+                           00009C   191 _eie1	=	0x009c
+                           00009F   192 _chpcon	=	0x009f
+                           0000A0   193 _p2	=	0x00a0
+                           0000A2   194 _auxr1	=	0x00a2
+                           0000A3   195 _bodcon0	=	0x00a3
+                           0000A4   196 _iaptrg	=	0x00a4
+                           0000A5   197 _iapuen	=	0x00a5
+                           0000A6   198 _iapal	=	0x00a6
+                           0000A7   199 _iapah	=	0x00a7
+                           0000A8   200 _ie	=	0x00a8
+                           0000A9   201 _saddr	=	0x00a9
+                           0000AA   202 _wdcon	=	0x00aa
+                           0000AB   203 _bodcon1	=	0x00ab
+                           0000AC   204 _p3m1	=	0x00ac
+                           0000AC   205 _p3s	=	0x00ac
+                           0000AD   206 _p3m2	=	0x00ad
+                           0000AD   207 _p3sr	=	0x00ad
+                           0000AE   208 _iapfd	=	0x00ae
+                           0000AF   209 _iapcn	=	0x00af
+                           0000B0   210 _p3	=	0x00b0
+                           0000B1   211 _p0m1	=	0x00b1
+                           0000B1   212 _p0s	=	0x00b1
+                           0000B2   213 _p0m2	=	0x00b2
+                           0000B2   214 _p0sr	=	0x00b2
+                           0000B3   215 _p1m1	=	0x00b3
+                           0000B3   216 _p1s	=	0x00b3
+                           0000B4   217 _p1m2	=	0x00b4
+                           0000B4   218 _p1sr	=	0x00b4
+                           0000B5   219 _p2s	=	0x00b5
+                           0000B7   220 _iph	=	0x00b7
+                           0000B7   221 _pwmintc	=	0x00b7
+                           0000B8   222 _ip	=	0x00b8
+                           0000B9   223 _saden	=	0x00b9
+                           0000BA   224 _saden_1	=	0x00ba
+                           0000BB   225 _saddr_1	=	0x00bb
+                           0000BC   226 _i2dat	=	0x00bc
+                           0000BD   227 _i2stat	=	0x00bd
+                           0000BE   228 _i2clk	=	0x00be
+                           0000BF   229 _i2toc	=	0x00bf
+                           0000C0   230 _i2con	=	0x00c0
+                           0000C1   231 _i2addr	=	0x00c1
+                           0000C2   232 _adcrl	=	0x00c2
+                           0000C3   233 _adcrh	=	0x00c3
+                           0000C4   234 _t3con	=	0x00c4
+                           0000C4   235 _pwm4h	=	0x00c4
+                           0000C5   236 _rl3	=	0x00c5
+                           0000C5   237 _pwm5h	=	0x00c5
+                           0000C6   238 _rh3	=	0x00c6
+                           0000C6   239 _piocon1	=	0x00c6
+                           0000C7   240 _ta	=	0x00c7
+                           0000C8   241 _t2con	=	0x00c8
+                           0000C9   242 _t2mod	=	0x00c9
+                           0000CA   243 _rcmp2l	=	0x00ca
+                           0000CB   244 _rcmp2h	=	0x00cb
+                           0000CC   245 _tl2	=	0x00cc
+                           0000CC   246 _pwm4l	=	0x00cc
+                           0000CD   247 _th2	=	0x00cd
+                           0000CD   248 _pwm5l	=	0x00cd
+                           0000CE   249 _adcmpl	=	0x00ce
+                           0000CF   250 _adcmph	=	0x00cf
+                           0000D0   251 _psw	=	0x00d0
+                           0000D1   252 _pwmph	=	0x00d1
+                           0000D2   253 _pwm0h	=	0x00d2
+                           0000D3   254 _pwm1h	=	0x00d3
+                           0000D4   255 _pwm2h	=	0x00d4
+                           0000D5   256 _pwm3h	=	0x00d5
+                           0000D6   257 _pnp	=	0x00d6
+                           0000D7   258 _fbd	=	0x00d7
+                           0000D8   259 _pwmcon0	=	0x00d8
+                           0000D9   260 _pwmpl	=	0x00d9
+                           0000DA   261 _pwm0l	=	0x00da
+                           0000DB   262 _pwm1l	=	0x00db
+                           0000DC   263 _pwm2l	=	0x00dc
+                           0000DD   264 _pwm3l	=	0x00dd
+                           0000DE   265 _piocon0	=	0x00de
+                           0000DF   266 _pwmcon1	=	0x00df
+                           0000E0   267 _acc	=	0x00e0
+                           0000E1   268 _adccon1	=	0x00e1
+                           0000E2   269 _adccon2	=	0x00e2
+                           0000E3   270 _adcdly	=	0x00e3
+                           0000E4   271 _c0l	=	0x00e4
+                           0000E5   272 _c0h	=	0x00e5
+                           0000E6   273 _c1l	=	0x00e6
+                           0000E7   274 _c1h	=	0x00e7
+                           0000E8   275 _adccon0	=	0x00e8
+                           0000E9   276 _picon	=	0x00e9
+                           0000EA   277 _pinen	=	0x00ea
+                           0000EB   278 _pipen	=	0x00eb
+                           0000EC   279 _pif	=	0x00ec
+                           0000ED   280 _c2l	=	0x00ed
+                           0000EE   281 _c2h	=	0x00ee
+                           0000EF   282 _eip	=	0x00ef
+                           0000F0   283 _b	=	0x00f0
+                           0000F1   284 _capcon3	=	0x00f1
+                           0000F2   285 _capcon4	=	0x00f2
+                           0000F3   286 _spcr	=	0x00f3
+                           0000F3   287 _spcr2	=	0x00f3
+                           0000F4   288 _spsr	=	0x00f4
+                           0000F5   289 _spdr	=	0x00f5
+                           0000F6   290 _aindids	=	0x00f6
+                           0000F7   291 _eiph	=	0x00f7
+                           0000F8   292 _scon_1	=	0x00f8
+                           0000F9   293 _pdten	=	0x00f9
+                           0000FA   294 _pdtcnt	=	0x00fa
+                           0000FB   295 _pmen	=	0x00fb
+                           0000FC   296 _pmd	=	0x00fc
+                           0000FE   297 _eip1	=	0x00fe
+                           0000FF   298 _eiph1	=	0x00ff
+                                    299 ;--------------------------------------------------------
+                                    300 ; special function bits
+                                    301 ;--------------------------------------------------------
+                                    302 	.area RSEG    (ABS,DATA)
+      000000                        303 	.org 0x0000
+                                    304 ;--------------------------------------------------------
+                                    305 ; overlayable register banks
+                                    306 ;--------------------------------------------------------
+                                    307 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        308 	.ds 8
+                                    309 ;--------------------------------------------------------
+                                    310 ; internal ram data
+                                    311 ;--------------------------------------------------------
+                                    312 	.area DSEG    (DATA)
+      000028                        313 _DS1307_write_PARM_2:
+      000028                        314 	.ds 1
+                                    315 ;--------------------------------------------------------
+                                    316 ; overlayable items in internal ram
+                                    317 ;--------------------------------------------------------
+                                    318 	.area	OSEG    (OVR,DATA)
+                                    319 	.area	OSEG    (OVR,DATA)
+                                    320 	.area	OSEG    (OVR,DATA)
+                                    321 	.area	OSEG    (OVR,DATA)
+                                    322 	.area	OSEG    (OVR,DATA)
+                                    323 ;--------------------------------------------------------
+                                    324 ; indirectly addressable internal ram data
+                                    325 ;--------------------------------------------------------
+                                    326 	.area ISEG    (DATA)
+                                    327 ;--------------------------------------------------------
+                                    328 ; absolute internal ram data
+                                    329 ;--------------------------------------------------------
+                                    330 	.area IABS    (ABS,DATA)
+                                    331 	.area IABS    (ABS,DATA)
+                                    332 ;--------------------------------------------------------
+                                    333 ; bit data
+                                    334 ;--------------------------------------------------------
+                                    335 	.area BSEG    (BIT)
+                                    336 ;--------------------------------------------------------
+                                    337 ; paged external ram data
+                                    338 ;--------------------------------------------------------
+                                    339 	.area PSEG    (PAG,XDATA)
+                                    340 ;--------------------------------------------------------
+                                    341 ; external ram data
+                                    342 ;--------------------------------------------------------
+                                    343 	.area XSEG    (XDATA)
+                                    344 ;--------------------------------------------------------
+                                    345 ; absolute external ram data
+                                    346 ;--------------------------------------------------------
+                                    347 	.area XABS    (ABS,XDATA)
+                                    348 ;--------------------------------------------------------
+                                    349 ; external initialized ram data
+                                    350 ;--------------------------------------------------------
+                                    351 	.area XISEG   (XDATA)
+                                    352 	.area HOME    (CODE)
+                                    353 	.area GSINIT0 (CODE)
+                                    354 	.area GSINIT1 (CODE)
+                                    355 	.area GSINIT2 (CODE)
+                                    356 	.area GSINIT3 (CODE)
+                                    357 	.area GSINIT4 (CODE)
+                                    358 	.area GSINIT5 (CODE)
+                                    359 	.area GSINIT  (CODE)
+                                    360 	.area GSFINAL (CODE)
+                                    361 	.area CSEG    (CODE)
+                                    362 ;--------------------------------------------------------
+                                    363 ; global & static initialisations
+                                    364 ;--------------------------------------------------------
+                                    365 	.area HOME    (CODE)
+                                    366 	.area GSINIT  (CODE)
+                                    367 	.area GSFINAL (CODE)
+                                    368 	.area GSINIT  (CODE)
+                                    369 ;--------------------------------------------------------
+                                    370 ; Home
+                                    371 ;--------------------------------------------------------
+                                    372 	.area HOME    (CODE)
+                                    373 	.area HOME    (CODE)
+                                    374 ;--------------------------------------------------------
+                                    375 ; code
+                                    376 ;--------------------------------------------------------
+                                    377 	.area CSEG    (CODE)
+                                    378 ;------------------------------------------------------------
+                                    379 ;Allocation info for local variables in function 'I2C_config'
+                                    380 ;------------------------------------------------------------
+                                    381 ;	./src/N76_DS1307.c:11: void I2C_config(void)
+                                    382 ;	-----------------------------------------
+                                    383 ;	 function I2C_config
+                                    384 ;	-----------------------------------------
+      0009B9                        385 _I2C_config:
+                           000007   386 	ar7 = 0x07
+                           000006   387 	ar6 = 0x06
+                           000005   388 	ar5 = 0x05
+                           000004   389 	ar4 = 0x04
+                           000003   390 	ar3 = 0x03
+                           000002   391 	ar2 = 0x02
+                           000001   392 	ar1 = 0x01
+                           000000   393 	ar0 = 0x00
+                                    394 ;	./src/N76_DS1307.c:13: setb(P1M1, 3); // set P1.3 as open drain
+      0009B9 43 B3 08         [24]  395 	orl	_p1m1,#0x08
+                                    396 ;	./src/N76_DS1307.c:14: setb(P1M2, 3);
+      0009BC 43 B4 08         [24]  397 	orl	_p1m2,#0x08
+                                    398 ;	./src/N76_DS1307.c:15: setb(P1M1, 4); // set P1.4 as open drain
+      0009BF 43 B3 10         [24]  399 	orl	_p1m1,#0x10
+                                    400 ;	./src/N76_DS1307.c:16: setb(P1M2, 4);
+      0009C2 43 B4 10         [24]  401 	orl	_p1m2,#0x10
+                                    402 ;	./src/N76_DS1307.c:19: I2CLK = I2C_CLOCK; // I2C clock = Fsys/(4*(I2CLK+1))
+      0009C5 75 BE 27         [24]  403 	mov	_i2clk,#0x27
+                                    404 ;	./src/N76_DS1307.c:22: setb(I2CON, I2CEN); // set_I2CEN;
+      0009C8 43 C0 40         [24]  405 	orl	_i2con,#0x40
+                                    406 ;	./src/N76_DS1307.c:23: }
+      0009CB 22               [24]  407 	ret
+                                    408 ;------------------------------------------------------------
+                                    409 ;Allocation info for local variables in function 'I2C_start'
+                                    410 ;------------------------------------------------------------
+                                    411 ;t                         Allocated to registers r6 r7 
+                                    412 ;------------------------------------------------------------
+                                    413 ;	./src/N76_DS1307.c:25: void I2C_start(void)
+                                    414 ;	-----------------------------------------
+                                    415 ;	 function I2C_start
+                                    416 ;	-----------------------------------------
+      0009CC                        417 _I2C_start:
+                                    418 ;	./src/N76_DS1307.c:28: setb(I2CON, STA);
+      0009CC 43 C0 20         [24]  419 	orl	_i2con,#0x20
+                                    420 ;	./src/N76_DS1307.c:29: clrb(I2CON, SI);
+      0009CF 53 C0 F7         [24]  421 	anl	_i2con,#0xf7
+                                    422 ;	./src/N76_DS1307.c:30: while ((inbit(I2CON, SI) == 0) && (t > 0))
+      0009D2 7E E8            [12]  423 	mov	r6,#0xe8
+      0009D4 7F 03            [12]  424 	mov	r7,#0x03
+      0009D6                        425 00102$:
+      0009D6 74 08            [12]  426 	mov	a,#0x08
+      0009D8 55 C0            [12]  427 	anl	a,_i2con
+      0009DA C4               [12]  428 	swap	a
+      0009DB 23               [12]  429 	rl	a
+      0009DC 54 1F            [12]  430 	anl	a,#0x1f
+      0009DE FD               [12]  431 	mov	r5,a
+      0009DF 70 15            [24]  432 	jnz	00105$
+      0009E1 C3               [12]  433 	clr	c
+      0009E2 E4               [12]  434 	clr	a
+      0009E3 9E               [12]  435 	subb	a,r6
+      0009E4 74 80            [12]  436 	mov	a,#(0x00 ^ 0x80)
+      0009E6 8F F0            [24]  437 	mov	b,r7
+      0009E8 63 F0 80         [24]  438 	xrl	b,#0x80
+      0009EB 95 F0            [12]  439 	subb	a,b
+      0009ED 50 07            [24]  440 	jnc	00105$
+                                    441 ;	./src/N76_DS1307.c:32: t--;
+      0009EF 1E               [12]  442 	dec	r6
+      0009F0 BE FF 01         [24]  443 	cjne	r6,#0xff,00122$
+      0009F3 1F               [12]  444 	dec	r7
+      0009F4                        445 00122$:
+      0009F4 80 E0            [24]  446 	sjmp	00102$
+      0009F6                        447 00105$:
+                                    448 ;	./src/N76_DS1307.c:34: }
+      0009F6 22               [24]  449 	ret
+                                    450 ;------------------------------------------------------------
+                                    451 ;Allocation info for local variables in function 'I2C_stop'
+                                    452 ;------------------------------------------------------------
+                                    453 ;t                         Allocated to registers r6 r7 
+                                    454 ;------------------------------------------------------------
+                                    455 ;	./src/N76_DS1307.c:36: void I2C_stop(void)
+                                    456 ;	-----------------------------------------
+                                    457 ;	 function I2C_stop
+                                    458 ;	-----------------------------------------
+      0009F7                        459 _I2C_stop:
+                                    460 ;	./src/N76_DS1307.c:39: setb(I2CON, STO);
+      0009F7 43 C0 10         [24]  461 	orl	_i2con,#0x10
+                                    462 ;	./src/N76_DS1307.c:40: clrb(I2CON, SI);
+      0009FA 53 C0 F7         [24]  463 	anl	_i2con,#0xf7
+                                    464 ;	./src/N76_DS1307.c:41: while ((inbit(I2CON, STO) == 1) && (t > 0))
+      0009FD 7E E8            [12]  465 	mov	r6,#0xe8
+      0009FF 7F 03            [12]  466 	mov	r7,#0x03
+      000A01                        467 00102$:
+      000A01 74 10            [12]  468 	mov	a,#0x10
+      000A03 55 C0            [12]  469 	anl	a,_i2con
+      000A05 C4               [12]  470 	swap	a
+      000A06 54 0F            [12]  471 	anl	a,#0x0f
+      000A08 FD               [12]  472 	mov	r5,a
+      000A09 BD 01 15         [24]  473 	cjne	r5,#0x01,00105$
+      000A0C C3               [12]  474 	clr	c
+      000A0D E4               [12]  475 	clr	a
+      000A0E 9E               [12]  476 	subb	a,r6
+      000A0F 74 80            [12]  477 	mov	a,#(0x00 ^ 0x80)
+      000A11 8F F0            [24]  478 	mov	b,r7
+      000A13 63 F0 80         [24]  479 	xrl	b,#0x80
+      000A16 95 F0            [12]  480 	subb	a,b
+      000A18 50 07            [24]  481 	jnc	00105$
+                                    482 ;	./src/N76_DS1307.c:43: t--;
+      000A1A 1E               [12]  483 	dec	r6
+      000A1B BE FF 01         [24]  484 	cjne	r6,#0xff,00123$
+      000A1E 1F               [12]  485 	dec	r7
+      000A1F                        486 00123$:
+      000A1F 80 E0            [24]  487 	sjmp	00102$
+      000A21                        488 00105$:
+                                    489 ;	./src/N76_DS1307.c:45: }
+      000A21 22               [24]  490 	ret
+                                    491 ;------------------------------------------------------------
+                                    492 ;Allocation info for local variables in function 'I2C_read'
+                                    493 ;------------------------------------------------------------
+                                    494 ;ack_mode                  Allocated to registers r7 
+                                    495 ;t                         Allocated to registers r5 r6 
+                                    496 ;value                     Allocated to registers r6 
+                                    497 ;------------------------------------------------------------
+                                    498 ;	./src/N76_DS1307.c:47: uint8_t I2C_read(uint8_t ack_mode)
+                                    499 ;	-----------------------------------------
+                                    500 ;	 function I2C_read
+                                    501 ;	-----------------------------------------
+      000A22                        502 _I2C_read:
+      000A22 AF 82            [24]  503 	mov	r7,dpl
+                                    504 ;	./src/N76_DS1307.c:51: setb(I2CON, AA);
+      000A24 43 C0 04         [24]  505 	orl	_i2con,#0x04
+                                    506 ;	./src/N76_DS1307.c:52: clrb(I2CON, SI);
+      000A27 53 C0 F7         [24]  507 	anl	_i2con,#0xf7
+                                    508 ;	./src/N76_DS1307.c:53: while ((inbit(I2CON, SI) == 0) && (t > 0))
+      000A2A 7D E8            [12]  509 	mov	r5,#0xe8
+      000A2C 7E 03            [12]  510 	mov	r6,#0x03
+      000A2E                        511 00102$:
+      000A2E 74 08            [12]  512 	mov	a,#0x08
+      000A30 55 C0            [12]  513 	anl	a,_i2con
+      000A32 C4               [12]  514 	swap	a
+      000A33 23               [12]  515 	rl	a
+      000A34 54 1F            [12]  516 	anl	a,#0x1f
+      000A36 FC               [12]  517 	mov	r4,a
+      000A37 70 15            [24]  518 	jnz	00104$
+      000A39 C3               [12]  519 	clr	c
+      000A3A E4               [12]  520 	clr	a
+      000A3B 9D               [12]  521 	subb	a,r5
+      000A3C 74 80            [12]  522 	mov	a,#(0x00 ^ 0x80)
+      000A3E 8E F0            [24]  523 	mov	b,r6
+      000A40 63 F0 80         [24]  524 	xrl	b,#0x80
+      000A43 95 F0            [12]  525 	subb	a,b
+      000A45 50 07            [24]  526 	jnc	00104$
+                                    527 ;	./src/N76_DS1307.c:55: t--;
+      000A47 1D               [12]  528 	dec	r5
+      000A48 BD FF 01         [24]  529 	cjne	r5,#0xff,00145$
+      000A4B 1E               [12]  530 	dec	r6
+      000A4C                        531 00145$:
+      000A4C 80 E0            [24]  532 	sjmp	00102$
+      000A4E                        533 00104$:
+                                    534 ;	./src/N76_DS1307.c:57: value = I2DAT;
+      000A4E AE BC            [24]  535 	mov	r6,_i2dat
+                                    536 ;	./src/N76_DS1307.c:58: if (ack_mode == I2C_NACK)
+      000A50 BF 01 2A         [24]  537 	cjne	r7,#0x01,00110$
+                                    538 ;	./src/N76_DS1307.c:61: clrb(I2CON, AA);
+      000A53 53 C0 FB         [24]  539 	anl	_i2con,#0xfb
+                                    540 ;	./src/N76_DS1307.c:62: clrb(I2CON, SI);
+      000A56 53 C0 F7         [24]  541 	anl	_i2con,#0xf7
+                                    542 ;	./src/N76_DS1307.c:63: while ((inbit(I2CON, SI) == 0) && (t > 0))
+      000A59 7D E8            [12]  543 	mov	r5,#0xe8
+      000A5B 7F 03            [12]  544 	mov	r7,#0x03
+      000A5D                        545 00106$:
+      000A5D 74 08            [12]  546 	mov	a,#0x08
+      000A5F 55 C0            [12]  547 	anl	a,_i2con
+      000A61 C4               [12]  548 	swap	a
+      000A62 23               [12]  549 	rl	a
+      000A63 54 1F            [12]  550 	anl	a,#0x1f
+      000A65 FC               [12]  551 	mov	r4,a
+      000A66 70 15            [24]  552 	jnz	00110$
+      000A68 C3               [12]  553 	clr	c
+      000A69 E4               [12]  554 	clr	a
+      000A6A 9D               [12]  555 	subb	a,r5
+      000A6B 74 80            [12]  556 	mov	a,#(0x00 ^ 0x80)
+      000A6D 8F F0            [24]  557 	mov	b,r7
+      000A6F 63 F0 80         [24]  558 	xrl	b,#0x80
+      000A72 95 F0            [12]  559 	subb	a,b
+      000A74 50 07            [24]  560 	jnc	00110$
+                                    561 ;	./src/N76_DS1307.c:65: t--;
+      000A76 1D               [12]  562 	dec	r5
+      000A77 BD FF 01         [24]  563 	cjne	r5,#0xff,00150$
+      000A7A 1F               [12]  564 	dec	r7
+      000A7B                        565 00150$:
+      000A7B 80 E0            [24]  566 	sjmp	00106$
+      000A7D                        567 00110$:
+                                    568 ;	./src/N76_DS1307.c:68: return value;
+      000A7D 8E 82            [24]  569 	mov	dpl,r6
+                                    570 ;	./src/N76_DS1307.c:69: }
+      000A7F 22               [24]  571 	ret
+                                    572 ;------------------------------------------------------------
+                                    573 ;Allocation info for local variables in function 'I2C_write'
+                                    574 ;------------------------------------------------------------
+                                    575 ;value                     Allocated to registers 
+                                    576 ;t                         Allocated to registers r6 r7 
+                                    577 ;------------------------------------------------------------
+                                    578 ;	./src/N76_DS1307.c:70: void I2C_write(uint8_t value)
+                                    579 ;	-----------------------------------------
+                                    580 ;	 function I2C_write
+                                    581 ;	-----------------------------------------
+      000A80                        582 _I2C_write:
+      000A80 85 82 BC         [24]  583 	mov	_i2dat,dpl
+                                    584 ;	./src/N76_DS1307.c:74: clrb(I2CON, STA);
+      000A83 53 C0 DF         [24]  585 	anl	_i2con,#0xdf
+                                    586 ;	./src/N76_DS1307.c:75: clrb(I2CON, SI);
+      000A86 53 C0 F7         [24]  587 	anl	_i2con,#0xf7
+                                    588 ;	./src/N76_DS1307.c:76: while ((inbit(I2CON, SI) == 0) && (t > 0))
+      000A89 7E E8            [12]  589 	mov	r6,#0xe8
+      000A8B 7F 03            [12]  590 	mov	r7,#0x03
+      000A8D                        591 00102$:
+      000A8D 74 08            [12]  592 	mov	a,#0x08
+      000A8F 55 C0            [12]  593 	anl	a,_i2con
+      000A91 C4               [12]  594 	swap	a
+      000A92 23               [12]  595 	rl	a
+      000A93 54 1F            [12]  596 	anl	a,#0x1f
+      000A95 FD               [12]  597 	mov	r5,a
+      000A96 70 15            [24]  598 	jnz	00105$
+      000A98 C3               [12]  599 	clr	c
+      000A99 E4               [12]  600 	clr	a
+      000A9A 9E               [12]  601 	subb	a,r6
+      000A9B 74 80            [12]  602 	mov	a,#(0x00 ^ 0x80)
+      000A9D 8F F0            [24]  603 	mov	b,r7
+      000A9F 63 F0 80         [24]  604 	xrl	b,#0x80
+      000AA2 95 F0            [12]  605 	subb	a,b
+      000AA4 50 07            [24]  606 	jnc	00105$
+                                    607 ;	./src/N76_DS1307.c:78: t--;
+      000AA6 1E               [12]  608 	dec	r6
+      000AA7 BE FF 01         [24]  609 	cjne	r6,#0xff,00122$
+      000AAA 1F               [12]  610 	dec	r7
+      000AAB                        611 00122$:
+      000AAB 80 E0            [24]  612 	sjmp	00102$
+      000AAD                        613 00105$:
+                                    614 ;	./src/N76_DS1307.c:80: }
+      000AAD 22               [24]  615 	ret
+                                    616 ;------------------------------------------------------------
+                                    617 ;Allocation info for local variables in function 'DS1307_begin'
+                                    618 ;------------------------------------------------------------
+                                    619 ;	./src/N76_DS1307.c:82: void DS1307_begin(void)
+                                    620 ;	-----------------------------------------
+                                    621 ;	 function DS1307_begin
+                                    622 ;	-----------------------------------------
+      000AAE                        623 _DS1307_begin:
+                                    624 ;	./src/N76_DS1307.c:84: I2C_config();
+      000AAE 12 09 B9         [24]  625 	lcall	_I2C_config
+                                    626 ;	./src/N76_DS1307.c:85: DS1307_write(DS1307_CTRL_REG, 0x00);
+      000AB1 75 28 00         [24]  627 	mov	_DS1307_write_PARM_2,#0x00
+      000AB4 75 82 07         [24]  628 	mov	dpl,#0x07
+                                    629 ;	./src/N76_DS1307.c:86: }
+      000AB7 02 0A E9         [24]  630 	ljmp	_DS1307_write
+                                    631 ;------------------------------------------------------------
+                                    632 ;Allocation info for local variables in function 'DS1307_read'
+                                    633 ;------------------------------------------------------------
+                                    634 ;address                   Allocated to registers r7 
+                                    635 ;value                     Allocated to registers r7 
+                                    636 ;------------------------------------------------------------
+                                    637 ;	./src/N76_DS1307.c:88: uint8_t DS1307_read(uint8_t address)
+                                    638 ;	-----------------------------------------
+                                    639 ;	 function DS1307_read
+                                    640 ;	-----------------------------------------
+      000ABA                        641 _DS1307_read:
+      000ABA AF 82            [24]  642 	mov	r7,dpl
+                                    643 ;	./src/N76_DS1307.c:91: I2C_start();
+      000ABC C0 07            [24]  644 	push	ar7
+      000ABE 12 09 CC         [24]  645 	lcall	_I2C_start
+                                    646 ;	./src/N76_DS1307.c:92: I2C_write(DS1307_WR);
+      000AC1 75 82 D0         [24]  647 	mov	dpl,#0xd0
+      000AC4 12 0A 80         [24]  648 	lcall	_I2C_write
+      000AC7 D0 07            [24]  649 	pop	ar7
+                                    650 ;	./src/N76_DS1307.c:93: I2C_write(address);
+      000AC9 8F 82            [24]  651 	mov	dpl,r7
+      000ACB 12 0A 80         [24]  652 	lcall	_I2C_write
+                                    653 ;	./src/N76_DS1307.c:94: I2C_start();
+      000ACE 12 09 CC         [24]  654 	lcall	_I2C_start
+                                    655 ;	./src/N76_DS1307.c:95: I2C_write(DS1307_RD);
+      000AD1 75 82 D1         [24]  656 	mov	dpl,#0xd1
+      000AD4 12 0A 80         [24]  657 	lcall	_I2C_write
+                                    658 ;	./src/N76_DS1307.c:96: value = I2C_read(I2C_NACK);
+      000AD7 75 82 01         [24]  659 	mov	dpl,#0x01
+      000ADA 12 0A 22         [24]  660 	lcall	_I2C_read
+      000ADD AF 82            [24]  661 	mov	r7,dpl
+                                    662 ;	./src/N76_DS1307.c:97: I2C_stop();
+      000ADF C0 07            [24]  663 	push	ar7
+      000AE1 12 09 F7         [24]  664 	lcall	_I2C_stop
+      000AE4 D0 07            [24]  665 	pop	ar7
+                                    666 ;	./src/N76_DS1307.c:98: return value;
+      000AE6 8F 82            [24]  667 	mov	dpl,r7
+                                    668 ;	./src/N76_DS1307.c:99: }
+      000AE8 22               [24]  669 	ret
+                                    670 ;------------------------------------------------------------
+                                    671 ;Allocation info for local variables in function 'DS1307_write'
+                                    672 ;------------------------------------------------------------
+                                    673 ;value                     Allocated with name '_DS1307_write_PARM_2'
+                                    674 ;address                   Allocated to registers r7 
+                                    675 ;------------------------------------------------------------
+                                    676 ;	./src/N76_DS1307.c:101: void DS1307_write(uint8_t address, uint8_t value)
+                                    677 ;	-----------------------------------------
+                                    678 ;	 function DS1307_write
+                                    679 ;	-----------------------------------------
+      000AE9                        680 _DS1307_write:
+      000AE9 AF 82            [24]  681 	mov	r7,dpl
+                                    682 ;	./src/N76_DS1307.c:103: I2C_start();
+      000AEB C0 07            [24]  683 	push	ar7
+      000AED 12 09 CC         [24]  684 	lcall	_I2C_start
+                                    685 ;	./src/N76_DS1307.c:104: I2C_write(DS1307_WR);
+      000AF0 75 82 D0         [24]  686 	mov	dpl,#0xd0
+      000AF3 12 0A 80         [24]  687 	lcall	_I2C_write
+      000AF6 D0 07            [24]  688 	pop	ar7
+                                    689 ;	./src/N76_DS1307.c:105: I2C_write(address);
+      000AF8 8F 82            [24]  690 	mov	dpl,r7
+      000AFA 12 0A 80         [24]  691 	lcall	_I2C_write
+                                    692 ;	./src/N76_DS1307.c:106: I2C_write(value);
+      000AFD 85 28 82         [24]  693 	mov	dpl,_DS1307_write_PARM_2
+      000B00 12 0A 80         [24]  694 	lcall	_I2C_write
+                                    695 ;	./src/N76_DS1307.c:107: I2C_stop();
+                                    696 ;	./src/N76_DS1307.c:108: }
+      000B03 02 09 F7         [24]  697 	ljmp	_I2C_stop
+                                    698 ;------------------------------------------------------------
+                                    699 ;Allocation info for local variables in function 'bcd_to_decimal'
+                                    700 ;------------------------------------------------------------
+                                    701 ;value                     Allocated to registers r7 
+                                    702 ;------------------------------------------------------------
+                                    703 ;	./src/N76_DS1307.c:110: uint8_t bcd_to_decimal(uint8_t value)
+                                    704 ;	-----------------------------------------
+                                    705 ;	 function bcd_to_decimal
+                                    706 ;	-----------------------------------------
+      000B06                        707 _bcd_to_decimal:
+      000B06 AF 82            [24]  708 	mov	r7,dpl
+                                    709 ;	./src/N76_DS1307.c:112: return ((value & 0x0F) + (((value & 0xF0) >> 0x04) * 0x0A));
+      000B08 8F 06            [24]  710 	mov	ar6,r7
+      000B0A 53 06 0F         [24]  711 	anl	ar6,#0x0f
+      000B0D 53 07 F0         [24]  712 	anl	ar7,#0xf0
+      000B10 E4               [12]  713 	clr	a
+      000B11 C4               [12]  714 	swap	a
+      000B12 CF               [12]  715 	xch	a,r7
+      000B13 C4               [12]  716 	swap	a
+      000B14 54 0F            [12]  717 	anl	a,#0x0f
+      000B16 6F               [12]  718 	xrl	a,r7
+      000B17 CF               [12]  719 	xch	a,r7
+      000B18 54 0F            [12]  720 	anl	a,#0x0f
+      000B1A CF               [12]  721 	xch	a,r7
+      000B1B 6F               [12]  722 	xrl	a,r7
+      000B1C CF               [12]  723 	xch	a,r7
+      000B1D 30 E3 02         [24]  724 	jnb	acc.3,00103$
+      000B20 44 F0            [12]  725 	orl	a,#0xf0
+      000B22                        726 00103$:
+      000B22 EF               [12]  727 	mov	a,r7
+      000B23 75 F0 0A         [24]  728 	mov	b,#0x0a
+      000B26 A4               [48]  729 	mul	ab
+      000B27 2E               [12]  730 	add	a,r6
+      000B28 F5 82            [12]  731 	mov	dpl,a
+                                    732 ;	./src/N76_DS1307.c:113: }
+      000B2A 22               [24]  733 	ret
+                                    734 ;------------------------------------------------------------
+                                    735 ;Allocation info for local variables in function 'decimal_to_bcd'
+                                    736 ;------------------------------------------------------------
+                                    737 ;value                     Allocated to registers r7 
+                                    738 ;------------------------------------------------------------
+                                    739 ;	./src/N76_DS1307.c:114: uint8_t decimal_to_bcd(uint8_t value)
+                                    740 ;	-----------------------------------------
+                                    741 ;	 function decimal_to_bcd
+                                    742 ;	-----------------------------------------
+      000B2B                        743 _decimal_to_bcd:
+      000B2B AF 82            [24]  744 	mov	r7,dpl
+                                    745 ;	./src/N76_DS1307.c:116: return (((value / 0x0A) << 0x04) & 0xF0) | ((value % 0x0A) & 0x0F);
+      000B2D 7E 00            [12]  746 	mov	r6,#0x00
+      000B2F 75 77 0A         [24]  747 	mov	__divsint_PARM_2,#0x0a
+                                    748 ;	1-genFromRTrack replaced	mov	(__divsint_PARM_2 + 1),#0x00
+      000B32 8E 78            [24]  749 	mov	(__divsint_PARM_2 + 1),r6
+      000B34 8F 82            [24]  750 	mov	dpl,r7
+      000B36 8E 83            [24]  751 	mov	dph,r6
+      000B38 C0 07            [24]  752 	push	ar7
+      000B3A C0 06            [24]  753 	push	ar6
+      000B3C 12 16 70         [24]  754 	lcall	__divsint
+      000B3F AC 82            [24]  755 	mov	r4,dpl
+      000B41 D0 06            [24]  756 	pop	ar6
+      000B43 D0 07            [24]  757 	pop	ar7
+      000B45 EC               [12]  758 	mov	a,r4
+      000B46 C4               [12]  759 	swap	a
+      000B47 54 F0            [12]  760 	anl	a,#0xf0
+      000B49 FC               [12]  761 	mov	r4,a
+      000B4A 53 04 F0         [24]  762 	anl	ar4,#0xf0
+      000B4D 75 77 0A         [24]  763 	mov	__modsint_PARM_2,#0x0a
+      000B50 75 78 00         [24]  764 	mov	(__modsint_PARM_2 + 1),#0x00
+      000B53 8F 82            [24]  765 	mov	dpl,r7
+      000B55 8E 83            [24]  766 	mov	dph,r6
+      000B57 C0 04            [24]  767 	push	ar4
+      000B59 12 16 3A         [24]  768 	lcall	__modsint
+      000B5C AE 82            [24]  769 	mov	r6,dpl
+      000B5E D0 04            [24]  770 	pop	ar4
+      000B60 74 0F            [12]  771 	mov	a,#0x0f
+      000B62 5E               [12]  772 	anl	a,r6
+      000B63 4C               [12]  773 	orl	a,r4
+      000B64 F5 82            [12]  774 	mov	dpl,a
+                                    775 ;	./src/N76_DS1307.c:117: }
+      000B66 22               [24]  776 	ret
+                                    777 	.area CSEG    (CODE)
+                                    778 	.area CONST   (CODE)
+                                    779 	.area XINIT   (CODE)
+                                    780 	.area CABS    (ABS,CODE)

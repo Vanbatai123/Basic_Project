@@ -1,0 +1,803 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module WS2812
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _LED__SendByte_
+                                     12 	.globl _LED__SendOne_
+                                     13 	.globl _LED__SendZero_
+                                     14 	.globl _eiph1
+                                     15 	.globl _eip1
+                                     16 	.globl _pmd
+                                     17 	.globl _pmen
+                                     18 	.globl _pdtcnt
+                                     19 	.globl _pdten
+                                     20 	.globl _scon_1
+                                     21 	.globl _eiph
+                                     22 	.globl _aindids
+                                     23 	.globl _spdr
+                                     24 	.globl _spsr
+                                     25 	.globl _spcr2
+                                     26 	.globl _spcr
+                                     27 	.globl _capcon4
+                                     28 	.globl _capcon3
+                                     29 	.globl _b
+                                     30 	.globl _eip
+                                     31 	.globl _c2h
+                                     32 	.globl _c2l
+                                     33 	.globl _pif
+                                     34 	.globl _pipen
+                                     35 	.globl _pinen
+                                     36 	.globl _picon
+                                     37 	.globl _adccon0
+                                     38 	.globl _c1h
+                                     39 	.globl _c1l
+                                     40 	.globl _c0h
+                                     41 	.globl _c0l
+                                     42 	.globl _adcdly
+                                     43 	.globl _adccon2
+                                     44 	.globl _adccon1
+                                     45 	.globl _acc
+                                     46 	.globl _pwmcon1
+                                     47 	.globl _piocon0
+                                     48 	.globl _pwm3l
+                                     49 	.globl _pwm2l
+                                     50 	.globl _pwm1l
+                                     51 	.globl _pwm0l
+                                     52 	.globl _pwmpl
+                                     53 	.globl _pwmcon0
+                                     54 	.globl _fbd
+                                     55 	.globl _pnp
+                                     56 	.globl _pwm3h
+                                     57 	.globl _pwm2h
+                                     58 	.globl _pwm1h
+                                     59 	.globl _pwm0h
+                                     60 	.globl _pwmph
+                                     61 	.globl _psw
+                                     62 	.globl _adcmph
+                                     63 	.globl _adcmpl
+                                     64 	.globl _pwm5l
+                                     65 	.globl _th2
+                                     66 	.globl _pwm4l
+                                     67 	.globl _tl2
+                                     68 	.globl _rcmp2h
+                                     69 	.globl _rcmp2l
+                                     70 	.globl _t2mod
+                                     71 	.globl _t2con
+                                     72 	.globl _ta
+                                     73 	.globl _piocon1
+                                     74 	.globl _rh3
+                                     75 	.globl _pwm5h
+                                     76 	.globl _rl3
+                                     77 	.globl _pwm4h
+                                     78 	.globl _t3con
+                                     79 	.globl _adcrh
+                                     80 	.globl _adcrl
+                                     81 	.globl _i2addr
+                                     82 	.globl _i2con
+                                     83 	.globl _i2toc
+                                     84 	.globl _i2clk
+                                     85 	.globl _i2stat
+                                     86 	.globl _i2dat
+                                     87 	.globl _saddr_1
+                                     88 	.globl _saden_1
+                                     89 	.globl _saden
+                                     90 	.globl _ip
+                                     91 	.globl _pwmintc
+                                     92 	.globl _iph
+                                     93 	.globl _p2s
+                                     94 	.globl _p1sr
+                                     95 	.globl _p1m2
+                                     96 	.globl _p1s
+                                     97 	.globl _p1m1
+                                     98 	.globl _p0sr
+                                     99 	.globl _p0m2
+                                    100 	.globl _p0s
+                                    101 	.globl _p0m1
+                                    102 	.globl _p3
+                                    103 	.globl _iapcn
+                                    104 	.globl _iapfd
+                                    105 	.globl _p3sr
+                                    106 	.globl _p3m2
+                                    107 	.globl _p3s
+                                    108 	.globl _p3m1
+                                    109 	.globl _bodcon1
+                                    110 	.globl _wdcon
+                                    111 	.globl _saddr
+                                    112 	.globl _ie
+                                    113 	.globl _iapah
+                                    114 	.globl _iapal
+                                    115 	.globl _iapuen
+                                    116 	.globl _iaptrg
+                                    117 	.globl _bodcon0
+                                    118 	.globl _auxr1
+                                    119 	.globl _p2
+                                    120 	.globl _chpcon
+                                    121 	.globl _eie1
+                                    122 	.globl _eie
+                                    123 	.globl _sbuf_1
+                                    124 	.globl _sbuf
+                                    125 	.globl _scon
+                                    126 	.globl _cken
+                                    127 	.globl _ckswt
+                                    128 	.globl _ckdiv
+                                    129 	.globl _capcon2
+                                    130 	.globl _capcon1
+                                    131 	.globl _capcon0
+                                    132 	.globl _sfrs
+                                    133 	.globl _p1
+                                    134 	.globl _wkcon
+                                    135 	.globl _ckcon
+                                    136 	.globl _th1
+                                    137 	.globl _th0
+                                    138 	.globl _tl1
+                                    139 	.globl _tl0
+                                    140 	.globl _tmod
+                                    141 	.globl _tcon
+                                    142 	.globl _pcon
+                                    143 	.globl _rwk
+                                    144 	.globl _rctrim1
+                                    145 	.globl _rctrim0
+                                    146 	.globl _dph
+                                    147 	.globl _dpl
+                                    148 	.globl _sp
+                                    149 	.globl _p0
+                                    150 	.globl _setAll_PARM_3
+                                    151 	.globl _setAll_PARM_2
+                                    152 	.globl _setPixel_PARM_4
+                                    153 	.globl _setPixel_PARM_3
+                                    154 	.globl _setPixel_PARM_2
+                                    155 	.globl _curEffect
+                                    156 	.globl _curColor
+                                    157 	.globl _clearAll
+                                    158 	.globl _showStrip
+                                    159 	.globl _setPixel
+                                    160 	.globl _setAll
+                                    161 ;--------------------------------------------------------
+                                    162 ; special function registers
+                                    163 ;--------------------------------------------------------
+                                    164 	.area RSEG    (ABS,DATA)
+      000000                        165 	.org 0x0000
+                           000080   166 _p0	=	0x0080
+                           000081   167 _sp	=	0x0081
+                           000082   168 _dpl	=	0x0082
+                           000083   169 _dph	=	0x0083
+                           000084   170 _rctrim0	=	0x0084
+                           000085   171 _rctrim1	=	0x0085
+                           000086   172 _rwk	=	0x0086
+                           000087   173 _pcon	=	0x0087
+                           000088   174 _tcon	=	0x0088
+                           000089   175 _tmod	=	0x0089
+                           00008A   176 _tl0	=	0x008a
+                           00008B   177 _tl1	=	0x008b
+                           00008C   178 _th0	=	0x008c
+                           00008D   179 _th1	=	0x008d
+                           00008E   180 _ckcon	=	0x008e
+                           00008F   181 _wkcon	=	0x008f
+                           000090   182 _p1	=	0x0090
+                           000091   183 _sfrs	=	0x0091
+                           000092   184 _capcon0	=	0x0092
+                           000093   185 _capcon1	=	0x0093
+                           000094   186 _capcon2	=	0x0094
+                           000095   187 _ckdiv	=	0x0095
+                           000096   188 _ckswt	=	0x0096
+                           000097   189 _cken	=	0x0097
+                           000098   190 _scon	=	0x0098
+                           000099   191 _sbuf	=	0x0099
+                           00009A   192 _sbuf_1	=	0x009a
+                           00009B   193 _eie	=	0x009b
+                           00009C   194 _eie1	=	0x009c
+                           00009F   195 _chpcon	=	0x009f
+                           0000A0   196 _p2	=	0x00a0
+                           0000A2   197 _auxr1	=	0x00a2
+                           0000A3   198 _bodcon0	=	0x00a3
+                           0000A4   199 _iaptrg	=	0x00a4
+                           0000A5   200 _iapuen	=	0x00a5
+                           0000A6   201 _iapal	=	0x00a6
+                           0000A7   202 _iapah	=	0x00a7
+                           0000A8   203 _ie	=	0x00a8
+                           0000A9   204 _saddr	=	0x00a9
+                           0000AA   205 _wdcon	=	0x00aa
+                           0000AB   206 _bodcon1	=	0x00ab
+                           0000AC   207 _p3m1	=	0x00ac
+                           0000AC   208 _p3s	=	0x00ac
+                           0000AD   209 _p3m2	=	0x00ad
+                           0000AD   210 _p3sr	=	0x00ad
+                           0000AE   211 _iapfd	=	0x00ae
+                           0000AF   212 _iapcn	=	0x00af
+                           0000B0   213 _p3	=	0x00b0
+                           0000B1   214 _p0m1	=	0x00b1
+                           0000B1   215 _p0s	=	0x00b1
+                           0000B2   216 _p0m2	=	0x00b2
+                           0000B2   217 _p0sr	=	0x00b2
+                           0000B3   218 _p1m1	=	0x00b3
+                           0000B3   219 _p1s	=	0x00b3
+                           0000B4   220 _p1m2	=	0x00b4
+                           0000B4   221 _p1sr	=	0x00b4
+                           0000B5   222 _p2s	=	0x00b5
+                           0000B7   223 _iph	=	0x00b7
+                           0000B7   224 _pwmintc	=	0x00b7
+                           0000B8   225 _ip	=	0x00b8
+                           0000B9   226 _saden	=	0x00b9
+                           0000BA   227 _saden_1	=	0x00ba
+                           0000BB   228 _saddr_1	=	0x00bb
+                           0000BC   229 _i2dat	=	0x00bc
+                           0000BD   230 _i2stat	=	0x00bd
+                           0000BE   231 _i2clk	=	0x00be
+                           0000BF   232 _i2toc	=	0x00bf
+                           0000C0   233 _i2con	=	0x00c0
+                           0000C1   234 _i2addr	=	0x00c1
+                           0000C2   235 _adcrl	=	0x00c2
+                           0000C3   236 _adcrh	=	0x00c3
+                           0000C4   237 _t3con	=	0x00c4
+                           0000C4   238 _pwm4h	=	0x00c4
+                           0000C5   239 _rl3	=	0x00c5
+                           0000C5   240 _pwm5h	=	0x00c5
+                           0000C6   241 _rh3	=	0x00c6
+                           0000C6   242 _piocon1	=	0x00c6
+                           0000C7   243 _ta	=	0x00c7
+                           0000C8   244 _t2con	=	0x00c8
+                           0000C9   245 _t2mod	=	0x00c9
+                           0000CA   246 _rcmp2l	=	0x00ca
+                           0000CB   247 _rcmp2h	=	0x00cb
+                           0000CC   248 _tl2	=	0x00cc
+                           0000CC   249 _pwm4l	=	0x00cc
+                           0000CD   250 _th2	=	0x00cd
+                           0000CD   251 _pwm5l	=	0x00cd
+                           0000CE   252 _adcmpl	=	0x00ce
+                           0000CF   253 _adcmph	=	0x00cf
+                           0000D0   254 _psw	=	0x00d0
+                           0000D1   255 _pwmph	=	0x00d1
+                           0000D2   256 _pwm0h	=	0x00d2
+                           0000D3   257 _pwm1h	=	0x00d3
+                           0000D4   258 _pwm2h	=	0x00d4
+                           0000D5   259 _pwm3h	=	0x00d5
+                           0000D6   260 _pnp	=	0x00d6
+                           0000D7   261 _fbd	=	0x00d7
+                           0000D8   262 _pwmcon0	=	0x00d8
+                           0000D9   263 _pwmpl	=	0x00d9
+                           0000DA   264 _pwm0l	=	0x00da
+                           0000DB   265 _pwm1l	=	0x00db
+                           0000DC   266 _pwm2l	=	0x00dc
+                           0000DD   267 _pwm3l	=	0x00dd
+                           0000DE   268 _piocon0	=	0x00de
+                           0000DF   269 _pwmcon1	=	0x00df
+                           0000E0   270 _acc	=	0x00e0
+                           0000E1   271 _adccon1	=	0x00e1
+                           0000E2   272 _adccon2	=	0x00e2
+                           0000E3   273 _adcdly	=	0x00e3
+                           0000E4   274 _c0l	=	0x00e4
+                           0000E5   275 _c0h	=	0x00e5
+                           0000E6   276 _c1l	=	0x00e6
+                           0000E7   277 _c1h	=	0x00e7
+                           0000E8   278 _adccon0	=	0x00e8
+                           0000E9   279 _picon	=	0x00e9
+                           0000EA   280 _pinen	=	0x00ea
+                           0000EB   281 _pipen	=	0x00eb
+                           0000EC   282 _pif	=	0x00ec
+                           0000ED   283 _c2l	=	0x00ed
+                           0000EE   284 _c2h	=	0x00ee
+                           0000EF   285 _eip	=	0x00ef
+                           0000F0   286 _b	=	0x00f0
+                           0000F1   287 _capcon3	=	0x00f1
+                           0000F2   288 _capcon4	=	0x00f2
+                           0000F3   289 _spcr	=	0x00f3
+                           0000F3   290 _spcr2	=	0x00f3
+                           0000F4   291 _spsr	=	0x00f4
+                           0000F5   292 _spdr	=	0x00f5
+                           0000F6   293 _aindids	=	0x00f6
+                           0000F7   294 _eiph	=	0x00f7
+                           0000F8   295 _scon_1	=	0x00f8
+                           0000F9   296 _pdten	=	0x00f9
+                           0000FA   297 _pdtcnt	=	0x00fa
+                           0000FB   298 _pmen	=	0x00fb
+                           0000FC   299 _pmd	=	0x00fc
+                           0000FE   300 _eip1	=	0x00fe
+                           0000FF   301 _eiph1	=	0x00ff
+                                    302 ;--------------------------------------------------------
+                                    303 ; special function bits
+                                    304 ;--------------------------------------------------------
+                                    305 	.area RSEG    (ABS,DATA)
+      000000                        306 	.org 0x0000
+                                    307 ;--------------------------------------------------------
+                                    308 ; overlayable register banks
+                                    309 ;--------------------------------------------------------
+                                    310 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        311 	.ds 8
+                                    312 ;--------------------------------------------------------
+                                    313 ; internal ram data
+                                    314 ;--------------------------------------------------------
+                                    315 	.area DSEG    (DATA)
+      000000                        316 _curColor::
+      000000                        317 	.ds 1
+      000001                        318 _curEffect::
+      000001                        319 	.ds 1
+      000002                        320 _setPixel_PARM_2:
+      000002                        321 	.ds 1
+      000003                        322 _setPixel_PARM_3:
+      000003                        323 	.ds 1
+      000004                        324 _setPixel_PARM_4:
+      000004                        325 	.ds 1
+      000005                        326 _setAll_PARM_2:
+      000005                        327 	.ds 1
+      000006                        328 _setAll_PARM_3:
+      000006                        329 	.ds 1
+                                    330 ;--------------------------------------------------------
+                                    331 ; overlayable items in internal ram
+                                    332 ;--------------------------------------------------------
+                                    333 	.area	OSEG    (OVR,DATA)
+                                    334 ;--------------------------------------------------------
+                                    335 ; indirectly addressable internal ram data
+                                    336 ;--------------------------------------------------------
+                                    337 	.area ISEG    (DATA)
+                                    338 ;--------------------------------------------------------
+                                    339 ; absolute internal ram data
+                                    340 ;--------------------------------------------------------
+                                    341 	.area IABS    (ABS,DATA)
+                                    342 	.area IABS    (ABS,DATA)
+                                    343 ;--------------------------------------------------------
+                                    344 ; bit data
+                                    345 ;--------------------------------------------------------
+                                    346 	.area BSEG    (BIT)
+                                    347 ;--------------------------------------------------------
+                                    348 ; paged external ram data
+                                    349 ;--------------------------------------------------------
+                                    350 	.area PSEG    (PAG,XDATA)
+                                    351 ;--------------------------------------------------------
+                                    352 ; external ram data
+                                    353 ;--------------------------------------------------------
+                                    354 	.area XSEG    (XDATA)
+                                    355 ;--------------------------------------------------------
+                                    356 ; absolute external ram data
+                                    357 ;--------------------------------------------------------
+                                    358 	.area XABS    (ABS,XDATA)
+                                    359 ;--------------------------------------------------------
+                                    360 ; external initialized ram data
+                                    361 ;--------------------------------------------------------
+                                    362 	.area XISEG   (XDATA)
+                                    363 	.area HOME    (CODE)
+                                    364 	.area GSINIT0 (CODE)
+                                    365 	.area GSINIT1 (CODE)
+                                    366 	.area GSINIT2 (CODE)
+                                    367 	.area GSINIT3 (CODE)
+                                    368 	.area GSINIT4 (CODE)
+                                    369 	.area GSINIT5 (CODE)
+                                    370 	.area GSINIT  (CODE)
+                                    371 	.area GSFINAL (CODE)
+                                    372 	.area CSEG    (CODE)
+                                    373 ;--------------------------------------------------------
+                                    374 ; global & static initialisations
+                                    375 ;--------------------------------------------------------
+                                    376 	.area HOME    (CODE)
+                                    377 	.area GSINIT  (CODE)
+                                    378 	.area GSFINAL (CODE)
+                                    379 	.area GSINIT  (CODE)
+                                    380 ;--------------------------------------------------------
+                                    381 ; Home
+                                    382 ;--------------------------------------------------------
+                                    383 	.area HOME    (CODE)
+                                    384 	.area HOME    (CODE)
+                                    385 ;--------------------------------------------------------
+                                    386 ; code
+                                    387 ;--------------------------------------------------------
+                                    388 	.area CSEG    (CODE)
+                                    389 ;------------------------------------------------------------
+                                    390 ;Allocation info for local variables in function 'LED__SendZero_'
+                                    391 ;------------------------------------------------------------
+                                    392 ;	./src/WS2812.c:23: void LED__SendZero_()
+                                    393 ;	-----------------------------------------
+                                    394 ;	 function LED__SendZero_
+                                    395 ;	-----------------------------------------
+      000000                        396 _LED__SendZero_:
+                           000007   397 	ar7 = 0x07
+                           000006   398 	ar6 = 0x06
+                           000005   399 	ar5 = 0x05
+                           000004   400 	ar4 = 0x04
+                           000003   401 	ar3 = 0x03
+                           000002   402 	ar2 = 0x02
+                           000001   403 	ar1 = 0x01
+                           000000   404 	ar0 = 0x00
+                                    405 ;	./src/WS2812.c:25: setb(LED_PORT, LED_PIN);
+      000000 43 80 40         [24]  406 	orl	_p0,#0x40
+                                    407 ;	./src/WS2812.c:26: _nop_();
+      000003 00               [12]  408 	nop
+                                    409 ;	./src/WS2812.c:27: _nop_();
+      000004 00               [12]  410 	nop
+                                    411 ;	./src/WS2812.c:28: clrb(LED_PORT, LED_PIN);
+      000005 53 80 BF         [24]  412 	anl	_p0,#0xbf
+                                    413 ;	./src/WS2812.c:29: _nop_();
+      000008 00               [12]  414 	nop
+                                    415 ;	./src/WS2812.c:30: _nop_();
+      000009 00               [12]  416 	nop
+                                    417 ;	./src/WS2812.c:31: _nop_();
+      00000A 00               [12]  418 	nop
+                                    419 ;	./src/WS2812.c:32: _nop_();
+      00000B 00               [12]  420 	nop
+                                    421 ;	./src/WS2812.c:33: }
+      00000C 22               [24]  422 	ret
+                                    423 ;------------------------------------------------------------
+                                    424 ;Allocation info for local variables in function 'LED__SendOne_'
+                                    425 ;------------------------------------------------------------
+                                    426 ;	./src/WS2812.c:34: void LED__SendOne_()
+                                    427 ;	-----------------------------------------
+                                    428 ;	 function LED__SendOne_
+                                    429 ;	-----------------------------------------
+      00000D                        430 _LED__SendOne_:
+                                    431 ;	./src/WS2812.c:36: setb(LED_PORT, LED_PIN);
+      00000D 43 80 40         [24]  432 	orl	_p0,#0x40
+                                    433 ;	./src/WS2812.c:37: _nop_();
+      000010 00               [12]  434 	nop
+                                    435 ;	./src/WS2812.c:38: _nop_();
+      000011 00               [12]  436 	nop
+                                    437 ;	./src/WS2812.c:39: _nop_();
+      000012 00               [12]  438 	nop
+                                    439 ;	./src/WS2812.c:40: _nop_();
+      000013 00               [12]  440 	nop
+                                    441 ;	./src/WS2812.c:41: _nop_();
+      000014 00               [12]  442 	nop
+                                    443 ;	./src/WS2812.c:42: _nop_();
+      000015 00               [12]  444 	nop
+                                    445 ;	./src/WS2812.c:43: _nop_();
+      000016 00               [12]  446 	nop
+                                    447 ;	./src/WS2812.c:44: clrb(LED_PORT, LED_PIN);
+      000017 53 80 BF         [24]  448 	anl	_p0,#0xbf
+                                    449 ;	./src/WS2812.c:45: }
+      00001A 22               [24]  450 	ret
+                                    451 ;------------------------------------------------------------
+                                    452 ;Allocation info for local variables in function 'LED__SendByte_'
+                                    453 ;------------------------------------------------------------
+                                    454 ;dat                       Allocated to registers r7 
+                                    455 ;------------------------------------------------------------
+                                    456 ;	./src/WS2812.c:46: void LED__SendByte_(uint8_t dat)
+                                    457 ;	-----------------------------------------
+                                    458 ;	 function LED__SendByte_
+                                    459 ;	-----------------------------------------
+      00001B                        460 _LED__SendByte_:
+                                    461 ;	./src/WS2812.c:48: if (dat & 0x80)
+      00001B E5 82            [12]  462 	mov	a,dpl
+      00001D FF               [12]  463 	mov	r7,a
+      00001E 30 E7 09         [24]  464 	jnb	acc.7,00102$
+                                    465 ;	./src/WS2812.c:49: LED__SendOne_();
+      000021 C0 07            [24]  466 	push	ar7
+      000023 12r00r0D         [24]  467 	lcall	_LED__SendOne_
+      000026 D0 07            [24]  468 	pop	ar7
+      000028 80 07            [24]  469 	sjmp	00103$
+      00002A                        470 00102$:
+                                    471 ;	./src/WS2812.c:51: LED__SendZero_();
+      00002A C0 07            [24]  472 	push	ar7
+      00002C 12r00r00         [24]  473 	lcall	_LED__SendZero_
+      00002F D0 07            [24]  474 	pop	ar7
+      000031                        475 00103$:
+                                    476 ;	./src/WS2812.c:52: if (dat & 0x40)
+      000031 EF               [12]  477 	mov	a,r7
+      000032 30 E6 09         [24]  478 	jnb	acc.6,00105$
+                                    479 ;	./src/WS2812.c:53: LED__SendOne_();
+      000035 C0 07            [24]  480 	push	ar7
+      000037 12r00r0D         [24]  481 	lcall	_LED__SendOne_
+      00003A D0 07            [24]  482 	pop	ar7
+      00003C 80 07            [24]  483 	sjmp	00106$
+      00003E                        484 00105$:
+                                    485 ;	./src/WS2812.c:55: LED__SendZero_();
+      00003E C0 07            [24]  486 	push	ar7
+      000040 12r00r00         [24]  487 	lcall	_LED__SendZero_
+      000043 D0 07            [24]  488 	pop	ar7
+      000045                        489 00106$:
+                                    490 ;	./src/WS2812.c:56: if (dat & 0x20)
+      000045 EF               [12]  491 	mov	a,r7
+      000046 30 E5 09         [24]  492 	jnb	acc.5,00108$
+                                    493 ;	./src/WS2812.c:57: LED__SendOne_();
+      000049 C0 07            [24]  494 	push	ar7
+      00004B 12r00r0D         [24]  495 	lcall	_LED__SendOne_
+      00004E D0 07            [24]  496 	pop	ar7
+      000050 80 07            [24]  497 	sjmp	00109$
+      000052                        498 00108$:
+                                    499 ;	./src/WS2812.c:59: LED__SendZero_();
+      000052 C0 07            [24]  500 	push	ar7
+      000054 12r00r00         [24]  501 	lcall	_LED__SendZero_
+      000057 D0 07            [24]  502 	pop	ar7
+      000059                        503 00109$:
+                                    504 ;	./src/WS2812.c:60: if (dat & 0x10)
+      000059 EF               [12]  505 	mov	a,r7
+      00005A 30 E4 09         [24]  506 	jnb	acc.4,00111$
+                                    507 ;	./src/WS2812.c:61: LED__SendOne_();
+      00005D C0 07            [24]  508 	push	ar7
+      00005F 12r00r0D         [24]  509 	lcall	_LED__SendOne_
+      000062 D0 07            [24]  510 	pop	ar7
+      000064 80 07            [24]  511 	sjmp	00112$
+      000066                        512 00111$:
+                                    513 ;	./src/WS2812.c:63: LED__SendZero_();
+      000066 C0 07            [24]  514 	push	ar7
+      000068 12r00r00         [24]  515 	lcall	_LED__SendZero_
+      00006B D0 07            [24]  516 	pop	ar7
+      00006D                        517 00112$:
+                                    518 ;	./src/WS2812.c:64: if (dat & 0x08)
+      00006D EF               [12]  519 	mov	a,r7
+      00006E 30 E3 09         [24]  520 	jnb	acc.3,00114$
+                                    521 ;	./src/WS2812.c:65: LED__SendOne_();
+      000071 C0 07            [24]  522 	push	ar7
+      000073 12r00r0D         [24]  523 	lcall	_LED__SendOne_
+      000076 D0 07            [24]  524 	pop	ar7
+      000078 80 07            [24]  525 	sjmp	00115$
+      00007A                        526 00114$:
+                                    527 ;	./src/WS2812.c:67: LED__SendZero_();
+      00007A C0 07            [24]  528 	push	ar7
+      00007C 12r00r00         [24]  529 	lcall	_LED__SendZero_
+      00007F D0 07            [24]  530 	pop	ar7
+      000081                        531 00115$:
+                                    532 ;	./src/WS2812.c:68: if (dat & 0x04)
+      000081 EF               [12]  533 	mov	a,r7
+      000082 30 E2 09         [24]  534 	jnb	acc.2,00117$
+                                    535 ;	./src/WS2812.c:69: LED__SendOne_();
+      000085 C0 07            [24]  536 	push	ar7
+      000087 12r00r0D         [24]  537 	lcall	_LED__SendOne_
+      00008A D0 07            [24]  538 	pop	ar7
+      00008C 80 07            [24]  539 	sjmp	00118$
+      00008E                        540 00117$:
+                                    541 ;	./src/WS2812.c:71: LED__SendZero_();
+      00008E C0 07            [24]  542 	push	ar7
+      000090 12r00r00         [24]  543 	lcall	_LED__SendZero_
+      000093 D0 07            [24]  544 	pop	ar7
+      000095                        545 00118$:
+                                    546 ;	./src/WS2812.c:72: if (dat & 0x02)
+      000095 EF               [12]  547 	mov	a,r7
+      000096 30 E1 09         [24]  548 	jnb	acc.1,00120$
+                                    549 ;	./src/WS2812.c:73: LED__SendOne_();
+      000099 C0 07            [24]  550 	push	ar7
+      00009B 12r00r0D         [24]  551 	lcall	_LED__SendOne_
+      00009E D0 07            [24]  552 	pop	ar7
+      0000A0 80 07            [24]  553 	sjmp	00121$
+      0000A2                        554 00120$:
+                                    555 ;	./src/WS2812.c:75: LED__SendZero_();
+      0000A2 C0 07            [24]  556 	push	ar7
+      0000A4 12r00r00         [24]  557 	lcall	_LED__SendZero_
+      0000A7 D0 07            [24]  558 	pop	ar7
+      0000A9                        559 00121$:
+                                    560 ;	./src/WS2812.c:76: if (dat & 0x01)
+      0000A9 EF               [12]  561 	mov	a,r7
+      0000AA 30 E0 03         [24]  562 	jnb	acc.0,00123$
+                                    563 ;	./src/WS2812.c:77: LED__SendOne_();
+      0000AD 02r00r0D         [24]  564 	ljmp	_LED__SendOne_
+      0000B0                        565 00123$:
+                                    566 ;	./src/WS2812.c:79: LED__SendZero_();
+                                    567 ;	./src/WS2812.c:80: }
+      0000B0 02r00r00         [24]  568 	ljmp	_LED__SendZero_
+                                    569 ;------------------------------------------------------------
+                                    570 ;Allocation info for local variables in function 'clearAll'
+                                    571 ;------------------------------------------------------------
+                                    572 ;i                         Allocated to registers r6 r7 
+                                    573 ;------------------------------------------------------------
+                                    574 ;	./src/WS2812.c:82: void clearAll()
+                                    575 ;	-----------------------------------------
+                                    576 ;	 function clearAll
+                                    577 ;	-----------------------------------------
+      0000B3                        578 _clearAll:
+                                    579 ;	./src/WS2812.c:85: for (i = 0; i < 300; i++)
+      0000B3 7E 00            [12]  580 	mov	r6,#0x00
+      0000B5 7F 00            [12]  581 	mov	r7,#0x00
+      0000B7                        582 00102$:
+                                    583 ;	./src/WS2812.c:87: LED__SendByte_(0);
+      0000B7 75 82 00         [24]  584 	mov	dpl,#0x00
+      0000BA C0 07            [24]  585 	push	ar7
+      0000BC C0 06            [24]  586 	push	ar6
+      0000BE 12r00r1B         [24]  587 	lcall	_LED__SendByte_
+                                    588 ;	./src/WS2812.c:88: LED__SendByte_(0);
+      0000C1 75 82 00         [24]  589 	mov	dpl,#0x00
+      0000C4 12r00r1B         [24]  590 	lcall	_LED__SendByte_
+                                    591 ;	./src/WS2812.c:89: LED__SendByte_(0);
+      0000C7 75 82 00         [24]  592 	mov	dpl,#0x00
+      0000CA 12r00r1B         [24]  593 	lcall	_LED__SendByte_
+      0000CD D0 06            [24]  594 	pop	ar6
+      0000CF D0 07            [24]  595 	pop	ar7
+                                    596 ;	./src/WS2812.c:85: for (i = 0; i < 300; i++)
+      0000D1 0E               [12]  597 	inc	r6
+      0000D2 BE 00 01         [24]  598 	cjne	r6,#0x00,00111$
+      0000D5 0F               [12]  599 	inc	r7
+      0000D6                        600 00111$:
+      0000D6 8E 04            [24]  601 	mov	ar4,r6
+      0000D8 8F 05            [24]  602 	mov	ar5,r7
+      0000DA C3               [12]  603 	clr	c
+      0000DB EC               [12]  604 	mov	a,r4
+      0000DC 94 2C            [12]  605 	subb	a,#0x2c
+      0000DE ED               [12]  606 	mov	a,r5
+      0000DF 94 01            [12]  607 	subb	a,#0x01
+      0000E1 40 D4            [24]  608 	jc	00102$
+                                    609 ;	./src/WS2812.c:91: }
+      0000E3 22               [24]  610 	ret
+                                    611 ;------------------------------------------------------------
+                                    612 ;Allocation info for local variables in function 'showStrip'
+                                    613 ;------------------------------------------------------------
+                                    614 ;i                         Allocated to registers r7 
+                                    615 ;------------------------------------------------------------
+                                    616 ;	./src/WS2812.c:93: void showStrip()
+                                    617 ;	-----------------------------------------
+                                    618 ;	 function showStrip
+                                    619 ;	-----------------------------------------
+      0000E4                        620 _showStrip:
+                                    621 ;	./src/WS2812.c:96: for (i = 0; i < NUM_LEDS; ++i)
+      0000E4 7F 00            [12]  622 	mov	r7,#0x00
+      0000E6                        623 00103$:
+      0000E6 8F 05            [24]  624 	mov	ar5,r7
+      0000E8 7E 00            [12]  625 	mov	r6,#0x00
+      0000EA C3               [12]  626 	clr	c
+      0000EB ED               [12]  627 	mov	a,r5
+      0000EC 95*00            [12]  628 	subb	a,_NUM_LEDS
+      0000EE EE               [12]  629 	mov	a,r6
+      0000EF 95*01            [12]  630 	subb	a,(_NUM_LEDS + 1)
+      0000F1 50 64            [24]  631 	jnc	00105$
+                                    632 ;	./src/WS2812.c:98: LED__SendByte_(leds[i * 3]);
+      0000F3 8F*00            [24]  633 	mov	__mulint_PARM_2,r7
+      0000F5 75*01 00         [24]  634 	mov	(__mulint_PARM_2 + 1),#0x00
+      0000F8 90 00 03         [24]  635 	mov	dptr,#0x0003
+      0000FB C0 07            [24]  636 	push	ar7
+      0000FD 12r00r00         [24]  637 	lcall	__mulint
+      000100 AD 82            [24]  638 	mov	r5,dpl
+      000102 AE 83            [24]  639 	mov	r6,dph
+      000104 ED               [12]  640 	mov	a,r5
+      000105 24r00            [12]  641 	add	a,#_leds
+      000107 F5 82            [12]  642 	mov	dpl,a
+      000109 EE               [12]  643 	mov	a,r6
+      00010A 34s00            [12]  644 	addc	a,#(_leds >> 8)
+      00010C F5 83            [12]  645 	mov	dph,a
+      00010E E0               [24]  646 	movx	a,@dptr
+      00010F F5 82            [12]  647 	mov	dpl,a
+      000111 C0 06            [24]  648 	push	ar6
+      000113 C0 05            [24]  649 	push	ar5
+      000115 12r00r1B         [24]  650 	lcall	_LED__SendByte_
+      000118 D0 05            [24]  651 	pop	ar5
+      00011A D0 06            [24]  652 	pop	ar6
+                                    653 ;	./src/WS2812.c:99: LED__SendByte_(leds[i * 3 + 1]);
+      00011C 74 01            [12]  654 	mov	a,#0x01
+      00011E 2D               [12]  655 	add	a,r5
+      00011F FB               [12]  656 	mov	r3,a
+      000120 E4               [12]  657 	clr	a
+      000121 3E               [12]  658 	addc	a,r6
+      000122 FC               [12]  659 	mov	r4,a
+      000123 EB               [12]  660 	mov	a,r3
+      000124 24r00            [12]  661 	add	a,#_leds
+      000126 F5 82            [12]  662 	mov	dpl,a
+      000128 EC               [12]  663 	mov	a,r4
+      000129 34s00            [12]  664 	addc	a,#(_leds >> 8)
+      00012B F5 83            [12]  665 	mov	dph,a
+      00012D E0               [24]  666 	movx	a,@dptr
+      00012E F5 82            [12]  667 	mov	dpl,a
+      000130 C0 06            [24]  668 	push	ar6
+      000132 C0 05            [24]  669 	push	ar5
+      000134 12r00r1B         [24]  670 	lcall	_LED__SendByte_
+      000137 D0 05            [24]  671 	pop	ar5
+      000139 D0 06            [24]  672 	pop	ar6
+                                    673 ;	./src/WS2812.c:100: LED__SendByte_(leds[i * 3 + 2]);
+      00013B 74 02            [12]  674 	mov	a,#0x02
+      00013D 2D               [12]  675 	add	a,r5
+      00013E FD               [12]  676 	mov	r5,a
+      00013F E4               [12]  677 	clr	a
+      000140 3E               [12]  678 	addc	a,r6
+      000141 FE               [12]  679 	mov	r6,a
+      000142 ED               [12]  680 	mov	a,r5
+      000143 24r00            [12]  681 	add	a,#_leds
+      000145 F5 82            [12]  682 	mov	dpl,a
+      000147 EE               [12]  683 	mov	a,r6
+      000148 34s00            [12]  684 	addc	a,#(_leds >> 8)
+      00014A F5 83            [12]  685 	mov	dph,a
+      00014C E0               [24]  686 	movx	a,@dptr
+      00014D F5 82            [12]  687 	mov	dpl,a
+      00014F 12r00r1B         [24]  688 	lcall	_LED__SendByte_
+      000152 D0 07            [24]  689 	pop	ar7
+                                    690 ;	./src/WS2812.c:96: for (i = 0; i < NUM_LEDS; ++i)
+      000154 0F               [12]  691 	inc	r7
+      000155 80 8F            [24]  692 	sjmp	00103$
+      000157                        693 00105$:
+                                    694 ;	./src/WS2812.c:102: }
+      000157 22               [24]  695 	ret
+                                    696 ;------------------------------------------------------------
+                                    697 ;Allocation info for local variables in function 'setPixel'
+                                    698 ;------------------------------------------------------------
+                                    699 ;green                     Allocated with name '_setPixel_PARM_2'
+                                    700 ;red                       Allocated with name '_setPixel_PARM_3'
+                                    701 ;blue                      Allocated with name '_setPixel_PARM_4'
+                                    702 ;Pixel                     Allocated to registers r6 r7 
+                                    703 ;------------------------------------------------------------
+                                    704 ;	./src/WS2812.c:105: void setPixel(uint16_t Pixel, uint8_t green, uint8_t red, uint8_t blue)
+                                    705 ;	-----------------------------------------
+                                    706 ;	 function setPixel
+                                    707 ;	-----------------------------------------
+      000158                        708 _setPixel:
+      000158 AE 82            [24]  709 	mov	r6,dpl
+      00015A AF 83            [24]  710 	mov	r7,dph
+                                    711 ;	./src/WS2812.c:107: leds[Pixel * 3] = green;
+      00015C 8E*00            [24]  712 	mov	__mulint_PARM_2,r6
+      00015E 8F*01            [24]  713 	mov	(__mulint_PARM_2 + 1),r7
+      000160 90 00 03         [24]  714 	mov	dptr,#0x0003
+      000163 12r00r00         [24]  715 	lcall	__mulint
+      000166 AE 82            [24]  716 	mov	r6,dpl
+      000168 AF 83            [24]  717 	mov	r7,dph
+      00016A EE               [12]  718 	mov	a,r6
+      00016B 24r00            [12]  719 	add	a,#_leds
+      00016D F5 82            [12]  720 	mov	dpl,a
+      00016F EF               [12]  721 	mov	a,r7
+      000170 34s00            [12]  722 	addc	a,#(_leds >> 8)
+      000172 F5 83            [12]  723 	mov	dph,a
+      000174 E5*02            [12]  724 	mov	a,_setPixel_PARM_2
+      000176 F0               [24]  725 	movx	@dptr,a
+                                    726 ;	./src/WS2812.c:108: leds[Pixel * 3 + 1] = red;
+      000177 74 01            [12]  727 	mov	a,#0x01
+      000179 2E               [12]  728 	add	a,r6
+      00017A FC               [12]  729 	mov	r4,a
+      00017B E4               [12]  730 	clr	a
+      00017C 3F               [12]  731 	addc	a,r7
+      00017D FD               [12]  732 	mov	r5,a
+      00017E EC               [12]  733 	mov	a,r4
+      00017F 24r00            [12]  734 	add	a,#_leds
+      000181 F5 82            [12]  735 	mov	dpl,a
+      000183 ED               [12]  736 	mov	a,r5
+      000184 34s00            [12]  737 	addc	a,#(_leds >> 8)
+      000186 F5 83            [12]  738 	mov	dph,a
+      000188 E5*03            [12]  739 	mov	a,_setPixel_PARM_3
+      00018A F0               [24]  740 	movx	@dptr,a
+                                    741 ;	./src/WS2812.c:109: leds[Pixel * 3 + 2] = blue;
+      00018B 74 02            [12]  742 	mov	a,#0x02
+      00018D 2E               [12]  743 	add	a,r6
+      00018E FE               [12]  744 	mov	r6,a
+      00018F E4               [12]  745 	clr	a
+      000190 3F               [12]  746 	addc	a,r7
+      000191 FF               [12]  747 	mov	r7,a
+      000192 EE               [12]  748 	mov	a,r6
+      000193 24r00            [12]  749 	add	a,#_leds
+      000195 F5 82            [12]  750 	mov	dpl,a
+      000197 EF               [12]  751 	mov	a,r7
+      000198 34s00            [12]  752 	addc	a,#(_leds >> 8)
+      00019A F5 83            [12]  753 	mov	dph,a
+      00019C E5*04            [12]  754 	mov	a,_setPixel_PARM_4
+      00019E F0               [24]  755 	movx	@dptr,a
+                                    756 ;	./src/WS2812.c:110: }
+      00019F 22               [24]  757 	ret
+                                    758 ;------------------------------------------------------------
+                                    759 ;Allocation info for local variables in function 'setAll'
+                                    760 ;------------------------------------------------------------
+                                    761 ;red                       Allocated with name '_setAll_PARM_2'
+                                    762 ;blue                      Allocated with name '_setAll_PARM_3'
+                                    763 ;green                     Allocated to registers r7 
+                                    764 ;i                         Allocated to registers r6 
+                                    765 ;------------------------------------------------------------
+                                    766 ;	./src/WS2812.c:113: void setAll(uint8_t green, uint8_t red, uint8_t blue)
+                                    767 ;	-----------------------------------------
+                                    768 ;	 function setAll
+                                    769 ;	-----------------------------------------
+      0001A0                        770 _setAll:
+      0001A0 AF 82            [24]  771 	mov	r7,dpl
+                                    772 ;	./src/WS2812.c:116: for (i = 0; i < NUM_LEDS; ++i)
+      0001A2 7E 00            [12]  773 	mov	r6,#0x00
+      0001A4                        774 00103$:
+      0001A4 8E 04            [24]  775 	mov	ar4,r6
+      0001A6 7D 00            [12]  776 	mov	r5,#0x00
+      0001A8 C3               [12]  777 	clr	c
+      0001A9 EC               [12]  778 	mov	a,r4
+      0001AA 95*00            [12]  779 	subb	a,_NUM_LEDS
+      0001AC ED               [12]  780 	mov	a,r5
+      0001AD 95*01            [12]  781 	subb	a,(_NUM_LEDS + 1)
+      0001AF 50 1A            [24]  782 	jnc	00105$
+                                    783 ;	./src/WS2812.c:118: setPixel(i, green, red, blue);
+      0001B1 8F*02            [24]  784 	mov	_setPixel_PARM_2,r7
+      0001B3 85*05*03         [24]  785 	mov	_setPixel_PARM_3,_setAll_PARM_2
+      0001B6 85*06*04         [24]  786 	mov	_setPixel_PARM_4,_setAll_PARM_3
+      0001B9 8C 82            [24]  787 	mov	dpl,r4
+      0001BB 8D 83            [24]  788 	mov	dph,r5
+      0001BD C0 07            [24]  789 	push	ar7
+      0001BF C0 06            [24]  790 	push	ar6
+      0001C1 12r01r58         [24]  791 	lcall	_setPixel
+      0001C4 D0 06            [24]  792 	pop	ar6
+      0001C6 D0 07            [24]  793 	pop	ar7
+                                    794 ;	./src/WS2812.c:116: for (i = 0; i < NUM_LEDS; ++i)
+      0001C8 0E               [12]  795 	inc	r6
+      0001C9 80 D9            [24]  796 	sjmp	00103$
+      0001CB                        797 00105$:
+                                    798 ;	./src/WS2812.c:120: }
+      0001CB 22               [24]  799 	ret
+                                    800 	.area CSEG    (CODE)
+                                    801 	.area CONST   (CODE)
+                                    802 	.area XINIT   (CODE)
+                                    803 	.area CABS    (ABS,CODE)

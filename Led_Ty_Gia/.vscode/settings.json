@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.html": "css",
+        "include.h": "c",
+        "n76e003.h": "c",
+        "n76_uart0.h": "c",
+        "n76_max7219_595.h": "c",
+        "n76_ds1307.h": "c",
+        "Pin_Int.C": "cpp",
+        "n76_flash.h": "c"
+    }
+}

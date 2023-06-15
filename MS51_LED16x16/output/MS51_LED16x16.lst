@@ -1,0 +1,1122 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module MS51_LED16x16
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _timer2
+                                     12 	.globl _PIN_INT_FUCTION
+                                     13 	.globl _ADC_INT_FUCTION
+                                     14 	.globl _main
+                                     15 	.globl _TIM2_begin
+                                     16 	.globl _changeColor
+                                     17 	.globl _clearAll
+                                     18 	.globl _setAll
+                                     19 	.globl _Erase_APROM
+                                     20 	.globl _APROM_write_byte
+                                     21 	.globl _APROM_read_byte
+                                     22 	.globl __delay_us
+                                     23 	.globl _eiph1
+                                     24 	.globl _eip1
+                                     25 	.globl _pmd
+                                     26 	.globl _pmen
+                                     27 	.globl _pdtcnt
+                                     28 	.globl _pdten
+                                     29 	.globl _scon_1
+                                     30 	.globl _eiph
+                                     31 	.globl _aindids
+                                     32 	.globl _spdr
+                                     33 	.globl _spsr
+                                     34 	.globl _spcr2
+                                     35 	.globl _spcr
+                                     36 	.globl _capcon4
+                                     37 	.globl _capcon3
+                                     38 	.globl _b
+                                     39 	.globl _eip
+                                     40 	.globl _c2h
+                                     41 	.globl _c2l
+                                     42 	.globl _pif
+                                     43 	.globl _pipen
+                                     44 	.globl _pinen
+                                     45 	.globl _picon
+                                     46 	.globl _adccon0
+                                     47 	.globl _c1h
+                                     48 	.globl _c1l
+                                     49 	.globl _c0h
+                                     50 	.globl _c0l
+                                     51 	.globl _adcdly
+                                     52 	.globl _adccon2
+                                     53 	.globl _adccon1
+                                     54 	.globl _acc
+                                     55 	.globl _pwmcon1
+                                     56 	.globl _piocon0
+                                     57 	.globl _pwm3l
+                                     58 	.globl _pwm2l
+                                     59 	.globl _pwm1l
+                                     60 	.globl _pwm0l
+                                     61 	.globl _pwmpl
+                                     62 	.globl _pwmcon0
+                                     63 	.globl _fbd
+                                     64 	.globl _pnp
+                                     65 	.globl _pwm3h
+                                     66 	.globl _pwm2h
+                                     67 	.globl _pwm1h
+                                     68 	.globl _pwm0h
+                                     69 	.globl _pwmph
+                                     70 	.globl _psw
+                                     71 	.globl _adcmph
+                                     72 	.globl _adcmpl
+                                     73 	.globl _pwm5l
+                                     74 	.globl _th2
+                                     75 	.globl _pwm4l
+                                     76 	.globl _tl2
+                                     77 	.globl _rcmp2h
+                                     78 	.globl _rcmp2l
+                                     79 	.globl _t2mod
+                                     80 	.globl _t2con
+                                     81 	.globl _ta
+                                     82 	.globl _piocon1
+                                     83 	.globl _rh3
+                                     84 	.globl _pwm5h
+                                     85 	.globl _rl3
+                                     86 	.globl _pwm4h
+                                     87 	.globl _t3con
+                                     88 	.globl _adcrh
+                                     89 	.globl _adcrl
+                                     90 	.globl _i2addr
+                                     91 	.globl _i2con
+                                     92 	.globl _i2toc
+                                     93 	.globl _i2clk
+                                     94 	.globl _i2stat
+                                     95 	.globl _i2dat
+                                     96 	.globl _saddr_1
+                                     97 	.globl _saden_1
+                                     98 	.globl _saden
+                                     99 	.globl _ip
+                                    100 	.globl _pwmintc
+                                    101 	.globl _iph
+                                    102 	.globl _p2s
+                                    103 	.globl _p1sr
+                                    104 	.globl _p1m2
+                                    105 	.globl _p1s
+                                    106 	.globl _p1m1
+                                    107 	.globl _p0sr
+                                    108 	.globl _p0m2
+                                    109 	.globl _p0s
+                                    110 	.globl _p0m1
+                                    111 	.globl _p3
+                                    112 	.globl _iapcn
+                                    113 	.globl _iapfd
+                                    114 	.globl _p3sr
+                                    115 	.globl _p3m2
+                                    116 	.globl _p3s
+                                    117 	.globl _p3m1
+                                    118 	.globl _bodcon1
+                                    119 	.globl _wdcon
+                                    120 	.globl _saddr
+                                    121 	.globl _ie
+                                    122 	.globl _iapah
+                                    123 	.globl _iapal
+                                    124 	.globl _iapuen
+                                    125 	.globl _iaptrg
+                                    126 	.globl _bodcon0
+                                    127 	.globl _auxr1
+                                    128 	.globl _p2
+                                    129 	.globl _chpcon
+                                    130 	.globl _eie1
+                                    131 	.globl _eie
+                                    132 	.globl _sbuf_1
+                                    133 	.globl _sbuf
+                                    134 	.globl _scon
+                                    135 	.globl _cken
+                                    136 	.globl _ckswt
+                                    137 	.globl _ckdiv
+                                    138 	.globl _capcon2
+                                    139 	.globl _capcon1
+                                    140 	.globl _capcon0
+                                    141 	.globl _sfrs
+                                    142 	.globl _p1
+                                    143 	.globl _wkcon
+                                    144 	.globl _ckcon
+                                    145 	.globl _th1
+                                    146 	.globl _th0
+                                    147 	.globl _tl1
+                                    148 	.globl _tl0
+                                    149 	.globl _tmod
+                                    150 	.globl _tcon
+                                    151 	.globl _pcon
+                                    152 	.globl _rwk
+                                    153 	.globl _rctrim1
+                                    154 	.globl _rctrim0
+                                    155 	.globl _dph
+                                    156 	.globl _dpl
+                                    157 	.globl _sp
+                                    158 	.globl _p0
+                                    159 	.globl _leds
+                                    160 	.globl _g2
+                                    161 	.globl _b2
+                                    162 	.globl _r2
+                                    163 	.globl __color
+                                    164 	.globl __cnt
+                                    165 	.globl __status
+                                    166 	.globl _effect
+                                    167 	.globl __delay
+                                    168 	.globl _NUM_LEDS
+                                    169 ;--------------------------------------------------------
+                                    170 ; special function registers
+                                    171 ;--------------------------------------------------------
+                                    172 	.area RSEG    (ABS,DATA)
+      000000                        173 	.org 0x0000
+                           000080   174 _p0	=	0x0080
+                           000081   175 _sp	=	0x0081
+                           000082   176 _dpl	=	0x0082
+                           000083   177 _dph	=	0x0083
+                           000084   178 _rctrim0	=	0x0084
+                           000085   179 _rctrim1	=	0x0085
+                           000086   180 _rwk	=	0x0086
+                           000087   181 _pcon	=	0x0087
+                           000088   182 _tcon	=	0x0088
+                           000089   183 _tmod	=	0x0089
+                           00008A   184 _tl0	=	0x008a
+                           00008B   185 _tl1	=	0x008b
+                           00008C   186 _th0	=	0x008c
+                           00008D   187 _th1	=	0x008d
+                           00008E   188 _ckcon	=	0x008e
+                           00008F   189 _wkcon	=	0x008f
+                           000090   190 _p1	=	0x0090
+                           000091   191 _sfrs	=	0x0091
+                           000092   192 _capcon0	=	0x0092
+                           000093   193 _capcon1	=	0x0093
+                           000094   194 _capcon2	=	0x0094
+                           000095   195 _ckdiv	=	0x0095
+                           000096   196 _ckswt	=	0x0096
+                           000097   197 _cken	=	0x0097
+                           000098   198 _scon	=	0x0098
+                           000099   199 _sbuf	=	0x0099
+                           00009A   200 _sbuf_1	=	0x009a
+                           00009B   201 _eie	=	0x009b
+                           00009C   202 _eie1	=	0x009c
+                           00009F   203 _chpcon	=	0x009f
+                           0000A0   204 _p2	=	0x00a0
+                           0000A2   205 _auxr1	=	0x00a2
+                           0000A3   206 _bodcon0	=	0x00a3
+                           0000A4   207 _iaptrg	=	0x00a4
+                           0000A5   208 _iapuen	=	0x00a5
+                           0000A6   209 _iapal	=	0x00a6
+                           0000A7   210 _iapah	=	0x00a7
+                           0000A8   211 _ie	=	0x00a8
+                           0000A9   212 _saddr	=	0x00a9
+                           0000AA   213 _wdcon	=	0x00aa
+                           0000AB   214 _bodcon1	=	0x00ab
+                           0000AC   215 _p3m1	=	0x00ac
+                           0000AC   216 _p3s	=	0x00ac
+                           0000AD   217 _p3m2	=	0x00ad
+                           0000AD   218 _p3sr	=	0x00ad
+                           0000AE   219 _iapfd	=	0x00ae
+                           0000AF   220 _iapcn	=	0x00af
+                           0000B0   221 _p3	=	0x00b0
+                           0000B1   222 _p0m1	=	0x00b1
+                           0000B1   223 _p0s	=	0x00b1
+                           0000B2   224 _p0m2	=	0x00b2
+                           0000B2   225 _p0sr	=	0x00b2
+                           0000B3   226 _p1m1	=	0x00b3
+                           0000B3   227 _p1s	=	0x00b3
+                           0000B4   228 _p1m2	=	0x00b4
+                           0000B4   229 _p1sr	=	0x00b4
+                           0000B5   230 _p2s	=	0x00b5
+                           0000B7   231 _iph	=	0x00b7
+                           0000B7   232 _pwmintc	=	0x00b7
+                           0000B8   233 _ip	=	0x00b8
+                           0000B9   234 _saden	=	0x00b9
+                           0000BA   235 _saden_1	=	0x00ba
+                           0000BB   236 _saddr_1	=	0x00bb
+                           0000BC   237 _i2dat	=	0x00bc
+                           0000BD   238 _i2stat	=	0x00bd
+                           0000BE   239 _i2clk	=	0x00be
+                           0000BF   240 _i2toc	=	0x00bf
+                           0000C0   241 _i2con	=	0x00c0
+                           0000C1   242 _i2addr	=	0x00c1
+                           0000C2   243 _adcrl	=	0x00c2
+                           0000C3   244 _adcrh	=	0x00c3
+                           0000C4   245 _t3con	=	0x00c4
+                           0000C4   246 _pwm4h	=	0x00c4
+                           0000C5   247 _rl3	=	0x00c5
+                           0000C5   248 _pwm5h	=	0x00c5
+                           0000C6   249 _rh3	=	0x00c6
+                           0000C6   250 _piocon1	=	0x00c6
+                           0000C7   251 _ta	=	0x00c7
+                           0000C8   252 _t2con	=	0x00c8
+                           0000C9   253 _t2mod	=	0x00c9
+                           0000CA   254 _rcmp2l	=	0x00ca
+                           0000CB   255 _rcmp2h	=	0x00cb
+                           0000CC   256 _tl2	=	0x00cc
+                           0000CC   257 _pwm4l	=	0x00cc
+                           0000CD   258 _th2	=	0x00cd
+                           0000CD   259 _pwm5l	=	0x00cd
+                           0000CE   260 _adcmpl	=	0x00ce
+                           0000CF   261 _adcmph	=	0x00cf
+                           0000D0   262 _psw	=	0x00d0
+                           0000D1   263 _pwmph	=	0x00d1
+                           0000D2   264 _pwm0h	=	0x00d2
+                           0000D3   265 _pwm1h	=	0x00d3
+                           0000D4   266 _pwm2h	=	0x00d4
+                           0000D5   267 _pwm3h	=	0x00d5
+                           0000D6   268 _pnp	=	0x00d6
+                           0000D7   269 _fbd	=	0x00d7
+                           0000D8   270 _pwmcon0	=	0x00d8
+                           0000D9   271 _pwmpl	=	0x00d9
+                           0000DA   272 _pwm0l	=	0x00da
+                           0000DB   273 _pwm1l	=	0x00db
+                           0000DC   274 _pwm2l	=	0x00dc
+                           0000DD   275 _pwm3l	=	0x00dd
+                           0000DE   276 _piocon0	=	0x00de
+                           0000DF   277 _pwmcon1	=	0x00df
+                           0000E0   278 _acc	=	0x00e0
+                           0000E1   279 _adccon1	=	0x00e1
+                           0000E2   280 _adccon2	=	0x00e2
+                           0000E3   281 _adcdly	=	0x00e3
+                           0000E4   282 _c0l	=	0x00e4
+                           0000E5   283 _c0h	=	0x00e5
+                           0000E6   284 _c1l	=	0x00e6
+                           0000E7   285 _c1h	=	0x00e7
+                           0000E8   286 _adccon0	=	0x00e8
+                           0000E9   287 _picon	=	0x00e9
+                           0000EA   288 _pinen	=	0x00ea
+                           0000EB   289 _pipen	=	0x00eb
+                           0000EC   290 _pif	=	0x00ec
+                           0000ED   291 _c2l	=	0x00ed
+                           0000EE   292 _c2h	=	0x00ee
+                           0000EF   293 _eip	=	0x00ef
+                           0000F0   294 _b	=	0x00f0
+                           0000F1   295 _capcon3	=	0x00f1
+                           0000F2   296 _capcon4	=	0x00f2
+                           0000F3   297 _spcr	=	0x00f3
+                           0000F3   298 _spcr2	=	0x00f3
+                           0000F4   299 _spsr	=	0x00f4
+                           0000F5   300 _spdr	=	0x00f5
+                           0000F6   301 _aindids	=	0x00f6
+                           0000F7   302 _eiph	=	0x00f7
+                           0000F8   303 _scon_1	=	0x00f8
+                           0000F9   304 _pdten	=	0x00f9
+                           0000FA   305 _pdtcnt	=	0x00fa
+                           0000FB   306 _pmen	=	0x00fb
+                           0000FC   307 _pmd	=	0x00fc
+                           0000FE   308 _eip1	=	0x00fe
+                           0000FF   309 _eiph1	=	0x00ff
+                                    310 ;--------------------------------------------------------
+                                    311 ; special function bits
+                                    312 ;--------------------------------------------------------
+                                    313 	.area RSEG    (ABS,DATA)
+      000000                        314 	.org 0x0000
+                                    315 ;--------------------------------------------------------
+                                    316 ; overlayable register banks
+                                    317 ;--------------------------------------------------------
+                                    318 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        319 	.ds 8
+                                    320 ;--------------------------------------------------------
+                                    321 ; overlayable bit register bank
+                                    322 ;--------------------------------------------------------
+                                    323 	.area BIT_BANK	(REL,OVR,DATA)
+      000000                        324 bits:
+      000000                        325 	.ds 1
+                           008000   326 	b0 = bits[0]
+                           008100   327 	b1 = bits[1]
+                           008200   328 	b2 = bits[2]
+                           008300   329 	b3 = bits[3]
+                           008400   330 	b4 = bits[4]
+                           008500   331 	b5 = bits[5]
+                           008600   332 	b6 = bits[6]
+                           008700   333 	b7 = bits[7]
+                                    334 ;--------------------------------------------------------
+                                    335 ; internal ram data
+                                    336 ;--------------------------------------------------------
+                                    337 	.area DSEG    (DATA)
+      000000                        338 _NUM_LEDS::
+      000000                        339 	.ds 2
+      000002                        340 __delay::
+      000002                        341 	.ds 2
+      000004                        342 _effect::
+      000004                        343 	.ds 1
+      000005                        344 __status::
+      000005                        345 	.ds 1
+      000006                        346 __cnt::
+      000006                        347 	.ds 1
+      000007                        348 __color::
+      000007                        349 	.ds 1
+      000008                        350 _r2::
+      000008                        351 	.ds 1
+      000009                        352 _b2::
+      000009                        353 	.ds 1
+      00000A                        354 _g2::
+      00000A                        355 	.ds 1
+                                    356 ;--------------------------------------------------------
+                                    357 ; overlayable items in internal ram
+                                    358 ;--------------------------------------------------------
+                                    359 ;--------------------------------------------------------
+                                    360 ; Stack segment in internal ram
+                                    361 ;--------------------------------------------------------
+                                    362 	.area	SSEG
+      000000                        363 __start__stack:
+      000000                        364 	.ds	1
+                                    365 
+                                    366 ;--------------------------------------------------------
+                                    367 ; indirectly addressable internal ram data
+                                    368 ;--------------------------------------------------------
+                                    369 	.area ISEG    (DATA)
+                                    370 ;--------------------------------------------------------
+                                    371 ; absolute internal ram data
+                                    372 ;--------------------------------------------------------
+                                    373 	.area IABS    (ABS,DATA)
+                                    374 	.area IABS    (ABS,DATA)
+                                    375 ;--------------------------------------------------------
+                                    376 ; bit data
+                                    377 ;--------------------------------------------------------
+                                    378 	.area BSEG    (BIT)
+                                    379 ;--------------------------------------------------------
+                                    380 ; paged external ram data
+                                    381 ;--------------------------------------------------------
+                                    382 	.area PSEG    (PAG,XDATA)
+                                    383 ;--------------------------------------------------------
+                                    384 ; external ram data
+                                    385 ;--------------------------------------------------------
+                                    386 	.area XSEG    (XDATA)
+      000000                        387 _leds::
+      000000                        388 	.ds 768
+                                    389 ;--------------------------------------------------------
+                                    390 ; absolute external ram data
+                                    391 ;--------------------------------------------------------
+                                    392 	.area XABS    (ABS,XDATA)
+                                    393 ;--------------------------------------------------------
+                                    394 ; external initialized ram data
+                                    395 ;--------------------------------------------------------
+                                    396 	.area XISEG   (XDATA)
+                                    397 	.area HOME    (CODE)
+                                    398 	.area GSINIT0 (CODE)
+                                    399 	.area GSINIT1 (CODE)
+                                    400 	.area GSINIT2 (CODE)
+                                    401 	.area GSINIT3 (CODE)
+                                    402 	.area GSINIT4 (CODE)
+                                    403 	.area GSINIT5 (CODE)
+                                    404 	.area GSINIT  (CODE)
+                                    405 	.area GSFINAL (CODE)
+                                    406 	.area CSEG    (CODE)
+                                    407 ;--------------------------------------------------------
+                                    408 ; interrupt vector
+                                    409 ;--------------------------------------------------------
+                                    410 	.area HOME    (CODE)
+      000000                        411 __interrupt_vect:
+      000000 02r00r00         [24]  412 	ljmp	__sdcc_gsinit_startup
+      000003 32               [24]  413 	reti
+      000004                        414 	.ds	7
+      00000B 32               [24]  415 	reti
+      00000C                        416 	.ds	7
+      000013 32               [24]  417 	reti
+      000014                        418 	.ds	7
+      00001B 32               [24]  419 	reti
+      00001C                        420 	.ds	7
+      000023 32               [24]  421 	reti
+      000024                        422 	.ds	7
+      00002B 02r02r76         [24]  423 	ljmp	_timer2
+      00002E                        424 	.ds	5
+      000033 32               [24]  425 	reti
+      000034                        426 	.ds	7
+      00003B 02r01rCB         [24]  427 	ljmp	_PIN_INT_FUCTION
+      00003E                        428 	.ds	5
+      000043 32               [24]  429 	reti
+      000044                        430 	.ds	7
+      00004B 32               [24]  431 	reti
+      00004C                        432 	.ds	7
+      000053 32               [24]  433 	reti
+      000054                        434 	.ds	7
+      00005B 02r01r8E         [24]  435 	ljmp	_ADC_INT_FUCTION
+                                    436 ;--------------------------------------------------------
+                                    437 ; global & static initialisations
+                                    438 ;--------------------------------------------------------
+                                    439 	.area HOME    (CODE)
+                                    440 	.area GSINIT  (CODE)
+                                    441 	.area GSFINAL (CODE)
+                                    442 	.area GSINIT  (CODE)
+                                    443 	.globl __sdcc_gsinit_startup
+                                    444 	.globl __sdcc_program_startup
+                                    445 	.globl __start__stack
+                                    446 	.globl __mcs51_genXINIT
+                                    447 	.globl __mcs51_genXRAMCLEAR
+                                    448 	.globl __mcs51_genRAMCLEAR
+                                    449 ;	./MS51_LED16x16.c:24: uint8_t _status = STT_NOTSAVED;
+      000000 75*05 56         [24]  450 	mov	__status,#0x56
+                                    451 ;	./MS51_LED16x16.c:26: uint8_t _color = 0;
+      000003 75*07 00         [24]  452 	mov	__color,#0x00
+                                    453 ;	./MS51_LED16x16.c:27: uint8_t r2 = 255, b2 = 0, g2 = 0;
+      000006 75*08 FF         [24]  454 	mov	_r2,#0xff
+                                    455 ;	./MS51_LED16x16.c:27: __xdata uint8_t leds[768];
+      000009 75*09 00         [24]  456 	mov	_b2,#0x00
+                                    457 ;	./MS51_LED16x16.c:27: uint8_t r2 = 255, b2 = 0, g2 = 0;
+      00000C 75*0A 00         [24]  458 	mov	_g2,#0x00
+                                    459 	.area GSFINAL (CODE)
+      000000 02r00r5E         [24]  460 	ljmp	__sdcc_program_startup
+                                    461 ;--------------------------------------------------------
+                                    462 ; Home
+                                    463 ;--------------------------------------------------------
+                                    464 	.area HOME    (CODE)
+                                    465 	.area HOME    (CODE)
+      00005E                        466 __sdcc_program_startup:
+      00005E 02r00r9C         [24]  467 	ljmp	_main
+                                    468 ;	return from main will return to caller
+                                    469 ;--------------------------------------------------------
+                                    470 ; code
+                                    471 ;--------------------------------------------------------
+                                    472 	.area CSEG    (CODE)
+                                    473 ;------------------------------------------------------------
+                                    474 ;Allocation info for local variables in function 'changeColor'
+                                    475 ;------------------------------------------------------------
+                                    476 ;	./MS51_LED16x16.c:30: void changeColor()
+                                    477 ;	-----------------------------------------
+                                    478 ;	 function changeColor
+                                    479 ;	-----------------------------------------
+      000000                        480 _changeColor:
+                           000007   481 	ar7 = 0x07
+                           000006   482 	ar6 = 0x06
+                           000005   483 	ar5 = 0x05
+                           000004   484 	ar4 = 0x04
+                           000003   485 	ar3 = 0x03
+                           000002   486 	ar2 = 0x02
+                           000001   487 	ar1 = 0x01
+                           000000   488 	ar0 = 0x00
+                                    489 ;	./MS51_LED16x16.c:33: switch (_color)
+      000000 E5*07            [12]  490 	mov	a,__color
+      000002 24 F8            [12]  491 	add	a,#0xff - 0x07
+      000004 50 01            [24]  492 	jnc	00117$
+      000006 22               [24]  493 	ret
+      000007                        494 00117$:
+      000007 E5*07            [12]  495 	mov	a,__color
+      000009 24 0B            [12]  496 	add	a,#(00118$-3-.)
+      00000B 83               [24]  497 	movc	a,@a+pc
+      00000C F5 82            [12]  498 	mov	dpl,a
+      00000E E5*07            [12]  499 	mov	a,__color
+      000010 24 0C            [12]  500 	add	a,#(00119$-3-.)
+      000012 83               [24]  501 	movc	a,@a+pc
+      000013 F5 83            [12]  502 	mov	dph,a
+      000015 E4               [12]  503 	clr	a
+      000016 73               [24]  504 	jmp	@a+dptr
+      000017                        505 00118$:
+      000017r27                     506 	.db	00101$
+      000018r31                     507 	.db	00102$
+      000019r3B                     508 	.db	00103$
+      00001Ar45                     509 	.db	00104$
+      00001Br4F                     510 	.db	00105$
+      00001Cr59                     511 	.db	00106$
+      00001Dr63                     512 	.db	00107$
+      00001Er6D                     513 	.db	00108$
+      00001F                        514 00119$:
+      00001Fs00                     515 	.db	00101$>>8
+      000020s00                     516 	.db	00102$>>8
+      000021s00                     517 	.db	00103$>>8
+      000022s00                     518 	.db	00104$>>8
+      000023s00                     519 	.db	00105$>>8
+      000024s00                     520 	.db	00106$>>8
+      000025s00                     521 	.db	00107$>>8
+      000026s00                     522 	.db	00108$>>8
+                                    523 ;	./MS51_LED16x16.c:35: case 0: // red
+      000027                        524 00101$:
+                                    525 ;	./MS51_LED16x16.c:36: r2 = 239;
+      000027 75*08 EF         [24]  526 	mov	_r2,#0xef
+                                    527 ;	./MS51_LED16x16.c:37: g2 = 3;
+      00002A 75*0A 03         [24]  528 	mov	_g2,#0x03
+                                    529 ;	./MS51_LED16x16.c:38: b2 = 7;
+      00002D 75*09 07         [24]  530 	mov	_b2,#0x07
+                                    531 ;	./MS51_LED16x16.c:39: break;
+                                    532 ;	./MS51_LED16x16.c:41: case 1: // violet
+      000030 22               [24]  533 	ret
+      000031                        534 00102$:
+                                    535 ;	./MS51_LED16x16.c:42: r2 = 160;
+      000031 75*08 A0         [24]  536 	mov	_r2,#0xa0
+                                    537 ;	./MS51_LED16x16.c:43: g2 = 64;
+      000034 75*0A 40         [24]  538 	mov	_g2,#0x40
+                                    539 ;	./MS51_LED16x16.c:44: b2 = 198;
+      000037 75*09 C6         [24]  540 	mov	_b2,#0xc6
+                                    541 ;	./MS51_LED16x16.c:45: break;
+                                    542 ;	./MS51_LED16x16.c:47: case 2: // ORANGE
+      00003A 22               [24]  543 	ret
+      00003B                        544 00103$:
+                                    545 ;	./MS51_LED16x16.c:48: r2 = 255;
+      00003B 75*08 FF         [24]  546 	mov	_r2,#0xff
+                                    547 ;	./MS51_LED16x16.c:49: g2 = 153;
+      00003E 75*0A 99         [24]  548 	mov	_g2,#0x99
+                                    549 ;	./MS51_LED16x16.c:50: b2 = 0;
+      000041 75*09 00         [24]  550 	mov	_b2,#0x00
+                                    551 ;	./MS51_LED16x16.c:51: break;
+                                    552 ;	./MS51_LED16x16.c:53: case 3: // YELLOW
+      000044 22               [24]  553 	ret
+      000045                        554 00104$:
+                                    555 ;	./MS51_LED16x16.c:54: r2 = 255;
+      000045 75*08 FF         [24]  556 	mov	_r2,#0xff
+                                    557 ;	./MS51_LED16x16.c:55: g2 = 235;
+      000048 75*0A EB         [24]  558 	mov	_g2,#0xeb
+                                    559 ;	./MS51_LED16x16.c:56: b2 = 0;
+      00004B 75*09 00         [24]  560 	mov	_b2,#0x00
+                                    561 ;	./MS51_LED16x16.c:57: break;
+                                    562 ;	./MS51_LED16x16.c:59: case 4: // GREEN
+      00004E 22               [24]  563 	ret
+      00004F                        564 00105$:
+                                    565 ;	./MS51_LED16x16.c:60: r2 = 29;
+      00004F 75*08 1D         [24]  566 	mov	_r2,#0x1d
+                                    567 ;	./MS51_LED16x16.c:61: g2 = 185;
+      000052 75*0A B9         [24]  568 	mov	_g2,#0xb9
+                                    569 ;	./MS51_LED16x16.c:62: b2 = 84;
+      000055 75*09 54         [24]  570 	mov	_b2,#0x54
+                                    571 ;	./MS51_LED16x16.c:63: break;
+                                    572 ;	./MS51_LED16x16.c:65: case 5: // BLUE
+      000058 22               [24]  573 	ret
+      000059                        574 00106$:
+                                    575 ;	./MS51_LED16x16.c:66: r2 = 21;
+      000059 75*08 15         [24]  576 	mov	_r2,#0x15
+                                    577 ;	./MS51_LED16x16.c:67: g2 = 13;
+      00005C 75*0A 0D         [24]  578 	mov	_g2,#0x0d
+                                    579 ;	./MS51_LED16x16.c:68: b2 = 247;
+      00005F 75*09 F7         [24]  580 	mov	_b2,#0xf7
+                                    581 ;	./MS51_LED16x16.c:69: break;
+                                    582 ;	./MS51_LED16x16.c:71: case 6: // INDIGO
+      000062 22               [24]  583 	ret
+      000063                        584 00107$:
+                                    585 ;	./MS51_LED16x16.c:72: r2 = 110;
+      000063 75*08 6E         [24]  586 	mov	_r2,#0x6e
+                                    587 ;	./MS51_LED16x16.c:73: g2 = 0;
+      000066 75*0A 00         [24]  588 	mov	_g2,#0x00
+                                    589 ;	./MS51_LED16x16.c:74: b2 = 255;
+      000069 75*09 FF         [24]  590 	mov	_b2,#0xff
+                                    591 ;	./MS51_LED16x16.c:75: break;
+                                    592 ;	./MS51_LED16x16.c:77: case 7: // Warm White
+      00006C 22               [24]  593 	ret
+      00006D                        594 00108$:
+                                    595 ;	./MS51_LED16x16.c:78: r2 = 253;
+      00006D 75*08 FD         [24]  596 	mov	_r2,#0xfd
+                                    597 ;	./MS51_LED16x16.c:79: g2 = 244;
+      000070 75*0A F4         [24]  598 	mov	_g2,#0xf4
+                                    599 ;	./MS51_LED16x16.c:80: b2 = 220;
+      000073 75*09 DC         [24]  600 	mov	_b2,#0xdc
+                                    601 ;	./MS51_LED16x16.c:85: }
+                                    602 ;	./MS51_LED16x16.c:86: }
+      000076 22               [24]  603 	ret
+                                    604 ;------------------------------------------------------------
+                                    605 ;Allocation info for local variables in function 'TIM2_begin'
+                                    606 ;------------------------------------------------------------
+                                    607 ;	./MS51_LED16x16.c:88: void TIM2_begin()
+                                    608 ;	-----------------------------------------
+                                    609 ;	 function TIM2_begin
+                                    610 ;	-----------------------------------------
+      000077                        611 _TIM2_begin:
+                                    612 ;	./MS51_LED16x16.c:94: T2MOD &= ~0x70;
+      000077 53 C9 8F         [24]  613 	anl	_t2mod,#0x8f
+                                    614 ;	./MS51_LED16x16.c:96: T2MOD |= 0x60;
+      00007A 43 C9 60         [24]  615 	orl	_t2mod,#0x60
+                                    616 ;	./MS51_LED16x16.c:100: clr_CMRL2;
+      00007D 53 C8 FE         [24]  617 	anl	_t2con,#0xfe
+                                    618 ;	./MS51_LED16x16.c:104: set_CAPCR;
+      000080 43 C9 08         [24]  619 	orl	_t2mod,#0x08
+                                    620 ;	./MS51_LED16x16.c:105: set_LDEN;
+      000083 43 C9 80         [24]  621 	orl	_t2mod,#0x80
+                                    622 ;	./MS51_LED16x16.c:108: RCMP2L = 0xF6; // 100ms
+      000086 75 CA F6         [24]  623 	mov	_rcmp2l,#0xf6
+                                    624 ;	./MS51_LED16x16.c:110: RCMP2H = 0xC2;
+      000089 75 CB C2         [24]  625 	mov	_rcmp2h,#0xc2
+                                    626 ;	./MS51_LED16x16.c:111: TL2 = 0;
+      00008C 75 CC 00         [24]  627 	mov	_tl2,#0x00
+                                    628 ;	./MS51_LED16x16.c:112: TH2 = 0;
+      00008F 75 CD 00         [24]  629 	mov	_th2,#0x00
+                                    630 ;	./MS51_LED16x16.c:114: set_ET2; // Enable Timer2 interrupt
+      000092 43 9B 80         [24]  631 	orl	_eie,#0x80
+                                    632 ;	./MS51_LED16x16.c:115: sei();
+      000095 43 A8 80         [24]  633 	orl	_ie,#0x80
+                                    634 ;	./MS51_LED16x16.c:116: set_TR2; // Timer2 run
+      000098 43 C8 04         [24]  635 	orl	_t2con,#0x04
+                                    636 ;	./MS51_LED16x16.c:117: }
+      00009B 22               [24]  637 	ret
+                                    638 ;------------------------------------------------------------
+                                    639 ;Allocation info for local variables in function 'main'
+                                    640 ;------------------------------------------------------------
+                                    641 ;	./MS51_LED16x16.c:119: void main(void)
+                                    642 ;	-----------------------------------------
+                                    643 ;	 function main
+                                    644 ;	-----------------------------------------
+      00009C                        645 _main:
+                                    646 ;	./MS51_LED16x16.c:121: CKDIV = 0x00; // 16MHz
+      00009C 75 95 00         [24]  647 	mov	_ckdiv,#0x00
+                                    648 ;	./MS51_LED16x16.c:122: effect = APROM_read_byte(ADDR_EFF);
+      00009F 90 30 00         [24]  649 	mov	dptr,#0x3000
+      0000A2 12r00r00         [24]  650 	lcall	_APROM_read_byte
+      0000A5 85 82*04         [24]  651 	mov	_effect,dpl
+                                    652 ;	./MS51_LED16x16.c:123: if (effect >= NUM_EFFECT + 1)
+      0000A8 74 F8            [12]  653 	mov	a,#0x100 - 0x08
+      0000AA 25*04            [12]  654 	add	a,_effect
+      0000AC 50 03            [24]  655 	jnc	00102$
+                                    656 ;	./MS51_LED16x16.c:124: effect = DEFAULT_EFFECT;
+      0000AE 75*04 00         [24]  657 	mov	_effect,#0x00
+      0000B1                        658 00102$:
+                                    659 ;	./MS51_LED16x16.c:125: _color = APROM_read_byte(ADDR_COLOR);
+      0000B1 90 30 01         [24]  660 	mov	dptr,#0x3001
+      0000B4 12r00r00         [24]  661 	lcall	_APROM_read_byte
+      0000B7 85 82*07         [24]  662 	mov	__color,dpl
+                                    663 ;	./MS51_LED16x16.c:126: if (_color >= NUM_COLOR)
+      0000BA 74 F8            [12]  664 	mov	a,#0x100 - 0x08
+      0000BC 25*07            [12]  665 	add	a,__color
+      0000BE 50 03            [24]  666 	jnc	00104$
+                                    667 ;	./MS51_LED16x16.c:127: _color = 0;
+      0000C0 75*07 00         [24]  668 	mov	__color,#0x00
+      0000C3                        669 00104$:
+                                    670 ;	./MS51_LED16x16.c:129: changeColor();
+      0000C3 12r00r00         [24]  671 	lcall	_changeColor
+                                    672 ;	./MS51_LED16x16.c:131: clrb(LED2_PxM1, LED2_PIN);
+      0000C6 53 AC FE         [24]  673 	anl	_p3m1,#0xfe
+                                    674 ;	./MS51_LED16x16.c:132: setb(LED2_PxM2, LED2_PIN);
+      0000C9 43 AD 01         [24]  675 	orl	_p3m2,#0x01
+                                    676 ;	./MS51_LED16x16.c:133: clrb(LED2_PORT, LED2_PIN);
+      0000CC 53 B0 FE         [24]  677 	anl	_p3,#0xfe
+                                    678 ;	./MS51_LED16x16.c:135: clrb(LED_PxM1, LED_PIN);
+      0000CF 53 B1 BF         [24]  679 	anl	_p0m1,#0xbf
+                                    680 ;	./MS51_LED16x16.c:136: setb(LED_PxM2, LED_PIN);
+      0000D2 43 B2 40         [24]  681 	orl	_p0m2,#0x40
+                                    682 ;	./MS51_LED16x16.c:137: clrb(LED_PORT, LED_PIN);
+      0000D5 53 80 BF         [24]  683 	anl	_p0,#0xbf
+                                    684 ;	./MS51_LED16x16.c:139: clrb(SW_PxM1, SW50_PIN);
+      0000D8 53 B1 FE         [24]  685 	anl	_p0m1,#0xfe
+                                    686 ;	./MS51_LED16x16.c:140: setb(SW_PxM2, SW50_PIN);
+      0000DB 43 B2 01         [24]  687 	orl	_p0m2,#0x01
+                                    688 ;	./MS51_LED16x16.c:142: clrb(SW_PxM1, SW100_PIN);
+      0000DE 53 B1 FD         [24]  689 	anl	_p0m1,#0xfd
+                                    690 ;	./MS51_LED16x16.c:143: setb(SW_PxM2, SW100_PIN);
+      0000E1 43 B2 02         [24]  691 	orl	_p0m2,#0x02
+                                    692 ;	./MS51_LED16x16.c:145: clrb(SW_PxM1, SW150_PIN);
+      0000E4 53 B1 FB         [24]  693 	anl	_p0m1,#0xfb
+                                    694 ;	./MS51_LED16x16.c:146: setb(SW_PxM2, SW150_PIN);
+      0000E7 43 B2 04         [24]  695 	orl	_p0m2,#0x04
+                                    696 ;	./MS51_LED16x16.c:148: clrb(SW_PxM1, SW200_PIN);
+      0000EA 53 B1 F7         [24]  697 	anl	_p0m1,#0xf7
+                                    698 ;	./MS51_LED16x16.c:149: setb(SW_PxM2, SW200_PIN);
+      0000ED 43 B2 08         [24]  699 	orl	_p0m2,#0x08
+                                    700 ;	./MS51_LED16x16.c:151: SW_PORT |= 0x0F;
+      0000F0 43 80 0F         [24]  701 	orl	_p0,#0x0f
+                                    702 ;	./MS51_LED16x16.c:154: clrb(BTNE_PxM1, BTNE_PIN);
+      0000F3 53 B3 EF         [24]  703 	anl	_p1m1,#0xef
+                                    704 ;	./MS51_LED16x16.c:155: setb(BTNE_PxM2, BTNE_PIN);
+      0000F6 43 B4 10         [24]  705 	orl	_p1m2,#0x10
+                                    706 ;	./MS51_LED16x16.c:156: setb(BTNE_PORT, BTNE_PIN);
+      0000F9 43 90 10         [24]  707 	orl	_p1,#0x10
+                                    708 ;	./MS51_LED16x16.c:159: clrb(BTNC_PxM1, BTNC_PIN);
+      0000FC 53 B3 F7         [24]  709 	anl	_p1m1,#0xf7
+                                    710 ;	./MS51_LED16x16.c:160: setb(BTNC_PxM2, BTNC_PIN);
+      0000FF 43 B4 08         [24]  711 	orl	_p1m2,#0x08
+                                    712 ;	./MS51_LED16x16.c:161: setb(BTNC_PORT, BTNC_PIN);
+      000102 43 90 08         [24]  713 	orl	_p1,#0x08
+                                    714 ;	./MS51_LED16x16.c:164: ADCCON0 &= 0xF0;
+      000105 53 E8 F0         [24]  715 	anl	_adccon0,#0xf0
+                                    716 ;	./MS51_LED16x16.c:165: ADCCON0 |= 0x07;
+      000108 43 E8 07         [24]  717 	orl	_adccon0,#0x07
+                                    718 ;	./MS51_LED16x16.c:168: clrb(P1M2, 1);
+      00010B 53 B4 FD         [24]  719 	anl	_p1m2,#0xfd
+                                    720 ;	./MS51_LED16x16.c:169: setb(P1M1, 1);
+      00010E 43 B3 02         [24]  721 	orl	_p1m1,#0x02
+                                    722 ;	./MS51_LED16x16.c:170: AINDIDS = 0x00;
+      000111 75 F6 00         [24]  723 	mov	_aindids,#0x00
+                                    724 ;	./MS51_LED16x16.c:171: AINDIDS |= (1 << 7);
+      000114 43 F6 80         [24]  725 	orl	_aindids,#0x80
+                                    726 ;	./MS51_LED16x16.c:172: ADCCON1 |= (1 << 0);
+      000117 43 E1 01         [24]  727 	orl	_adccon1,#0x01
+                                    728 ;	./MS51_LED16x16.c:173: set_EADC; // enable interruppt ADC
+      00011A 43 A8 40         [24]  729 	orl	_ie,#0x40
+                                    730 ;	./MS51_LED16x16.c:176: set_PIPS0; // pin interrupt port 1
+      00011D 43 E9 01         [24]  731 	orl	_picon,#0x01
+                                    732 ;	./MS51_LED16x16.c:178: set_PIT45;
+      000120 43 E9 40         [24]  733 	orl	_picon,#0x40
+                                    734 ;	./MS51_LED16x16.c:179: setb(PINEN, BTNE_PIN); // enable falling edge
+      000123 43 EA 10         [24]  735 	orl	_pinen,#0x10
+                                    736 ;	./MS51_LED16x16.c:180: clrb(PIPEN, BTNE_PIN); // disable rasing edge
+      000126 53 EB EF         [24]  737 	anl	_pipen,#0xef
+                                    738 ;	./MS51_LED16x16.c:181: set_PIT3;
+      000129 43 E9 20         [24]  739 	orl	_picon,#0x20
+                                    740 ;	./MS51_LED16x16.c:182: setb(PINEN, BTNC_PIN); // enable falling edge
+      00012C 43 EA 08         [24]  741 	orl	_pinen,#0x08
+                                    742 ;	./MS51_LED16x16.c:183: clrb(PIPEN, BTNC_PIN); // disable rasing edge
+      00012F 53 EB F7         [24]  743 	anl	_pipen,#0xf7
+                                    744 ;	./MS51_LED16x16.c:186: set_EPI; // set external interrupt 0 at falling edge
+      000132 43 9B 02         [24]  745 	orl	_eie,#0x02
+                                    746 ;	./MS51_LED16x16.c:188: clearAll();
+      000135 12r00r00         [24]  747 	lcall	_clearAll
+                                    748 ;	./MS51_LED16x16.c:190: TIM2_begin();
+      000138 12r00r77         [24]  749 	lcall	_TIM2_begin
+                                    750 ;	./MS51_LED16x16.c:191: sei(); // Enable global interrupt
+      00013B 43 A8 80         [24]  751 	orl	_ie,#0x80
+                                    752 ;	./MS51_LED16x16.c:193: setb(ADCCON0, 6);
+      00013E 43 E8 40         [24]  753 	orl	_adccon0,#0x40
+                                    754 ;	./MS51_LED16x16.c:194: if (inbit(SW_PORT, SW50_PIN) == 0)
+      000141 74 01            [12]  755 	mov	a,#0x01
+      000143 55 80            [12]  756 	anl	a,_p0
+      000145 FF               [12]  757 	mov	r7,a
+                                    758 ;	./MS51_LED16x16.c:195: NUM_LEDS = 50;
+      000146 70 07            [24]  759 	jnz	00114$
+      000148 75*00 32         [24]  760 	mov	_NUM_LEDS,#0x32
+      00014B F5*01            [12]  761 	mov	(_NUM_LEDS + 1),a
+      00014D 80 32            [24]  762 	sjmp	00119$
+      00014F                        763 00114$:
+                                    764 ;	./MS51_LED16x16.c:196: else if (inbit(SW_PORT, SW100_PIN) == 0)
+      00014F 74 02            [12]  765 	mov	a,#0x02
+      000151 55 80            [12]  766 	anl	a,_p0
+      000153 C3               [12]  767 	clr	c
+      000154 13               [12]  768 	rrc	a
+      000155 FF               [12]  769 	mov	r7,a
+                                    770 ;	./MS51_LED16x16.c:197: NUM_LEDS = 100;
+      000156 70 07            [24]  771 	jnz	00111$
+      000158 75*00 64         [24]  772 	mov	_NUM_LEDS,#0x64
+      00015B F5*01            [12]  773 	mov	(_NUM_LEDS + 1),a
+      00015D 80 22            [24]  774 	sjmp	00119$
+      00015F                        775 00111$:
+                                    776 ;	./MS51_LED16x16.c:198: else if (inbit(SW_PORT, SW150_PIN) == 0)
+      00015F 74 04            [12]  777 	mov	a,#0x04
+      000161 55 80            [12]  778 	anl	a,_p0
+      000163 03               [12]  779 	rr	a
+      000164 03               [12]  780 	rr	a
+      000165 54 3F            [12]  781 	anl	a,#0x3f
+      000167 FF               [12]  782 	mov	r7,a
+                                    783 ;	./MS51_LED16x16.c:199: NUM_LEDS = 150;
+      000168 70 07            [24]  784 	jnz	00108$
+      00016A 75*00 96         [24]  785 	mov	_NUM_LEDS,#0x96
+      00016D F5*01            [12]  786 	mov	(_NUM_LEDS + 1),a
+      00016F 80 10            [24]  787 	sjmp	00119$
+      000171                        788 00108$:
+                                    789 ;	./MS51_LED16x16.c:200: else if (inbit(SW_PORT, SW200_PIN) == 0)
+      000171 74 08            [12]  790 	mov	a,#0x08
+      000173 55 80            [12]  791 	anl	a,_p0
+      000175 C4               [12]  792 	swap	a
+      000176 23               [12]  793 	rl	a
+      000177 54 1F            [12]  794 	anl	a,#0x1f
+      000179 FF               [12]  795 	mov	r7,a
+                                    796 ;	./MS51_LED16x16.c:201: NUM_LEDS = 200;
+      00017A 70 05            [24]  797 	jnz	00119$
+      00017C 75*00 C8         [24]  798 	mov	_NUM_LEDS,#0xc8
+      00017F F5*01            [12]  799 	mov	(_NUM_LEDS + 1),a
+                                    800 ;	./MS51_LED16x16.c:203: while (1)
+      000181                        801 00119$:
+                                    802 ;	./MS51_LED16x16.c:205: if (_status == STT_NEW)
+      000181 74 12            [12]  803 	mov	a,#0x12
+      000183 B5*05 FB         [24]  804 	cjne	a,__status,00119$
+                                    805 ;	./MS51_LED16x16.c:207: _status = STT_NOTSAVED;
+      000186 75*05 56         [24]  806 	mov	__status,#0x56
+                                    807 ;	./MS51_LED16x16.c:208: _cnt = 0;
+      000189 75*06 00         [24]  808 	mov	__cnt,#0x00
+                                    809 ;	./MS51_LED16x16.c:211: }
+      00018C 80 F3            [24]  810 	sjmp	00119$
+                                    811 ;------------------------------------------------------------
+                                    812 ;Allocation info for local variables in function 'ADC_INT_FUCTION'
+                                    813 ;------------------------------------------------------------
+                                    814 ;	./MS51_LED16x16.c:212: ISR(ADC_INT_FUCTION, INTERRUPT_ADC)
+                                    815 ;	-----------------------------------------
+                                    816 ;	 function ADC_INT_FUCTION
+                                    817 ;	-----------------------------------------
+      00018E                        818 _ADC_INT_FUCTION:
+      00018E C0 E0            [24]  819 	push	acc
+      000190 C0 07            [24]  820 	push	ar7
+      000192 C0 06            [24]  821 	push	ar6
+      000194 C0 05            [24]  822 	push	ar5
+      000196 C0 04            [24]  823 	push	ar4
+      000198 C0 D0            [24]  824 	push	psw
+      00019A 75 D0 00         [24]  825 	mov	psw,#0x00
+                                    826 ;	./MS51_LED16x16.c:214: _delay = (ADCRH << 4) | ADCRL;
+      00019D AE C3            [24]  827 	mov	r6,_adcrh
+      00019F E4               [12]  828 	clr	a
+      0001A0 C4               [12]  829 	swap	a
+      0001A1 54 F0            [12]  830 	anl	a,#0xf0
+      0001A3 CE               [12]  831 	xch	a,r6
+      0001A4 C4               [12]  832 	swap	a
+      0001A5 CE               [12]  833 	xch	a,r6
+      0001A6 6E               [12]  834 	xrl	a,r6
+      0001A7 CE               [12]  835 	xch	a,r6
+      0001A8 54 F0            [12]  836 	anl	a,#0xf0
+      0001AA CE               [12]  837 	xch	a,r6
+      0001AB 6E               [12]  838 	xrl	a,r6
+      0001AC FF               [12]  839 	mov	r7,a
+      0001AD AC C2            [24]  840 	mov	r4,_adcrl
+      0001AF 7D 00            [12]  841 	mov	r5,#0x00
+      0001B1 EC               [12]  842 	mov	a,r4
+      0001B2 42 06            [12]  843 	orl	ar6,a
+      0001B4 ED               [12]  844 	mov	a,r5
+      0001B5 42 07            [12]  845 	orl	ar7,a
+      0001B7 8E*02            [24]  846 	mov	__delay,r6
+      0001B9 8F*03            [24]  847 	mov	(__delay + 1),r7
+                                    848 ;	./MS51_LED16x16.c:215: clr_ADCF;
+      0001BB 53 E8 7F         [24]  849 	anl	_adccon0,#0x7f
+                                    850 ;	./MS51_LED16x16.c:216: }
+      0001BE D0 D0            [24]  851 	pop	psw
+      0001C0 D0 04            [24]  852 	pop	ar4
+      0001C2 D0 05            [24]  853 	pop	ar5
+      0001C4 D0 06            [24]  854 	pop	ar6
+      0001C6 D0 07            [24]  855 	pop	ar7
+      0001C8 D0 E0            [24]  856 	pop	acc
+      0001CA 32               [24]  857 	reti
+                                    858 ;	eliminated unneeded push/pop dpl
+                                    859 ;	eliminated unneeded push/pop dph
+                                    860 ;	eliminated unneeded push/pop b
+                                    861 ;------------------------------------------------------------
+                                    862 ;Allocation info for local variables in function 'PIN_INT_FUCTION'
+                                    863 ;------------------------------------------------------------
+                                    864 ;	./MS51_LED16x16.c:218: ISR(PIN_INT_FUCTION, INTERRUPT_PIN)
+                                    865 ;	-----------------------------------------
+                                    866 ;	 function PIN_INT_FUCTION
+                                    867 ;	-----------------------------------------
+      0001CB                        868 _PIN_INT_FUCTION:
+      0001CB C0*00            [24]  869 	push	bits
+      0001CD C0 E0            [24]  870 	push	acc
+      0001CF C0 F0            [24]  871 	push	b
+      0001D1 C0 82            [24]  872 	push	dpl
+      0001D3 C0 83            [24]  873 	push	dph
+      0001D5 C0 07            [24]  874 	push	(0+7)
+      0001D7 C0 06            [24]  875 	push	(0+6)
+      0001D9 C0 05            [24]  876 	push	(0+5)
+      0001DB C0 04            [24]  877 	push	(0+4)
+      0001DD C0 03            [24]  878 	push	(0+3)
+      0001DF C0 02            [24]  879 	push	(0+2)
+      0001E1 C0 01            [24]  880 	push	(0+1)
+      0001E3 C0 00            [24]  881 	push	(0+0)
+      0001E5 C0 D0            [24]  882 	push	psw
+      0001E7 75 D0 00         [24]  883 	mov	psw,#0x00
+                                    884 ;	./MS51_LED16x16.c:221: if (PIF == 0x08 && _status != STT_OLD)
+      0001EA 74 08            [12]  885 	mov	a,#0x08
+      0001EC B5 EC 27         [24]  886 	cjne	a,_pif,00114$
+      0001EF E5*05            [12]  887 	mov	a,__status
+      0001F1 60 23            [24]  888 	jz	00114$
+                                    889 ;	./MS51_LED16x16.c:223: if (++effect > NUM_EFFECT)
+      0001F3 05*04            [12]  890 	inc	_effect
+      0001F5 E5*04            [12]  891 	mov	a,_effect
+      0001F7 24 F8            [12]  892 	add	a,#0xff - 0x07
+      0001F9 50 03            [24]  893 	jnc	00102$
+                                    894 ;	./MS51_LED16x16.c:224: effect = 0;
+      0001FB 75*04 00         [24]  895 	mov	_effect,#0x00
+      0001FE                        896 00102$:
+                                    897 ;	./MS51_LED16x16.c:226: setAll(0, 0, 0);
+      0001FE 75*00 00         [24]  898 	mov	_setAll_PARM_2,#0x00
+      000201 75*00 00         [24]  899 	mov	_setAll_PARM_3,#0x00
+      000204 75 82 00         [24]  900 	mov	dpl,#0x00
+      000207 12r00r00         [24]  901 	lcall	_setAll
+                                    902 ;	./MS51_LED16x16.c:227: _delay_us(500000);
+      00020A 90 A1 20         [24]  903 	mov	dptr,#0xa120
+      00020D 75 F0 07         [24]  904 	mov	b,#0x07
+      000210 E4               [12]  905 	clr	a
+      000211 12r00r00         [24]  906 	lcall	__delay_us
+      000214 80 40            [24]  907 	sjmp	00115$
+      000216                        908 00114$:
+                                    909 ;	./MS51_LED16x16.c:230: else if (PIF == 0x10 && _status != STT_OLD)
+      000216 74 10            [12]  910 	mov	a,#0x10
+      000218 B5 EC 3B         [24]  911 	cjne	a,_pif,00115$
+      00021B E5*05            [12]  912 	mov	a,__status
+      00021D 60 37            [24]  913 	jz	00115$
+                                    914 ;	./MS51_LED16x16.c:232: _color++;
+      00021F 05*07            [12]  915 	inc	__color
+                                    916 ;	./MS51_LED16x16.c:233: _status = STT_NOTSAVED;
+      000221 75*05 56         [24]  917 	mov	__status,#0x56
+                                    918 ;	./MS51_LED16x16.c:234: if (effect == 1)
+      000224 74 01            [12]  919 	mov	a,#0x01
+      000226 B5*04 0B         [24]  920 	cjne	a,_effect,00108$
+                                    921 ;	./MS51_LED16x16.c:236: if (_color >= 5)
+      000229 74 FB            [12]  922 	mov	a,#0x100 - 0x05
+      00022B 25*07            [12]  923 	add	a,__color
+      00022D 50 0E            [24]  924 	jnc	00109$
+                                    925 ;	./MS51_LED16x16.c:238: _color = 0;
+      00022F 75*07 00         [24]  926 	mov	__color,#0x00
+      000232 80 09            [24]  927 	sjmp	00109$
+      000234                        928 00108$:
+                                    929 ;	./MS51_LED16x16.c:241: else if (_color >= 8)
+      000234 74 F8            [12]  930 	mov	a,#0x100 - 0x08
+      000236 25*07            [12]  931 	add	a,__color
+      000238 50 03            [24]  932 	jnc	00109$
+                                    933 ;	./MS51_LED16x16.c:243: _color = 0;
+      00023A 75*07 00         [24]  934 	mov	__color,#0x00
+      00023D                        935 00109$:
+                                    936 ;	./MS51_LED16x16.c:246: setAll(0, 0, 0);
+      00023D 75*00 00         [24]  937 	mov	_setAll_PARM_2,#0x00
+      000240 75*00 00         [24]  938 	mov	_setAll_PARM_3,#0x00
+      000243 75 82 00         [24]  939 	mov	dpl,#0x00
+      000246 12r00r00         [24]  940 	lcall	_setAll
+                                    941 ;	./MS51_LED16x16.c:247: changeColor();
+      000249 12r00r00         [24]  942 	lcall	_changeColor
+                                    943 ;	./MS51_LED16x16.c:249: _delay_us(500000);
+      00024C 90 A1 20         [24]  944 	mov	dptr,#0xa120
+      00024F 75 F0 07         [24]  945 	mov	b,#0x07
+      000252 E4               [12]  946 	clr	a
+      000253 12r00r00         [24]  947 	lcall	__delay_us
+      000256                        948 00115$:
+                                    949 ;	./MS51_LED16x16.c:251: PIF = 0x00; // clear interrupt flag
+      000256 75 EC 00         [24]  950 	mov	_pif,#0x00
+                                    951 ;	./MS51_LED16x16.c:252: }
+      000259 D0 D0            [24]  952 	pop	psw
+      00025B D0 00            [24]  953 	pop	(0+0)
+      00025D D0 01            [24]  954 	pop	(0+1)
+      00025F D0 02            [24]  955 	pop	(0+2)
+      000261 D0 03            [24]  956 	pop	(0+3)
+      000263 D0 04            [24]  957 	pop	(0+4)
+      000265 D0 05            [24]  958 	pop	(0+5)
+      000267 D0 06            [24]  959 	pop	(0+6)
+      000269 D0 07            [24]  960 	pop	(0+7)
+      00026B D0 83            [24]  961 	pop	dph
+      00026D D0 82            [24]  962 	pop	dpl
+      00026F D0 F0            [24]  963 	pop	b
+      000271 D0 E0            [24]  964 	pop	acc
+      000273 D0*00            [24]  965 	pop	bits
+      000275 32               [24]  966 	reti
+                                    967 ;------------------------------------------------------------
+                                    968 ;Allocation info for local variables in function 'timer2'
+                                    969 ;------------------------------------------------------------
+                                    970 ;x                         Allocated to registers r6 r7 
+                                    971 ;------------------------------------------------------------
+                                    972 ;	./MS51_LED16x16.c:254: ISR(timer2, INTERRUPT_TIMER2) // every 0.25s
+                                    973 ;	-----------------------------------------
+                                    974 ;	 function timer2
+                                    975 ;	-----------------------------------------
+      000276                        976 _timer2:
+      000276 C0*00            [24]  977 	push	bits
+      000278 C0 E0            [24]  978 	push	acc
+      00027A C0 F0            [24]  979 	push	b
+      00027C C0 82            [24]  980 	push	dpl
+      00027E C0 83            [24]  981 	push	dph
+      000280 C0 07            [24]  982 	push	(0+7)
+      000282 C0 06            [24]  983 	push	(0+6)
+      000284 C0 05            [24]  984 	push	(0+5)
+      000286 C0 04            [24]  985 	push	(0+4)
+      000288 C0 03            [24]  986 	push	(0+3)
+      00028A C0 02            [24]  987 	push	(0+2)
+      00028C C0 01            [24]  988 	push	(0+1)
+      00028E C0 00            [24]  989 	push	(0+0)
+      000290 C0 D0            [24]  990 	push	psw
+      000292 75 D0 00         [24]  991 	mov	psw,#0x00
+                                    992 ;	./MS51_LED16x16.c:256: _cnt++;
+      000295 05*06            [12]  993 	inc	__cnt
+                                    994 ;	./MS51_LED16x16.c:258: if (_cnt == 40) // every 10s
+      000297 74 28            [12]  995 	mov	a,#0x28
+      000299 B5*06 29         [24]  996 	cjne	a,__cnt,00104$
+                                    997 ;	./MS51_LED16x16.c:260: if (_status == STT_NOTSAVED)
+      00029C 74 56            [12]  998 	mov	a,#0x56
+      00029E B5*05 24         [24]  999 	cjne	a,__status,00104$
+                                   1000 ;	./MS51_LED16x16.c:262: Erase_APROM(ADDR_COLOR);
+      0002A1 90 30 01         [24] 1001 	mov	dptr,#0x3001
+      0002A4 12r00r00         [24] 1002 	lcall	_Erase_APROM
+                                   1003 ;	./MS51_LED16x16.c:263: Erase_APROM(ADDR_EFF);
+      0002A7 90 30 00         [24] 1004 	mov	dptr,#0x3000
+      0002AA 12r00r00         [24] 1005 	lcall	_Erase_APROM
+                                   1006 ;	./MS51_LED16x16.c:264: APROM_write_byte(ADDR_EFF, effect);   // write effect to APROM
+      0002AD 85*04*00         [24] 1007 	mov	_APROM_write_byte_PARM_2,_effect
+      0002B0 90 30 00         [24] 1008 	mov	dptr,#0x3000
+      0002B3 12r00r00         [24] 1009 	lcall	_APROM_write_byte
+                                   1010 ;	./MS51_LED16x16.c:265: APROM_write_byte(ADDR_COLOR, _color); // write _color to APROM
+      0002B6 85*07*00         [24] 1011 	mov	_APROM_write_byte_PARM_2,__color
+      0002B9 90 30 01         [24] 1012 	mov	dptr,#0x3001
+      0002BC 12r00r00         [24] 1013 	lcall	_APROM_write_byte
+                                   1014 ;	./MS51_LED16x16.c:266: clr_EPI;                       // clear pin interrupt
+      0002BF 53 9B FD         [24] 1015 	anl	_eie,#0xfd
+                                   1016 ;	./MS51_LED16x16.c:267: _status = STT_OLD;
+      0002C2 75*05 00         [24] 1017 	mov	__status,#0x00
+                                   1018 ;	./MS51_LED16x16.c:269: _cnt == 0;
+      0002C5                       1019 00104$:
+                                   1020 ;	./MS51_LED16x16.c:271: if (_cnt % 4 == 0) // every 0.5s
+      0002C5 E5*06            [12] 1021 	mov	a,__cnt
+      0002C7 54 03            [12] 1022 	anl	a,#0x03
+      0002C9 60 02            [24] 1023 	jz	00171$
+      0002CB 80 5B            [24] 1024 	sjmp	00121$
+      0002CD                       1025 00171$:
+                                   1026 ;	./MS51_LED16x16.c:273: uint16_t x = NUM_LEDS;
+      0002CD AE*00            [24] 1027 	mov	r6,_NUM_LEDS
+      0002CF AF*01            [24] 1028 	mov	r7,(_NUM_LEDS + 1)
+                                   1029 ;	./MS51_LED16x16.c:274: if (inbit(SW_PORT, SW50_PIN) == 0)
+      0002D1 74 01            [12] 1030 	mov	a,#0x01
+      0002D3 55 80            [12] 1031 	anl	a,_p0
+      0002D5 FD               [12] 1032 	mov	r5,a
+                                   1033 ;	./MS51_LED16x16.c:275: NUM_LEDS = 50;
+      0002D6 70 07            [24] 1034 	jnz	00114$
+      0002D8 75*00 32         [24] 1035 	mov	_NUM_LEDS,#0x32
+      0002DB F5*01            [12] 1036 	mov	(_NUM_LEDS + 1),a
+      0002DD 80 32            [24] 1037 	sjmp	00115$
+      0002DF                       1038 00114$:
+                                   1039 ;	./MS51_LED16x16.c:276: else if (inbit(SW_PORT, SW100_PIN) == 0)
+      0002DF 74 02            [12] 1040 	mov	a,#0x02
+      0002E1 55 80            [12] 1041 	anl	a,_p0
+      0002E3 C3               [12] 1042 	clr	c
+      0002E4 13               [12] 1043 	rrc	a
+      0002E5 FD               [12] 1044 	mov	r5,a
+                                   1045 ;	./MS51_LED16x16.c:277: NUM_LEDS = 100;
+      0002E6 70 07            [24] 1046 	jnz	00111$
+      0002E8 75*00 64         [24] 1047 	mov	_NUM_LEDS,#0x64
+      0002EB F5*01            [12] 1048 	mov	(_NUM_LEDS + 1),a
+      0002ED 80 22            [24] 1049 	sjmp	00115$
+      0002EF                       1050 00111$:
+                                   1051 ;	./MS51_LED16x16.c:278: else if (inbit(SW_PORT, SW150_PIN) == 0)
+      0002EF 74 04            [12] 1052 	mov	a,#0x04
+      0002F1 55 80            [12] 1053 	anl	a,_p0
+      0002F3 03               [12] 1054 	rr	a
+      0002F4 03               [12] 1055 	rr	a
+      0002F5 54 3F            [12] 1056 	anl	a,#0x3f
+      0002F7 FD               [12] 1057 	mov	r5,a
+                                   1058 ;	./MS51_LED16x16.c:279: NUM_LEDS = 150;
+      0002F8 70 07            [24] 1059 	jnz	00108$
+      0002FA 75*00 96         [24] 1060 	mov	_NUM_LEDS,#0x96
+      0002FD F5*01            [12] 1061 	mov	(_NUM_LEDS + 1),a
+      0002FF 80 10            [24] 1062 	sjmp	00115$
+      000301                       1063 00108$:
+                                   1064 ;	./MS51_LED16x16.c:280: else if (inbit(SW_PORT, SW200_PIN) == 0)
+      000301 74 08            [12] 1065 	mov	a,#0x08
+      000303 55 80            [12] 1066 	anl	a,_p0
+      000305 C4               [12] 1067 	swap	a
+      000306 23               [12] 1068 	rl	a
+      000307 54 1F            [12] 1069 	anl	a,#0x1f
+      000309 FD               [12] 1070 	mov	r5,a
+                                   1071 ;	./MS51_LED16x16.c:281: NUM_LEDS = 200;
+      00030A 70 05            [24] 1072 	jnz	00115$
+      00030C 75*00 C8         [24] 1073 	mov	_NUM_LEDS,#0xc8
+      00030F F5*01            [12] 1074 	mov	(_NUM_LEDS + 1),a
+      000311                       1075 00115$:
+                                   1076 ;	./MS51_LED16x16.c:283: if (NUM_LEDS != x)
+      000311 EE               [12] 1077 	mov	a,r6
+      000312 B5*00 06         [24] 1078 	cjne	a,_NUM_LEDS,00176$
+      000315 EF               [12] 1079 	mov	a,r7
+      000316 B5*01 02         [24] 1080 	cjne	a,(_NUM_LEDS + 1),00176$
+      000319 80 03            [24] 1081 	sjmp	00117$
+      00031B                       1082 00176$:
+                                   1083 ;	./MS51_LED16x16.c:285: clearAll();
+      00031B 12r00r00         [24] 1084 	lcall	_clearAll
+      00031E                       1085 00117$:
+                                   1086 ;	./MS51_LED16x16.c:287: if (_status == STT_OLD)
+      00031E E5*05            [12] 1087 	mov	a,__status
+      000320 70 03            [24] 1088 	jnz	00119$
+                                   1089 ;	./MS51_LED16x16.c:289: daobit(LED2_PORT, LED2_PIN);
+      000322 63 B0 01         [24] 1090 	xrl	_p3,#0x01
+      000325                       1091 00119$:
+                                   1092 ;	./MS51_LED16x16.c:292: set_ADCS;
+      000325 43 E8 40         [24] 1093 	orl	_adccon0,#0x40
+      000328                       1094 00121$:
+                                   1095 ;	./MS51_LED16x16.c:295: if (_status != STT_OLD)
+      000328 E5*05            [12] 1096 	mov	a,__status
+      00032A 60 03            [24] 1097 	jz	00123$
+                                   1098 ;	./MS51_LED16x16.c:297: daobit(LED2_PORT, LED2_PIN);
+      00032C 63 B0 01         [24] 1099 	xrl	_p3,#0x01
+      00032F                       1100 00123$:
+                                   1101 ;	./MS51_LED16x16.c:299: clr_TF2; // TF2
+      00032F 53 C8 7F         [24] 1102 	anl	_t2con,#0x7f
+                                   1103 ;	./MS51_LED16x16.c:300: }
+      000332 D0 D0            [24] 1104 	pop	psw
+      000334 D0 00            [24] 1105 	pop	(0+0)
+      000336 D0 01            [24] 1106 	pop	(0+1)
+      000338 D0 02            [24] 1107 	pop	(0+2)
+      00033A D0 03            [24] 1108 	pop	(0+3)
+      00033C D0 04            [24] 1109 	pop	(0+4)
+      00033E D0 05            [24] 1110 	pop	(0+5)
+      000340 D0 06            [24] 1111 	pop	(0+6)
+      000342 D0 07            [24] 1112 	pop	(0+7)
+      000344 D0 83            [24] 1113 	pop	dph
+      000346 D0 82            [24] 1114 	pop	dpl
+      000348 D0 F0            [24] 1115 	pop	b
+      00034A D0 E0            [24] 1116 	pop	acc
+      00034C D0*00            [24] 1117 	pop	bits
+      00034E 32               [24] 1118 	reti
+                                   1119 	.area CSEG    (CODE)
+                                   1120 	.area CONST   (CODE)
+                                   1121 	.area XINIT   (CODE)
+                                   1122 	.area CABS    (ABS,CODE)

@@ -1,0 +1,615 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module N76_Max7219_595
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _eiph1
+                                     12 	.globl _eip1
+                                     13 	.globl _pmd
+                                     14 	.globl _pmen
+                                     15 	.globl _pdtcnt
+                                     16 	.globl _pdten
+                                     17 	.globl _scon_1
+                                     18 	.globl _eiph
+                                     19 	.globl _aindids
+                                     20 	.globl _spdr
+                                     21 	.globl _spsr
+                                     22 	.globl _spcr2
+                                     23 	.globl _spcr
+                                     24 	.globl _capcon4
+                                     25 	.globl _capcon3
+                                     26 	.globl _b
+                                     27 	.globl _eip
+                                     28 	.globl _c2h
+                                     29 	.globl _c2l
+                                     30 	.globl _pif
+                                     31 	.globl _pipen
+                                     32 	.globl _pinen
+                                     33 	.globl _picon
+                                     34 	.globl _adccon0
+                                     35 	.globl _c1h
+                                     36 	.globl _c1l
+                                     37 	.globl _c0h
+                                     38 	.globl _c0l
+                                     39 	.globl _adcdly
+                                     40 	.globl _adccon2
+                                     41 	.globl _adccon1
+                                     42 	.globl _acc
+                                     43 	.globl _pwmcon1
+                                     44 	.globl _piocon0
+                                     45 	.globl _pwm3l
+                                     46 	.globl _pwm2l
+                                     47 	.globl _pwm1l
+                                     48 	.globl _pwm0l
+                                     49 	.globl _pwmpl
+                                     50 	.globl _pwmcon0
+                                     51 	.globl _fbd
+                                     52 	.globl _pnp
+                                     53 	.globl _pwm3h
+                                     54 	.globl _pwm2h
+                                     55 	.globl _pwm1h
+                                     56 	.globl _pwm0h
+                                     57 	.globl _pwmph
+                                     58 	.globl _psw
+                                     59 	.globl _adcmph
+                                     60 	.globl _adcmpl
+                                     61 	.globl _pwm5l
+                                     62 	.globl _th2
+                                     63 	.globl _pwm4l
+                                     64 	.globl _tl2
+                                     65 	.globl _rcmp2h
+                                     66 	.globl _rcmp2l
+                                     67 	.globl _t2mod
+                                     68 	.globl _t2con
+                                     69 	.globl _ta
+                                     70 	.globl _piocon1
+                                     71 	.globl _rh3
+                                     72 	.globl _pwm5h
+                                     73 	.globl _rl3
+                                     74 	.globl _pwm4h
+                                     75 	.globl _t3con
+                                     76 	.globl _adcrh
+                                     77 	.globl _adcrl
+                                     78 	.globl _i2addr
+                                     79 	.globl _i2con
+                                     80 	.globl _i2toc
+                                     81 	.globl _i2clk
+                                     82 	.globl _i2stat
+                                     83 	.globl _i2dat
+                                     84 	.globl _saddr_1
+                                     85 	.globl _saden_1
+                                     86 	.globl _saden
+                                     87 	.globl _ip
+                                     88 	.globl _pwmintc
+                                     89 	.globl _iph
+                                     90 	.globl _p2s
+                                     91 	.globl _p1sr
+                                     92 	.globl _p1m2
+                                     93 	.globl _p1s
+                                     94 	.globl _p1m1
+                                     95 	.globl _p0sr
+                                     96 	.globl _p0m2
+                                     97 	.globl _p0s
+                                     98 	.globl _p0m1
+                                     99 	.globl _p3
+                                    100 	.globl _iapcn
+                                    101 	.globl _iapfd
+                                    102 	.globl _p3sr
+                                    103 	.globl _p3m2
+                                    104 	.globl _p3s
+                                    105 	.globl _p3m1
+                                    106 	.globl _bodcon1
+                                    107 	.globl _wdcon
+                                    108 	.globl _saddr
+                                    109 	.globl _ie
+                                    110 	.globl _iapah
+                                    111 	.globl _iapal
+                                    112 	.globl _iapuen
+                                    113 	.globl _iaptrg
+                                    114 	.globl _bodcon0
+                                    115 	.globl _auxr1
+                                    116 	.globl _p2
+                                    117 	.globl _chpcon
+                                    118 	.globl _eie1
+                                    119 	.globl _eie
+                                    120 	.globl _sbuf_1
+                                    121 	.globl _sbuf
+                                    122 	.globl _scon
+                                    123 	.globl _cken
+                                    124 	.globl _ckswt
+                                    125 	.globl _ckdiv
+                                    126 	.globl _capcon2
+                                    127 	.globl _capcon1
+                                    128 	.globl _capcon0
+                                    129 	.globl _sfrs
+                                    130 	.globl _p1
+                                    131 	.globl _wkcon
+                                    132 	.globl _ckcon
+                                    133 	.globl _th1
+                                    134 	.globl _th0
+                                    135 	.globl _tl1
+                                    136 	.globl _tl0
+                                    137 	.globl _tmod
+                                    138 	.globl _tcon
+                                    139 	.globl _pcon
+                                    140 	.globl _rwk
+                                    141 	.globl _rctrim1
+                                    142 	.globl _rctrim0
+                                    143 	.globl _dph
+                                    144 	.globl _dpl
+                                    145 	.globl _sp
+                                    146 	.globl _p0
+                                    147 	.globl _MAX7219_transfer_PARM_3
+                                    148 	.globl _MAX7219_transfer_PARM_2
+                                    149 	.globl _MAX7219_transferAll_PARM_3
+                                    150 	.globl _MAX7219_transferAll_PARM_2
+                                    151 	.globl _SPI_begin
+                                    152 	.globl _SPI_transfer
+                                    153 	.globl _MAX7219_begin
+                                    154 	.globl _MAX7219_transferAll
+                                    155 	.globl _MAX7219_transfer
+                                    156 	.globl _HC595_transfer
+                                    157 ;--------------------------------------------------------
+                                    158 ; special function registers
+                                    159 ;--------------------------------------------------------
+                                    160 	.area RSEG    (ABS,DATA)
+      000000                        161 	.org 0x0000
+                           000080   162 _p0	=	0x0080
+                           000081   163 _sp	=	0x0081
+                           000082   164 _dpl	=	0x0082
+                           000083   165 _dph	=	0x0083
+                           000084   166 _rctrim0	=	0x0084
+                           000085   167 _rctrim1	=	0x0085
+                           000086   168 _rwk	=	0x0086
+                           000087   169 _pcon	=	0x0087
+                           000088   170 _tcon	=	0x0088
+                           000089   171 _tmod	=	0x0089
+                           00008A   172 _tl0	=	0x008a
+                           00008B   173 _tl1	=	0x008b
+                           00008C   174 _th0	=	0x008c
+                           00008D   175 _th1	=	0x008d
+                           00008E   176 _ckcon	=	0x008e
+                           00008F   177 _wkcon	=	0x008f
+                           000090   178 _p1	=	0x0090
+                           000091   179 _sfrs	=	0x0091
+                           000092   180 _capcon0	=	0x0092
+                           000093   181 _capcon1	=	0x0093
+                           000094   182 _capcon2	=	0x0094
+                           000095   183 _ckdiv	=	0x0095
+                           000096   184 _ckswt	=	0x0096
+                           000097   185 _cken	=	0x0097
+                           000098   186 _scon	=	0x0098
+                           000099   187 _sbuf	=	0x0099
+                           00009A   188 _sbuf_1	=	0x009a
+                           00009B   189 _eie	=	0x009b
+                           00009C   190 _eie1	=	0x009c
+                           00009F   191 _chpcon	=	0x009f
+                           0000A0   192 _p2	=	0x00a0
+                           0000A2   193 _auxr1	=	0x00a2
+                           0000A3   194 _bodcon0	=	0x00a3
+                           0000A4   195 _iaptrg	=	0x00a4
+                           0000A5   196 _iapuen	=	0x00a5
+                           0000A6   197 _iapal	=	0x00a6
+                           0000A7   198 _iapah	=	0x00a7
+                           0000A8   199 _ie	=	0x00a8
+                           0000A9   200 _saddr	=	0x00a9
+                           0000AA   201 _wdcon	=	0x00aa
+                           0000AB   202 _bodcon1	=	0x00ab
+                           0000AC   203 _p3m1	=	0x00ac
+                           0000AC   204 _p3s	=	0x00ac
+                           0000AD   205 _p3m2	=	0x00ad
+                           0000AD   206 _p3sr	=	0x00ad
+                           0000AE   207 _iapfd	=	0x00ae
+                           0000AF   208 _iapcn	=	0x00af
+                           0000B0   209 _p3	=	0x00b0
+                           0000B1   210 _p0m1	=	0x00b1
+                           0000B1   211 _p0s	=	0x00b1
+                           0000B2   212 _p0m2	=	0x00b2
+                           0000B2   213 _p0sr	=	0x00b2
+                           0000B3   214 _p1m1	=	0x00b3
+                           0000B3   215 _p1s	=	0x00b3
+                           0000B4   216 _p1m2	=	0x00b4
+                           0000B4   217 _p1sr	=	0x00b4
+                           0000B5   218 _p2s	=	0x00b5
+                           0000B7   219 _iph	=	0x00b7
+                           0000B7   220 _pwmintc	=	0x00b7
+                           0000B8   221 _ip	=	0x00b8
+                           0000B9   222 _saden	=	0x00b9
+                           0000BA   223 _saden_1	=	0x00ba
+                           0000BB   224 _saddr_1	=	0x00bb
+                           0000BC   225 _i2dat	=	0x00bc
+                           0000BD   226 _i2stat	=	0x00bd
+                           0000BE   227 _i2clk	=	0x00be
+                           0000BF   228 _i2toc	=	0x00bf
+                           0000C0   229 _i2con	=	0x00c0
+                           0000C1   230 _i2addr	=	0x00c1
+                           0000C2   231 _adcrl	=	0x00c2
+                           0000C3   232 _adcrh	=	0x00c3
+                           0000C4   233 _t3con	=	0x00c4
+                           0000C4   234 _pwm4h	=	0x00c4
+                           0000C5   235 _rl3	=	0x00c5
+                           0000C5   236 _pwm5h	=	0x00c5
+                           0000C6   237 _rh3	=	0x00c6
+                           0000C6   238 _piocon1	=	0x00c6
+                           0000C7   239 _ta	=	0x00c7
+                           0000C8   240 _t2con	=	0x00c8
+                           0000C9   241 _t2mod	=	0x00c9
+                           0000CA   242 _rcmp2l	=	0x00ca
+                           0000CB   243 _rcmp2h	=	0x00cb
+                           0000CC   244 _tl2	=	0x00cc
+                           0000CC   245 _pwm4l	=	0x00cc
+                           0000CD   246 _th2	=	0x00cd
+                           0000CD   247 _pwm5l	=	0x00cd
+                           0000CE   248 _adcmpl	=	0x00ce
+                           0000CF   249 _adcmph	=	0x00cf
+                           0000D0   250 _psw	=	0x00d0
+                           0000D1   251 _pwmph	=	0x00d1
+                           0000D2   252 _pwm0h	=	0x00d2
+                           0000D3   253 _pwm1h	=	0x00d3
+                           0000D4   254 _pwm2h	=	0x00d4
+                           0000D5   255 _pwm3h	=	0x00d5
+                           0000D6   256 _pnp	=	0x00d6
+                           0000D7   257 _fbd	=	0x00d7
+                           0000D8   258 _pwmcon0	=	0x00d8
+                           0000D9   259 _pwmpl	=	0x00d9
+                           0000DA   260 _pwm0l	=	0x00da
+                           0000DB   261 _pwm1l	=	0x00db
+                           0000DC   262 _pwm2l	=	0x00dc
+                           0000DD   263 _pwm3l	=	0x00dd
+                           0000DE   264 _piocon0	=	0x00de
+                           0000DF   265 _pwmcon1	=	0x00df
+                           0000E0   266 _acc	=	0x00e0
+                           0000E1   267 _adccon1	=	0x00e1
+                           0000E2   268 _adccon2	=	0x00e2
+                           0000E3   269 _adcdly	=	0x00e3
+                           0000E4   270 _c0l	=	0x00e4
+                           0000E5   271 _c0h	=	0x00e5
+                           0000E6   272 _c1l	=	0x00e6
+                           0000E7   273 _c1h	=	0x00e7
+                           0000E8   274 _adccon0	=	0x00e8
+                           0000E9   275 _picon	=	0x00e9
+                           0000EA   276 _pinen	=	0x00ea
+                           0000EB   277 _pipen	=	0x00eb
+                           0000EC   278 _pif	=	0x00ec
+                           0000ED   279 _c2l	=	0x00ed
+                           0000EE   280 _c2h	=	0x00ee
+                           0000EF   281 _eip	=	0x00ef
+                           0000F0   282 _b	=	0x00f0
+                           0000F1   283 _capcon3	=	0x00f1
+                           0000F2   284 _capcon4	=	0x00f2
+                           0000F3   285 _spcr	=	0x00f3
+                           0000F3   286 _spcr2	=	0x00f3
+                           0000F4   287 _spsr	=	0x00f4
+                           0000F5   288 _spdr	=	0x00f5
+                           0000F6   289 _aindids	=	0x00f6
+                           0000F7   290 _eiph	=	0x00f7
+                           0000F8   291 _scon_1	=	0x00f8
+                           0000F9   292 _pdten	=	0x00f9
+                           0000FA   293 _pdtcnt	=	0x00fa
+                           0000FB   294 _pmen	=	0x00fb
+                           0000FC   295 _pmd	=	0x00fc
+                           0000FE   296 _eip1	=	0x00fe
+                           0000FF   297 _eiph1	=	0x00ff
+                                    298 ;--------------------------------------------------------
+                                    299 ; special function bits
+                                    300 ;--------------------------------------------------------
+                                    301 	.area RSEG    (ABS,DATA)
+      000000                        302 	.org 0x0000
+                                    303 ;--------------------------------------------------------
+                                    304 ; overlayable register banks
+                                    305 ;--------------------------------------------------------
+                                    306 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        307 	.ds 8
+                                    308 ;--------------------------------------------------------
+                                    309 ; internal ram data
+                                    310 ;--------------------------------------------------------
+                                    311 	.area DSEG    (DATA)
+      000000                        312 _MAX7219_transferAll_PARM_2:
+      000000                        313 	.ds 1
+      000001                        314 _MAX7219_transferAll_PARM_3:
+      000001                        315 	.ds 1
+      000002                        316 _MAX7219_transfer_PARM_2:
+      000002                        317 	.ds 1
+      000003                        318 _MAX7219_transfer_PARM_3:
+      000003                        319 	.ds 1
+                                    320 ;--------------------------------------------------------
+                                    321 ; overlayable items in internal ram
+                                    322 ;--------------------------------------------------------
+                                    323 	.area	OSEG    (OVR,DATA)
+                                    324 ;--------------------------------------------------------
+                                    325 ; indirectly addressable internal ram data
+                                    326 ;--------------------------------------------------------
+                                    327 	.area ISEG    (DATA)
+                                    328 ;--------------------------------------------------------
+                                    329 ; absolute internal ram data
+                                    330 ;--------------------------------------------------------
+                                    331 	.area IABS    (ABS,DATA)
+                                    332 	.area IABS    (ABS,DATA)
+                                    333 ;--------------------------------------------------------
+                                    334 ; bit data
+                                    335 ;--------------------------------------------------------
+                                    336 	.area BSEG    (BIT)
+                                    337 ;--------------------------------------------------------
+                                    338 ; paged external ram data
+                                    339 ;--------------------------------------------------------
+                                    340 	.area PSEG    (PAG,XDATA)
+                                    341 ;--------------------------------------------------------
+                                    342 ; external ram data
+                                    343 ;--------------------------------------------------------
+                                    344 	.area XSEG    (XDATA)
+                                    345 ;--------------------------------------------------------
+                                    346 ; absolute external ram data
+                                    347 ;--------------------------------------------------------
+                                    348 	.area XABS    (ABS,XDATA)
+                                    349 ;--------------------------------------------------------
+                                    350 ; external initialized ram data
+                                    351 ;--------------------------------------------------------
+                                    352 	.area XISEG   (XDATA)
+                                    353 	.area HOME    (CODE)
+                                    354 	.area GSINIT0 (CODE)
+                                    355 	.area GSINIT1 (CODE)
+                                    356 	.area GSINIT2 (CODE)
+                                    357 	.area GSINIT3 (CODE)
+                                    358 	.area GSINIT4 (CODE)
+                                    359 	.area GSINIT5 (CODE)
+                                    360 	.area GSINIT  (CODE)
+                                    361 	.area GSFINAL (CODE)
+                                    362 	.area CSEG    (CODE)
+                                    363 ;--------------------------------------------------------
+                                    364 ; global & static initialisations
+                                    365 ;--------------------------------------------------------
+                                    366 	.area HOME    (CODE)
+                                    367 	.area GSINIT  (CODE)
+                                    368 	.area GSFINAL (CODE)
+                                    369 	.area GSINIT  (CODE)
+                                    370 ;--------------------------------------------------------
+                                    371 ; Home
+                                    372 ;--------------------------------------------------------
+                                    373 	.area HOME    (CODE)
+                                    374 	.area HOME    (CODE)
+                                    375 ;--------------------------------------------------------
+                                    376 ; code
+                                    377 ;--------------------------------------------------------
+                                    378 	.area CSEG    (CODE)
+                                    379 ;------------------------------------------------------------
+                                    380 ;Allocation info for local variables in function 'SPI_begin'
+                                    381 ;------------------------------------------------------------
+                                    382 ;	./src/N76_Max7219_595.c:11: void SPI_begin(void)
+                                    383 ;	-----------------------------------------
+                                    384 ;	 function SPI_begin
+                                    385 ;	-----------------------------------------
+      000000                        386 _SPI_begin:
+                           000007   387 	ar7 = 0x07
+                           000006   388 	ar6 = 0x06
+                           000005   389 	ar5 = 0x05
+                           000004   390 	ar4 = 0x04
+                           000003   391 	ar3 = 0x03
+                           000002   392 	ar2 = 0x02
+                           000001   393 	ar1 = 0x01
+                           000000   394 	ar0 = 0x00
+                                    395 ;	./src/N76_Max7219_595.c:13: setb(SPSR, DISMODF); // SS pin user define
+      000000 43 F4 08         [24]  396 	orl	_spsr,#0x08
+                                    397 ;	./src/N76_Max7219_595.c:14: clrb(SPCR, SSOE);	 // SS pin user define
+      000003 53 F3 7F         [24]  398 	anl	_spcr,#0x7f
+                                    399 ;	./src/N76_Max7219_595.c:15: SPCR |= (1 << SPIEN) | (1 << MSTR) | (1 << SPR1) | (1 << SPR0);
+      000006 43 F3 53         [24]  400 	orl	_spcr,#0x53
+                                    401 ;	./src/N76_Max7219_595.c:17: clrb(SPI_PxM1_CLK, SPI_PIN_CLK);
+      000009 53 B3 FE         [24]  402 	anl	_p1m1,#0xfe
+                                    403 ;	./src/N76_Max7219_595.c:18: clrb(SPI_PxM1_MOSI, SPI_PIN_MOSI);
+      00000C 53 B1 FE         [24]  404 	anl	_p0m1,#0xfe
+                                    405 ;	./src/N76_Max7219_595.c:19: setb(SPI_PxM1_MISO, SPI_PIN_MISO);
+      00000F 43 B1 02         [24]  406 	orl	_p0m1,#0x02
+                                    407 ;	./src/N76_Max7219_595.c:20: clrb(SPI_PxM1_SS, SPI_PIN_SS);
+      000012 53 B3 FD         [24]  408 	anl	_p1m1,#0xfd
+                                    409 ;	./src/N76_Max7219_595.c:21: clrb(SPI_PxM1_SS, SPI_PIN_SS2);
+      000015 53 B3 FB         [24]  410 	anl	_p1m1,#0xfb
+                                    411 ;	./src/N76_Max7219_595.c:23: setb(SPI_PxM2_CLK, SPI_PIN_CLK);
+      000018 43 B4 01         [24]  412 	orl	_p1m2,#0x01
+                                    413 ;	./src/N76_Max7219_595.c:24: setb(SPI_PxM2_MOSI, SPI_PIN_MOSI);
+      00001B 43 B2 01         [24]  414 	orl	_p0m2,#0x01
+                                    415 ;	./src/N76_Max7219_595.c:25: setb(SPI_PxM2_MISO, SPI_PIN_MISO);
+      00001E 43 B2 02         [24]  416 	orl	_p0m2,#0x02
+                                    417 ;	./src/N76_Max7219_595.c:26: setb(SPI_PxM2_SS, SPI_PIN_SS);
+      000021 43 B4 02         [24]  418 	orl	_p1m2,#0x02
+                                    419 ;	./src/N76_Max7219_595.c:27: setb(SPI_PxM2_SS, SPI_PIN_SS2);
+      000024 43 B4 04         [24]  420 	orl	_p1m2,#0x04
+                                    421 ;	./src/N76_Max7219_595.c:29: setb(SPI_Px_SS, SPI_PIN_SS2);
+      000027 43 90 04         [24]  422 	orl	_p1,#0x04
+                                    423 ;	./src/N76_Max7219_595.c:30: setb(SPI_Px_SS, SPI_PIN_SS);
+      00002A 43 90 02         [24]  424 	orl	_p1,#0x02
+                                    425 ;	./src/N76_Max7219_595.c:31: }
+      00002D 22               [24]  426 	ret
+                                    427 ;------------------------------------------------------------
+                                    428 ;Allocation info for local variables in function 'SPI_transfer'
+                                    429 ;------------------------------------------------------------
+                                    430 ;data                      Allocated to registers 
+                                    431 ;------------------------------------------------------------
+                                    432 ;	./src/N76_Max7219_595.c:33: void SPI_transfer(uint8_t data)
+                                    433 ;	-----------------------------------------
+                                    434 ;	 function SPI_transfer
+                                    435 ;	-----------------------------------------
+      00002E                        436 _SPI_transfer:
+      00002E 85 82 F5         [24]  437 	mov	_spdr,dpl
+                                    438 ;	./src/N76_Max7219_595.c:36: __asm__("nop");
+      000031 00               [12]  439 	nop
+                                    440 ;	./src/N76_Max7219_595.c:37: while (inbit(SPSR, SPIF) == 0)
+      000032                        441 00101$:
+      000032 74 80            [12]  442 	mov	a,#0x80
+      000034 55 F4            [12]  443 	anl	a,_spsr
+      000036 23               [12]  444 	rl	a
+      000037 54 01            [12]  445 	anl	a,#0x01
+      000039 60 F7            [24]  446 	jz	00101$
+                                    447 ;	./src/N76_Max7219_595.c:39: clrb(SPSR, SPIF);
+      00003B 53 F4 7F         [24]  448 	anl	_spsr,#0x7f
+                                    449 ;	./src/N76_Max7219_595.c:40: }
+      00003E 22               [24]  450 	ret
+                                    451 ;------------------------------------------------------------
+                                    452 ;Allocation info for local variables in function 'MAX7219_begin'
+                                    453 ;------------------------------------------------------------
+                                    454 ;	./src/N76_Max7219_595.c:50: void MAX7219_begin(void)
+                                    455 ;	-----------------------------------------
+                                    456 ;	 function MAX7219_begin
+                                    457 ;	-----------------------------------------
+      00003F                        458 _MAX7219_begin:
+                                    459 ;	./src/N76_Max7219_595.c:52: SPI_begin();
+      00003F 12r00r00         [24]  460 	lcall	_SPI_begin
+                                    461 ;	./src/N76_Max7219_595.c:54: MAX7219_transferAll(3, SCAN_LIMIT, 0x07);
+      000042 75*00 0B         [24]  462 	mov	_MAX7219_transferAll_PARM_2,#0x0b
+      000045 75*01 07         [24]  463 	mov	_MAX7219_transferAll_PARM_3,#0x07
+      000048 75 82 03         [24]  464 	mov	dpl,#0x03
+      00004B 12r00r7E         [24]  465 	lcall	_MAX7219_transferAll
+                                    466 ;	./src/N76_Max7219_595.c:55: MAX7219_transferAll(3, DECODE_MODE, 0xFF);
+      00004E 75*00 09         [24]  467 	mov	_MAX7219_transferAll_PARM_2,#0x09
+      000051 75*01 FF         [24]  468 	mov	_MAX7219_transferAll_PARM_3,#0xff
+      000054 75 82 03         [24]  469 	mov	dpl,#0x03
+      000057 12r00r7E         [24]  470 	lcall	_MAX7219_transferAll
+                                    471 ;	./src/N76_Max7219_595.c:56: MAX7219_transferAll(3, SHUTDOWN, 0x01);
+      00005A 75*00 0C         [24]  472 	mov	_MAX7219_transferAll_PARM_2,#0x0c
+      00005D 75*01 01         [24]  473 	mov	_MAX7219_transferAll_PARM_3,#0x01
+      000060 75 82 03         [24]  474 	mov	dpl,#0x03
+      000063 12r00r7E         [24]  475 	lcall	_MAX7219_transferAll
+                                    476 ;	./src/N76_Max7219_595.c:57: MAX7219_transferAll(3, DISPLAY_TEST, 0x00);
+      000066 75*00 0F         [24]  477 	mov	_MAX7219_transferAll_PARM_2,#0x0f
+      000069 75*01 00         [24]  478 	mov	_MAX7219_transferAll_PARM_3,#0x00
+      00006C 75 82 03         [24]  479 	mov	dpl,#0x03
+      00006F 12r00r7E         [24]  480 	lcall	_MAX7219_transferAll
+                                    481 ;	./src/N76_Max7219_595.c:58: MAX7219_transferAll(3, INTENSITY, 0x01);
+      000072 75*00 0A         [24]  482 	mov	_MAX7219_transferAll_PARM_2,#0x0a
+      000075 75*01 01         [24]  483 	mov	_MAX7219_transferAll_PARM_3,#0x01
+      000078 75 82 03         [24]  484 	mov	dpl,#0x03
+                                    485 ;	./src/N76_Max7219_595.c:59: }
+      00007B 02r00r7E         [24]  486 	ljmp	_MAX7219_transferAll
+                                    487 ;------------------------------------------------------------
+                                    488 ;Allocation info for local variables in function 'MAX7219_transferAll'
+                                    489 ;------------------------------------------------------------
+                                    490 ;addr                      Allocated with name '_MAX7219_transferAll_PARM_2'
+                                    491 ;data                      Allocated with name '_MAX7219_transferAll_PARM_3'
+                                    492 ;chip                      Allocated to registers r7 
+                                    493 ;------------------------------------------------------------
+                                    494 ;	./src/N76_Max7219_595.c:61: void MAX7219_transferAll(int8_t chip, const uint8_t addr, const uint8_t data)
+                                    495 ;	-----------------------------------------
+                                    496 ;	 function MAX7219_transferAll
+                                    497 ;	-----------------------------------------
+      00007E                        498 _MAX7219_transferAll:
+      00007E AF 82            [24]  499 	mov	r7,dpl
+                                    500 ;	./src/N76_Max7219_595.c:63: clrb(SPI_Px_SS, SPI_PIN_SS);
+      000080 53 90 FD         [24]  501 	anl	_p1,#0xfd
+                                    502 ;	./src/N76_Max7219_595.c:64: while (chip--)
+      000083                        503 00101$:
+      000083 8F 06            [24]  504 	mov	ar6,r7
+      000085 1F               [12]  505 	dec	r7
+      000086 EE               [12]  506 	mov	a,r6
+      000087 60 12            [24]  507 	jz	00103$
+                                    508 ;	./src/N76_Max7219_595.c:66: SPI_transfer(addr);
+      000089 85*00 82         [24]  509 	mov	dpl,_MAX7219_transferAll_PARM_2
+      00008C C0 07            [24]  510 	push	ar7
+      00008E 12r00r2E         [24]  511 	lcall	_SPI_transfer
+                                    512 ;	./src/N76_Max7219_595.c:67: SPI_transfer(data);
+      000091 85*01 82         [24]  513 	mov	dpl,_MAX7219_transferAll_PARM_3
+      000094 12r00r2E         [24]  514 	lcall	_SPI_transfer
+      000097 D0 07            [24]  515 	pop	ar7
+      000099 80 E8            [24]  516 	sjmp	00101$
+      00009B                        517 00103$:
+                                    518 ;	./src/N76_Max7219_595.c:69: setb(SPI_Px_SS, SPI_PIN_SS);
+      00009B 43 90 02         [24]  519 	orl	_p1,#0x02
+                                    520 ;	./src/N76_Max7219_595.c:70: }
+      00009E 22               [24]  521 	ret
+                                    522 ;------------------------------------------------------------
+                                    523 ;Allocation info for local variables in function 'MAX7219_transfer'
+                                    524 ;------------------------------------------------------------
+                                    525 ;addr                      Allocated with name '_MAX7219_transfer_PARM_2'
+                                    526 ;data                      Allocated with name '_MAX7219_transfer_PARM_3'
+                                    527 ;chip                      Allocated to registers r7 
+                                    528 ;total                     Allocated to registers r6 
+                                    529 ;------------------------------------------------------------
+                                    530 ;	./src/N76_Max7219_595.c:72: void MAX7219_transfer(uint8_t chip, const uint8_t addr, const uint8_t data)
+                                    531 ;	-----------------------------------------
+                                    532 ;	 function MAX7219_transfer
+                                    533 ;	-----------------------------------------
+      00009F                        534 _MAX7219_transfer:
+      00009F AF 82            [24]  535 	mov	r7,dpl
+                                    536 ;	./src/N76_Max7219_595.c:74: uint8_t total = chip & 0x0F; // 8
+      0000A1 74 0F            [12]  537 	mov	a,#0x0f
+      0000A3 5F               [12]  538 	anl	a,r7
+      0000A4 FE               [12]  539 	mov	r6,a
+                                    540 ;	./src/N76_Max7219_595.c:75: chip = chip >> 4;			 // 3
+      0000A5 EF               [12]  541 	mov	a,r7
+      0000A6 C4               [12]  542 	swap	a
+      0000A7 54 0F            [12]  543 	anl	a,#0x0f
+      0000A9 FF               [12]  544 	mov	r7,a
+                                    545 ;	./src/N76_Max7219_595.c:77: clrb(SPI_Px_SS, SPI_PIN_SS);
+      0000AA 53 90 FD         [24]  546 	anl	_p1,#0xfd
+                                    547 ;	./src/N76_Max7219_595.c:79: while (--total >= chip)
+      0000AD                        548 00101$:
+      0000AD 1E               [12]  549 	dec	r6
+      0000AE C3               [12]  550 	clr	c
+      0000AF EE               [12]  551 	mov	a,r6
+      0000B0 9F               [12]  552 	subb	a,r7
+      0000B1 40 16            [24]  553 	jc	00103$
+                                    554 ;	./src/N76_Max7219_595.c:81: SPI_transfer(0x00);
+      0000B3 75 82 00         [24]  555 	mov	dpl,#0x00
+      0000B6 C0 07            [24]  556 	push	ar7
+      0000B8 C0 06            [24]  557 	push	ar6
+      0000BA 12r00r2E         [24]  558 	lcall	_SPI_transfer
+                                    559 ;	./src/N76_Max7219_595.c:82: SPI_transfer(0x00);
+      0000BD 75 82 00         [24]  560 	mov	dpl,#0x00
+      0000C0 12r00r2E         [24]  561 	lcall	_SPI_transfer
+      0000C3 D0 06            [24]  562 	pop	ar6
+      0000C5 D0 07            [24]  563 	pop	ar7
+      0000C7 80 E4            [24]  564 	sjmp	00101$
+      0000C9                        565 00103$:
+                                    566 ;	./src/N76_Max7219_595.c:86: SPI_transfer(addr);
+      0000C9 85*02 82         [24]  567 	mov	dpl,_MAX7219_transfer_PARM_2
+      0000CC C0 07            [24]  568 	push	ar7
+      0000CE 12r00r2E         [24]  569 	lcall	_SPI_transfer
+                                    570 ;	./src/N76_Max7219_595.c:87: SPI_transfer(data);
+      0000D1 85*03 82         [24]  571 	mov	dpl,_MAX7219_transfer_PARM_3
+      0000D4 12r00r2E         [24]  572 	lcall	_SPI_transfer
+      0000D7 D0 07            [24]  573 	pop	ar7
+                                    574 ;	./src/N76_Max7219_595.c:90: while (--chip >= 1)
+      0000D9                        575 00104$:
+      0000D9 1F               [12]  576 	dec	r7
+      0000DA BF 01 00         [24]  577 	cjne	r7,#0x01,00132$
+      0000DD                        578 00132$:
+      0000DD 40 12            [24]  579 	jc	00106$
+                                    580 ;	./src/N76_Max7219_595.c:92: SPI_transfer(0x00);
+      0000DF 75 82 00         [24]  581 	mov	dpl,#0x00
+      0000E2 C0 07            [24]  582 	push	ar7
+      0000E4 12r00r2E         [24]  583 	lcall	_SPI_transfer
+                                    584 ;	./src/N76_Max7219_595.c:93: SPI_transfer(0x00);
+      0000E7 75 82 00         [24]  585 	mov	dpl,#0x00
+      0000EA 12r00r2E         [24]  586 	lcall	_SPI_transfer
+      0000ED D0 07            [24]  587 	pop	ar7
+      0000EF 80 E8            [24]  588 	sjmp	00104$
+      0000F1                        589 00106$:
+                                    590 ;	./src/N76_Max7219_595.c:95: setb(SPI_Px_SS, SPI_PIN_SS);
+      0000F1 43 90 02         [24]  591 	orl	_p1,#0x02
+                                    592 ;	./src/N76_Max7219_595.c:96: }
+      0000F4 22               [24]  593 	ret
+                                    594 ;------------------------------------------------------------
+                                    595 ;Allocation info for local variables in function 'HC595_transfer'
+                                    596 ;------------------------------------------------------------
+                                    597 ;data                      Allocated to registers 
+                                    598 ;------------------------------------------------------------
+                                    599 ;	./src/N76_Max7219_595.c:98: void HC595_transfer(uint8_t data)
+                                    600 ;	-----------------------------------------
+                                    601 ;	 function HC595_transfer
+                                    602 ;	-----------------------------------------
+      0000F5                        603 _HC595_transfer:
+                                    604 ;	./src/N76_Max7219_595.c:100: SPI_transfer(data);
+      0000F5 12r00r2E         [24]  605 	lcall	_SPI_transfer
+                                    606 ;	./src/N76_Max7219_595.c:101: clrb(SPI_Px_SS, SPI_PIN_SS2);
+      0000F8 53 90 FB         [24]  607 	anl	_p1,#0xfb
+                                    608 ;	./src/N76_Max7219_595.c:102: setb(SPI_Px_SS, SPI_PIN_SS2);
+      0000FB 43 90 04         [24]  609 	orl	_p1,#0x04
+                                    610 ;	./src/N76_Max7219_595.c:103: }
+      0000FE 22               [24]  611 	ret
+                                    612 	.area CSEG    (CODE)
+                                    613 	.area CONST   (CODE)
+                                    614 	.area XINIT   (CODE)
+                                    615 	.area CABS    (ABS,CODE)

@@ -11,6 +11,7 @@
 		"ws2812.h": "c",
 		"stdlib.h": "c",
 		"math.h": "c",
-		"cmath": "cpp"
+		"cmath": "cpp",
+		"GPIO.C": "cpp"
 	}
 }

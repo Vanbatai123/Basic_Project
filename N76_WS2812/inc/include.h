@@ -9,7 +9,7 @@
 #ifndef F_CPU
 #define F_CPU 				16000000UL
 #endif
-				   
+
 typedef signed char 		int8_t;
 typedef signed short 		int16_t;
 typedef	signed long 		int32_t;
